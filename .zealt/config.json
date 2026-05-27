@@ -1,0 +1,5 @@
+{
+  "title": "Svelte and SvelteKit Benchmark",
+  "description": "Performance results of AI coding models on Svelte and SvelteKit tasks, measuring success rate and execution time with high precision.",
+  "github_repo": "https://github.com/icycodes/svelte-benchmark"
+}

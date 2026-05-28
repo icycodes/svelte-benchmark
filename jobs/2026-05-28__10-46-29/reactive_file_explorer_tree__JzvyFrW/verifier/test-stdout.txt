@@ -1,0 +1,295 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0, xprocess-1.0.2
+collected 13 items
+
+tests/test_final_state.py ........EEEEE                                  [100%]
+
+==================================== ERRORS ====================================
+___________________ ERROR at setup of test_root_returns_200 ____________________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7671a6673e00>
+
+    @pytest.fixture(scope="session")
+    def start_app(xprocess):
+        # Build the project so `node build` works.
+        build = subprocess.run(
+            ["npm", "run", "build"],
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True,
+        )
+>       assert build.returncode == 0, (
+            f"npm run build failed.\nstdout:\n{build.stdout}\nstderr:\n{build.stderr}"
+        )
+E       AssertionError: npm run build failed.
+E         stdout:
+E         
+E         > svelte-file-explorer@0.0.1 build
+E         > vite build
+E         
+E         vite v8.0.14 building ssr environment for production...
+E         [2K
+E         transforming...✓ 143 modules transformed.
+E         
+E         stderr:
+E         ✗ Build failed in 132ms
+E         error during build:
+E         Build failed with 1 error:
+E         
+E         [plugin vite-plugin-svelte:compile] /home/user/svelte-file-explorer/src/routes/+page.svelte:5:67
+E         RolldownError: src/routes/+page.svelte:5:67 `$state(...)` can only be used as a variable declaration initializer, a class field declaration, or the first assignment to a class field at the top level of the constructor.
+E         https://svelte.dev/e/state_invalid_placement
+E          3 |  
+E          4 |    const file = (name) => ({ type: 'file', name });
+E          5 |    const folder = (name, children) => ({ type: 'folder', name, open: $state(false), children });
+E                                                                                                ^
+E          6 |  
+E          7 |    const tree = [
+E             at aggregateBindingErrorsIntoJsError (file:///home/user/svelte-file-explorer/node_modules/rolldown/dist/shared/error-B8po7KiL.mjs:48:18)
+E             at unwrapBindingResult (file:///home/user/svelte-file-explorer/node_modules/rolldown/dist/shared/error-B8po7KiL.mjs:18:128)
+E             at #build (file:///home/user/svelte-file-explorer/node_modules/rolldown/dist/shared/rolldown-build-9MccaWPU.mjs:3236:34)
+E             at async buildEnvironment (file:///home/user/svelte-file-explorer/node_modules/vite/dist/node/chunks/node.js:33137:64)
+E             at async Object.build (file:///home/user/svelte-file-explorer/node_modules/vite/dist/node/chunks/node.js:33559:19)
+E             at async Object.buildApp (file:///home/user/svelte-file-explorer/node_modules/vite/dist/node/chunks/node.js:33556:153)
+E             at async CAC.<anonymous> (file:///home/user/svelte-file-explorer/node_modules/vite/dist/node/cli.js:777:3) {
+E           errors: [Getter/Setter]
+E         }
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['npm', 'run', 'build'], returncode=1, stdout='\n> svelte-file-explorer@0.0.1 build\n> vite buil...> (file:///home/user/svelte-file-explorer/node_modules/vite/dist/node/cli.js:777:3) {\n  errors: [Getter/Setter]\n}\n").returncode
+
+tests/test_final_state.py:120: AssertionError
+____________ ERROR at setup of test_initial_status_bar_zero_counts _____________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7671a6673e00>
+
+    @pytest.fixture(scope="session")
+    def start_app(xprocess):
+        # Build the project so `node build` works.
+        build = subprocess.run(
+            ["npm", "run", "build"],
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True,
+        )
+>       assert build.returncode == 0, (
+            f"npm run build failed.\nstdout:\n{build.stdout}\nstderr:\n{build.stderr}"
+        )
+E       AssertionError: npm run build failed.
+E         stdout:
+E         
+E         > svelte-file-explorer@0.0.1 build
+E         > vite build
+E         
+E         vite v8.0.14 building ssr environment for production...
+E         [2K
+E         transforming...✓ 143 modules transformed.
+E         
+E         stderr:
+E         ✗ Build failed in 132ms
+E         error during build:
+E         Build failed with 1 error:
+E         
+E         [plugin vite-plugin-svelte:compile] /home/user/svelte-file-explorer/src/routes/+page.svelte:5:67
+E         RolldownError: src/routes/+page.svelte:5:67 `$state(...)` can only be used as a variable declaration initializer, a class field declaration, or the first assignment to a class field at the top level of the constructor.
+E         https://svelte.dev/e/state_invalid_placement
+E          3 |  
+E          4 |    const file = (name) => ({ type: 'file', name });
+E          5 |    const folder = (name, children) => ({ type: 'folder', name, open: $state(false), children });
+E                                                                                                ^
+E          6 |  
+E          7 |    const tree = [
+E             at aggregateBindingErrorsIntoJsError (file:///home/user/svelte-file-explorer/node_modules/rolldown/dist/shared/error-B8po7KiL.mjs:48:18)
+E             at unwrapBindingResult (file:///home/user/svelte-file-explorer/node_modules/rolldown/dist/shared/error-B8po7KiL.mjs:18:128)
+E             at #build (file:///home/user/svelte-file-explorer/node_modules/rolldown/dist/shared/rolldown-build-9MccaWPU.mjs:3236:34)
+E             at async buildEnvironment (file:///home/user/svelte-file-explorer/node_modules/vite/dist/node/chunks/node.js:33137:64)
+E             at async Object.build (file:///home/user/svelte-file-explorer/node_modules/vite/dist/node/chunks/node.js:33559:19)
+E             at async Object.buildApp (file:///home/user/svelte-file-explorer/node_modules/vite/dist/node/chunks/node.js:33556:153)
+E             at async CAC.<anonymous> (file:///home/user/svelte-file-explorer/node_modules/vite/dist/node/cli.js:777:3) {
+E           errors: [Getter/Setter]
+E         }
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['npm', 'run', 'build'], returncode=1, stdout='\n> svelte-file-explorer@0.0.1 build\n> vite buil...> (file:///home/user/svelte-file-explorer/node_modules/vite/dist/node/cli.js:777:3) {\n  errors: [Getter/Setter]\n}\n").returncode
+
+tests/test_final_state.py:120: AssertionError
+________ ERROR at setup of test_initial_root_folder_rendered_collapsed _________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7671a6673e00>
+
+    @pytest.fixture(scope="session")
+    def start_app(xprocess):
+        # Build the project so `node build` works.
+        build = subprocess.run(
+            ["npm", "run", "build"],
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True,
+        )
+>       assert build.returncode == 0, (
+            f"npm run build failed.\nstdout:\n{build.stdout}\nstderr:\n{build.stderr}"
+        )
+E       AssertionError: npm run build failed.
+E         stdout:
+E         
+E         > svelte-file-explorer@0.0.1 build
+E         > vite build
+E         
+E         vite v8.0.14 building ssr environment for production...
+E         [2K
+E         transforming...✓ 143 modules transformed.
+E         
+E         stderr:
+E         ✗ Build failed in 132ms
+E         error during build:
+E         Build failed with 1 error:
+E         
+E         [plugin vite-plugin-svelte:compile] /home/user/svelte-file-explorer/src/routes/+page.svelte:5:67
+E         RolldownError: src/routes/+page.svelte:5:67 `$state(...)` can only be used as a variable declaration initializer, a class field declaration, or the first assignment to a class field at the top level of the constructor.
+E         https://svelte.dev/e/state_invalid_placement
+E          3 |  
+E          4 |    const file = (name) => ({ type: 'file', name });
+E          5 |    const folder = (name, children) => ({ type: 'folder', name, open: $state(false), children });
+E                                                                                                ^
+E          6 |  
+E          7 |    const tree = [
+E             at aggregateBindingErrorsIntoJsError (file:///home/user/svelte-file-explorer/node_modules/rolldown/dist/shared/error-B8po7KiL.mjs:48:18)
+E             at unwrapBindingResult (file:///home/user/svelte-file-explorer/node_modules/rolldown/dist/shared/error-B8po7KiL.mjs:18:128)
+E             at #build (file:///home/user/svelte-file-explorer/node_modules/rolldown/dist/shared/rolldown-build-9MccaWPU.mjs:3236:34)
+E             at async buildEnvironment (file:///home/user/svelte-file-explorer/node_modules/vite/dist/node/chunks/node.js:33137:64)
+E             at async Object.build (file:///home/user/svelte-file-explorer/node_modules/vite/dist/node/chunks/node.js:33559:19)
+E             at async Object.buildApp (file:///home/user/svelte-file-explorer/node_modules/vite/dist/node/chunks/node.js:33556:153)
+E             at async CAC.<anonymous> (file:///home/user/svelte-file-explorer/node_modules/vite/dist/node/cli.js:777:3) {
+E           errors: [Getter/Setter]
+E         }
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['npm', 'run', 'build'], returncode=1, stdout='\n> svelte-file-explorer@0.0.1 build\n> vite buil...> (file:///home/user/svelte-file-explorer/node_modules/vite/dist/node/cli.js:777:3) {\n  errors: [Getter/Setter]\n}\n").returncode
+
+tests/test_final_state.py:120: AssertionError
+_____________ ERROR at setup of test_initial_no_file_rows_rendered _____________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7671a6673e00>
+
+    @pytest.fixture(scope="session")
+    def start_app(xprocess):
+        # Build the project so `node build` works.
+        build = subprocess.run(
+            ["npm", "run", "build"],
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True,
+        )
+>       assert build.returncode == 0, (
+            f"npm run build failed.\nstdout:\n{build.stdout}\nstderr:\n{build.stderr}"
+        )
+E       AssertionError: npm run build failed.
+E         stdout:
+E         
+E         > svelte-file-explorer@0.0.1 build
+E         > vite build
+E         
+E         vite v8.0.14 building ssr environment for production...
+E         [2K
+E         transforming...✓ 143 modules transformed.
+E         
+E         stderr:
+E         ✗ Build failed in 132ms
+E         error during build:
+E         Build failed with 1 error:
+E         
+E         [plugin vite-plugin-svelte:compile] /home/user/svelte-file-explorer/src/routes/+page.svelte:5:67
+E         RolldownError: src/routes/+page.svelte:5:67 `$state(...)` can only be used as a variable declaration initializer, a class field declaration, or the first assignment to a class field at the top level of the constructor.
+E         https://svelte.dev/e/state_invalid_placement
+E          3 |  
+E          4 |    const file = (name) => ({ type: 'file', name });
+E          5 |    const folder = (name, children) => ({ type: 'folder', name, open: $state(false), children });
+E                                                                                                ^
+E          6 |  
+E          7 |    const tree = [
+E             at aggregateBindingErrorsIntoJsError (file:///home/user/svelte-file-explorer/node_modules/rolldown/dist/shared/error-B8po7KiL.mjs:48:18)
+E             at unwrapBindingResult (file:///home/user/svelte-file-explorer/node_modules/rolldown/dist/shared/error-B8po7KiL.mjs:18:128)
+E             at #build (file:///home/user/svelte-file-explorer/node_modules/rolldown/dist/shared/rolldown-build-9MccaWPU.mjs:3236:34)
+E             at async buildEnvironment (file:///home/user/svelte-file-explorer/node_modules/vite/dist/node/chunks/node.js:33137:64)
+E             at async Object.build (file:///home/user/svelte-file-explorer/node_modules/vite/dist/node/chunks/node.js:33559:19)
+E             at async Object.buildApp (file:///home/user/svelte-file-explorer/node_modules/vite/dist/node/chunks/node.js:33556:153)
+E             at async CAC.<anonymous> (file:///home/user/svelte-file-explorer/node_modules/vite/dist/node/cli.js:777:3) {
+E           errors: [Getter/Setter]
+E         }
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['npm', 'run', 'build'], returncode=1, stdout='\n> svelte-file-explorer@0.0.1 build\n> vite buil...> (file:///home/user/svelte-file-explorer/node_modules/vite/dist/node/cli.js:777:3) {\n  errors: [Getter/Setter]\n}\n").returncode
+
+tests/test_final_state.py:120: AssertionError
+______ ERROR at setup of test_recursive_toggle_and_live_counts_in_browser ______
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7671a6673e00>
+
+    @pytest.fixture(scope="session")
+    def start_app(xprocess):
+        # Build the project so `node build` works.
+        build = subprocess.run(
+            ["npm", "run", "build"],
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True,
+        )
+>       assert build.returncode == 0, (
+            f"npm run build failed.\nstdout:\n{build.stdout}\nstderr:\n{build.stderr}"
+        )
+E       AssertionError: npm run build failed.
+E         stdout:
+E         
+E         > svelte-file-explorer@0.0.1 build
+E         > vite build
+E         
+E         vite v8.0.14 building ssr environment for production...
+E         [2K
+E         transforming...✓ 143 modules transformed.
+E         
+E         stderr:
+E         ✗ Build failed in 132ms
+E         error during build:
+E         Build failed with 1 error:
+E         
+E         [plugin vite-plugin-svelte:compile] /home/user/svelte-file-explorer/src/routes/+page.svelte:5:67
+E         RolldownError: src/routes/+page.svelte:5:67 `$state(...)` can only be used as a variable declaration initializer, a class field declaration, or the first assignment to a class field at the top level of the constructor.
+E         https://svelte.dev/e/state_invalid_placement
+E          3 |  
+E          4 |    const file = (name) => ({ type: 'file', name });
+E          5 |    const folder = (name, children) => ({ type: 'folder', name, open: $state(false), children });
+E                                                                                                ^
+E          6 |  
+E          7 |    const tree = [
+E             at aggregateBindingErrorsIntoJsError (file:///home/user/svelte-file-explorer/node_modules/rolldown/dist/shared/error-B8po7KiL.mjs:48:18)
+E             at unwrapBindingResult (file:///home/user/svelte-file-explorer/node_modules/rolldown/dist/shared/error-B8po7KiL.mjs:18:128)
+E             at #build (file:///home/user/svelte-file-explorer/node_modules/rolldown/dist/shared/rolldown-build-9MccaWPU.mjs:3236:34)
+E             at async buildEnvironment (file:///home/user/svelte-file-explorer/node_modules/vite/dist/node/chunks/node.js:33137:64)
+E             at async Object.build (file:///home/user/svelte-file-explorer/node_modules/vite/dist/node/chunks/node.js:33559:19)
+E             at async Object.buildApp (file:///home/user/svelte-file-explorer/node_modules/vite/dist/node/chunks/node.js:33556:153)
+E             at async CAC.<anonymous> (file:///home/user/svelte-file-explorer/node_modules/vite/dist/node/cli.js:777:3) {
+E           errors: [Getter/Setter]
+E         }
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['npm', 'run', 'build'], returncode=1, stdout='\n> svelte-file-explorer@0.0.1 build\n> vite buil...> (file:///home/user/svelte-file-explorer/node_modules/vite/dist/node/cli.js:777:3) {\n  errors: [Getter/Setter]\n}\n").returncode
+
+tests/test_final_state.py:120: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_project_directory_exists
+PASSED tests/test_final_state.py::test_package_json_exists
+PASSED tests/test_final_state.py::test_svelte_config_uses_adapter_node
+PASSED tests/test_final_state.py::test_tree_node_component_exists
+PASSED tests/test_final_state.py::test_tree_node_uses_props_rune
+PASSED tests/test_final_state.py::test_tree_node_is_recursive
+PASSED tests/test_final_state.py::test_page_file_exists
+PASSED tests/test_final_state.py::test_runes_used_in_page_or_component
+ERROR tests/test_final_state.py::test_root_returns_200 - AssertionError: npm ...
+ERROR tests/test_final_state.py::test_initial_status_bar_zero_counts - Assert...
+ERROR tests/test_final_state.py::test_initial_root_folder_rendered_collapsed
+ERROR tests/test_final_state.py::test_initial_no_file_rows_rendered - Asserti...
+ERROR tests/test_final_state.py::test_recursive_toggle_and_live_counts_in_browser
+========================= 8 passed, 5 errors in 1.42s ==========================

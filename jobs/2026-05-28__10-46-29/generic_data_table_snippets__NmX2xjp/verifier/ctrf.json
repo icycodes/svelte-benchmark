@@ -1,0 +1,211 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 18,
+            "passed": 10,
+            "failed": 8,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1779941906511,
+            "stop": 1779942372129
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_project_directory_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1779941906603,
+                "stop": 1779941906604,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_package_json_exists",
+                "status": "passed",
+                "duration": 0,
+                "start": 1779941906604,
+                "stop": 1779941906604,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_svelte_config_uses_adapter_node",
+                "status": "passed",
+                "duration": 1,
+                "start": 1779941906604,
+                "stop": 1779941906605,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_build_output_index_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1779941906605,
+                "stop": 1779941906606,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_table_component_file_exists",
+                "status": "passed",
+                "duration": 0,
+                "start": 1779941906606,
+                "stop": 1779941906606,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_table_component_uses_props_rune",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 21,
+                "start": 1779941906606,
+                "stop": 1779941906627,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_table_component_uses_props_rune():\n        with open(TABLE_FILE, \"r\", encoding=\"utf-8\") as f:\n            content = f.read()\n>       assert \"$props(\" in content, (\n            f\"Table.svelte must declare props using the $props() rune; not found in {TABLE_FILE}.\"\n        )\nE       AssertionError: Table.svelte must declare props using the $props() rune; not found in /home/user/svelte-table-snippets/src/lib/Table.svelte.\nE       assert '$props(' in '<script lang=\"ts\">\\n  type TableProps<T> = {\\n    data: T[];\\n    header: () => unknown;\\n    row: (item: T) => unkno...>\\n    {#each data as item}\\n      <tr>\\n        {@render row(item)}\\n      </tr>\\n    {/each}\\n  </tbody>\\n</table>\\n'\n\ntests/test_final_state.py:76: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_table_component_renders_snippets",
+                "status": "passed",
+                "duration": 0,
+                "start": 1779941906628,
+                "stop": 1779941906628,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_table_component_has_no_hardcoded_data",
+                "status": "passed",
+                "duration": 1,
+                "start": 1779941906628,
+                "stop": 1779941906629,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_page_uses_snippet_blocks",
+                "status": "passed",
+                "duration": 1,
+                "start": 1779941906629,
+                "stop": 1779941906630,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_page_uses_runes",
+                "status": "passed",
+                "duration": 0,
+                "start": 1779941906630,
+                "stop": 1779941906630,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_page_imports_table_component",
+                "status": "passed",
+                "duration": 1,
+                "start": 1779941906630,
+                "stop": 1779941906631,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_root_returns_200",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 4039,
+                "start": 1779941906631,
+                "stop": 1779941910670,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "start_app = None\n\n    def test_root_returns_200(start_app):\n        r = requests.get(\"http://localhost:3000/\", timeout=15)\n>       assert r.status_code == 200, (\n            f\"GET / expected 200, got {r.status_code}. Body:\\n{r.text[:500]}\"\n        )\nE       AssertionError: GET / expected 200, got 500. Body:\nE         <!doctype html>\nE         <html lang=\"en\">\nE         \t<head>\nE         \t\t<meta charset=\"utf-8\" />\nE         \t\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\nE         \t\t<meta name=\"text-scale\" content=\"scale\" />\nE         \t\t<!--12qhfyh--><link rel=\"icon\" href=\"data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='107'%20height='128'%20viewBox='0%200%20107%20128'%3e%3ctitle%3esvelte-logo%3c/title%3e%3cpath%20d='M94.157%2022.819c-10.4-14.885-30.94-19.297-45.792-9.835L22.282%2029.608A29.92%2029.92%200%200%200%208.76\nE       assert 500 == 200\nE        +  where 500 = <Response [500]>.status_code\n\ntests/test_final_state.py:193: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_root_contains_two_tables",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 14,
+                "start": 1779941910670,
+                "stop": 1779941910684,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "start_app = None\n\n    def test_root_contains_two_tables(start_app):\n        r = requests.get(\"http://localhost:3000/\", timeout=15)\n        table_open_count = len(re.findall(r\"<table\\b\", r.text, flags=re.IGNORECASE))\n>       assert table_open_count >= 2, (\n            f\"Expected at least 2 <table> elements on /, found {table_open_count}.\"\n        )\nE       AssertionError: Expected at least 2 <table> elements on /, found 0.\nE       assert 0 >= 2\n\ntests/test_final_state.py:201: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_root_contains_product_rows",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 11,
+                "start": 1779941910684,
+                "stop": 1779941910695,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "start_app = None\n\n    def test_root_contains_product_rows(start_app):\n        r = requests.get(\"http://localhost:3000/\", timeout=15)\n        for needle in (\"Apple\", \"Banana\", \"Cherry\", \"Date\"):\n>           assert needle in r.text, (\n                f\"Expected product name {needle!r} to be rendered in the page.\"\n            )\nE           AssertionError: Expected product name 'Apple' to be rendered in the page.\nE           assert 'Apple' in '<!doctype html>\\n<html lang=\"en\">\\n\\t<head>\\n\\t\\t<meta charset=\"utf-8\" />\\n\\t\\t<meta name=\"viewport\" content=\"width=d...t\\t\\t\\t\\t\\t\\tstatus: 500\\n\\t\\t\\t\\t\\t\\t});\\n\\t\\t\\t\\t\\t});\\n\\t\\t\\t\\t}\\n\\t\\t\\t</script>\\n\\t\\t</div>\\n\\t</body>\\n</html>\\n'\nE            +  where '<!doctype html>\\n<html lang=\"en\">\\n\\t<head>\\n\\t\\t<meta charset=\"utf-8\" />\\n\\t\\t<meta name=\"viewport\" content=\"width=d...t\\t\\t\\t\\t\\t\\tstatus: 500\\n\\t\\t\\t\\t\\t\\t});\\n\\t\\t\\t\\t\\t});\\n\\t\\t\\t\\t}\\n\\t\\t\\t</script>\\n\\t\\t</div>\\n\\t</body>\\n</html>\\n' = <Response [500]>.text\n\ntests/test_final_state.py:209: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_root_contains_user_rows",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 10,
+                "start": 1779941910696,
+                "stop": 1779941910706,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "start_app = None\n\n    def test_root_contains_user_rows(start_app):\n        r = requests.get(\"http://localhost:3000/\", timeout=15)\n        needles = [\n            \"Alice\",\n            \"Bob\",\n            \"Carol\",\n            \"alice@example.com\",\n            \"bob@example.com\",\n            \"carol@example.com\",\n            \"admin\",\n            \"editor\",\n            \"viewer\",\n        ]\n        for needle in needles:\n>           assert needle in r.text, (\n                f\"Expected user-table value {needle!r} to be rendered in the page.\"\n            )\nE           AssertionError: Expected user-table value 'Alice' to be rendered in the page.\nE           assert 'Alice' in '<!doctype html>\\n<html lang=\"en\">\\n\\t<head>\\n\\t\\t<meta charset=\"utf-8\" />\\n\\t\\t<meta name=\"viewport\" content=\"width=d...t\\t\\t\\t\\t\\t\\tstatus: 500\\n\\t\\t\\t\\t\\t\\t});\\n\\t\\t\\t\\t\\t});\\n\\t\\t\\t\\t}\\n\\t\\t\\t</script>\\n\\t\\t</div>\\n\\t</body>\\n</html>\\n'\nE            +  where '<!doctype html>\\n<html lang=\"en\">\\n\\t<head>\\n\\t\\t<meta charset=\"utf-8\" />\\n\\t\\t<meta name=\"viewport\" content=\"width=d...t\\t\\t\\t\\t\\t\\tstatus: 500\\n\\t\\t\\t\\t\\t\\t});\\n\\t\\t\\t\\t\\t});\\n\\t\\t\\t\\t}\\n\\t\\t\\t</script>\\n\\t\\t</div>\\n\\t</body>\\n</html>\\n' = <Response [500]>.text\n\ntests/test_final_state.py:228: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_root_contains_computed_line_total",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 14,
+                "start": 1779941910707,
+                "stop": 1779941910721,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "start_app = None\n\n    def test_root_contains_computed_line_total(start_app):\n        # Apple price 2.50 * qty 4 = 10.00 should appear as a line total in the row snippet.\n        r = requests.get(\"http://localhost:3000/\", timeout=15)\n>       assert \"10.00\" in r.text, (\n            \"Expected a computed line total (price * qty, e.g. 10.00) to be rendered \"\n            \"by the products row snippet.\"\n        )\nE       AssertionError: Expected a computed line total (price * qty, e.g. 10.00) to be rendered by the products row snippet.\nE       assert '10.00' in '<!doctype html>\\n<html lang=\"en\">\\n\\t<head>\\n\\t\\t<meta charset=\"utf-8\" />\\n\\t\\t<meta name=\"viewport\" content=\"width=d...t\\t\\t\\t\\t\\t\\tstatus: 500\\n\\t\\t\\t\\t\\t\\t});\\n\\t\\t\\t\\t\\t});\\n\\t\\t\\t\\t}\\n\\t\\t\\t</script>\\n\\t\\t</div>\\n\\t</body>\\n</html>\\n'\nE        +  where '<!doctype html>\\n<html lang=\"en\">\\n\\t<head>\\n\\t\\t<meta charset=\"utf-8\" />\\n\\t\\t<meta name=\"viewport\" content=\"width=d...t\\t\\t\\t\\t\\t\\tstatus: 500\\n\\t\\t\\t\\t\\t\\t});\\n\\t\\t\\t\\t\\t});\\n\\t\\t\\t\\t}\\n\\t\\t\\t</script>\\n\\t\\t</div>\\n\\t</body>\\n</html>\\n' = <Response [500]>.text\n\ntests/test_final_state.py:236: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_root_contains_inventory_total",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 11,
+                "start": 1779941910721,
+                "stop": 1779941910732,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "start_app = None\n\n    def test_root_contains_inventory_total(start_app):\n        # Total = 10.00 + 10.00 + 26.00 + 10.00 = 56.00\n        r = requests.get(\"http://localhost:3000/\", timeout=15)\n>       assert \"$56.00\" in r.text, (\n            \"Expected the inventory total '$56.00' to be visible on /.\"\n        )\nE       AssertionError: Expected the inventory total '$56.00' to be visible on /.\nE       assert '$56.00' in '<!doctype html>\\n<html lang=\"en\">\\n\\t<head>\\n\\t\\t<meta charset=\"utf-8\" />\\n\\t\\t<meta name=\"viewport\" content=\"width=d...t\\t\\t\\t\\t\\t\\tstatus: 500\\n\\t\\t\\t\\t\\t\\t});\\n\\t\\t\\t\\t\\t});\\n\\t\\t\\t\\t}\\n\\t\\t\\t</script>\\n\\t\\t</div>\\n\\t</body>\\n</html>\\n'\nE        +  where '<!doctype html>\\n<html lang=\"en\">\\n\\t<head>\\n\\t\\t<meta charset=\"utf-8\" />\\n\\t\\t<meta name=\"viewport\" content=\"width=d...t\\t\\t\\t\\t\\t\\tstatus: 500\\n\\t\\t\\t\\t\\t\\t});\\n\\t\\t\\t\\t\\t});\\n\\t\\t\\t\\t}\\n\\t\\t\\t</script>\\n\\t\\t</div>\\n\\t</body>\\n</html>\\n' = <Response [500]>.text\n\ntests/test_final_state.py:245: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_filter_updates_table_and_total_in_browser",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 461395,
+                "start": 1779941910733,
+                "stop": 1779942372128,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "start_app = None\n\n    def test_filter_updates_table_and_total_in_browser(start_app):\n        reason = (\n            \"The Products table on /, rendered by a generic Table component using \"\n            \"Svelte 5 Snippets, must update live as the user types into a filter \"\n            \"input. The inventory-total summary, computed with $derived, must also \"\n            \"update accordingly.\"\n        )\n        truth = (\n            \"Navigate to http://localhost:3000/. Verify that the page shows two \"\n            \"tables, that the Products table contains rows for 'Apple', 'Banana', \"\n            \"'Cherry', and 'Date', and that the inventory-total element shows \"\n            \"'$56.00'. Locate the product filter text input on the page and type \"\n            \"'app' into it. After typing, verify that the Products table still \"\n            \"shows 'Apple' but no longer shows 'Banana', 'Cherry', or 'Date', and \"\n            \"that the inventory-total element now shows '$10.00'. Then clear the \"\n            \"filter input; verify that all four products ('Apple', 'Banana', \"\n            \"'Cherry', 'Date') are visible again and that the inventory-total \"\n            \"element shows '$56.00' once more.\"\n        )\n    \n        verifier = PochiVerifier()\n        result = verifier.verify(\n            reason=reason,\n            truth=truth,\n            use_browser_agent=True,\n            trajectory_dir=\"/logs/verifier/pochi/test_filter_updates_table_and_total_in_browser\",\n        )\n>       assert result.status == \"pass\", f\"Browser verification failed: {result.reason}\"\nE       AssertionError: Browser verification failed: The test failed because the application at http://localhost:3000/ was not in a verifiable state and the browser agent violated critical instructions. \nE         \nE         Specifically:\nE         1. Upon initial navigation, the site returned a 500 Internal Server Error due to syntax errors in the Svelte 5 runes (incorrect use of `$derived`).\nE         2. The initial dataset in the source code did not match the test requirements (it contained 'Svelte Starter Kit' instead of 'Apple', 'Banana', 'Cherry', and 'Date').\nE         3. The browser agent attempted to fix the source code, rebuild the application, and restart the server, which was explicitly forbidden by the critical instructions (\\\"Do NOT attempt to execute any system commands... or actions that start, open, terminate, or kill any process or service\\\").\nE         4. Subsequent verification shows that the server at http://localhost:3000/ is currently inaccessible (ERR_CONNECTION_REFUSED).\nE         \nE         Per the instructions, encountering a 500 error or an inaccessible URL requires an immediate 'fail' status.\nE       assert 'fail' == 'pass'\nE         - pass\nE         + fail\n\ntests/test_final_state.py:282: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

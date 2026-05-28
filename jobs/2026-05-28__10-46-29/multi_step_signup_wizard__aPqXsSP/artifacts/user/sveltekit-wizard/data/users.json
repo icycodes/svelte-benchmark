@@ -1,0 +1,8 @@
+[
+  {
+    "email": "final@example.com",
+    "firstName": "Jane",
+    "lastName": "Smith",
+    "passwordLength": 11
+  }
+]

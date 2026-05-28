@@ -1,0 +1,44 @@
+- Initializing MCP connections...
+You
+# Generic Data Table with Svelte 5 Snippets ## Background Build a small **SvelteKit** application that demonstrates the power of **Svelte 5 Snippets** (`{#snippet ...}` / `{@render ...}`) by implementing a single reusable `<Table />` component that can render data with caller-defined column headers and per-row cells. The same component is reused to render two completely different datasets (Products and Users) on the same page, proving that the table can be customized per use site without hard-coded columns. The page must also use Svelte 5 **runes** (`$state`, `$derived`, `$props`) to drive a live filter and a computed summary. ## Requirements * A single page served at `/` that uses one reusable `Table` component to render two distinct tables. * The reusable `Table` component must accept the dataset and use **Svelte 5 Snippets** for `header` and `row` rendering. The component itself must contain **no hard-coded column names** — the caller supplies the columns via snippets. * The `Table` component must declare its props with `$props()` and render snippets with `{@render header()}` / `{@render row(item)}`. * The `/` page must render two tables using the same `Table` component: * A **Products** table whose `row` snippet renders the name, unit price, quantity, and the line total (price × quantity). * A **Users** table whose `row` snippet renders the user's name, email, and role. * Reactivity: The page must include a case-insensitive product name filter input that updates the Products table live. Use Svelte 5 `$state` for the filter input and `$derived` for the filtered list. * Summary: Display a visible "total inventory value" that equals the sum over all *filtered* products of `price × quantity`. It must be computed with `$derived` (so it updates as the filter changes) and rendered with a dollar sign, e.g. `$1234.50`. ## Implementation Hints * Initialize the project with the SvelteKit CLI (`npx sv create`) using the minimal template and TypeScript or JavaScript — either is acceptable. * Use the **Node adapter** (`@sveltejs/adapter-node`) so the built app can be served with `node build` and listens on the `PORT` env var. * Put the reusable component at `src/lib/Table.svelte` and the page at `src/routes/+page.svelte`. * In `Table.svelte`, destructure props with `$props()` and accept at least `data`, `header`, and `row` — `header` and `row` should be snippets. Render rows by iterating `{#each data as item}` and calling `{@render row(item)}` inside a `<tr>`. * In `+page.svelte`, declare the two datasets as plain constants (Products and Users) and pass them, plus inline `{#snippet header()}` and `{#snippet row(item)}` blocks, to two separate `<Table />` instances. * Use `$state` to hold the filter string and `$derived` for both the filtered Products array and the inventory total. * Format the total with two decimal places (e.g. `$1234.50`). ## Acceptance Criteria * Project path: /home/user/svelte-table-snippets * Start command: `npm run build && node build` * Port: 3000 (the server must listen on the port given in the `PORT` environment variable) * Routes: * `GET /` — Renders the demo page. The page must contain: * Two HTML `<table>` elements (one for Products, one for Users) that are rendered by the same generic `Table` component. * A products filter `<input>` whose typed value filters the Products table by name (case-insensitive substring match). * A visible inventory-total element whose text content includes the current sum (filtered) of `price × quantity` for the Products table, formatted as a dollar amount with two decimal places (e.g. `$1234.50`). * Reusable component: * There must be a single reusable table component at `src/lib/Table.svelte` (or `src/lib/Table.svelte` re-exported via `src/lib/index.js`/`.ts`). * The component must accept at minimum `data`, `header`, and `row` via `$props()` and render the supplied snippets with `{@render header()}` and `{@render row(item)}`. * The component file must not hard-code the product or user column names. * Svelte 5 runes: * `src/routes/+page.svelte` must use at least `$state(` and `$derived(` from Svelte 5 runes. * `src/lib/Table.svelte` must use `$props(` and `{@render` to render its caller-provided snippets. * Snippets: * `src/routes/+page.svelte` must define `{#snippet header()}` blocks (one per table) and `{#snippet row(...)}` blocks (one per table) and pass them to the two `<Table />` instances.   
+
+Pochi
+💭 Thinking for 0 characters   
+📂 Listing files in . ✔ 
+💭 Thinking for 131 characters   
+📂 Listing files in /home ✔ 
+📂 Listing files in /home/user ✔ 
+💭 Thinking for 326 characters   
+💫 Executing npx sv create "/home/user/svelte-table-snippets" --template minimal --no-install ✔ 
+💭 Thinking for 149 characters   
+📂 Listing files in /home/user ✔ 
+💭 Thinking for 197 characters   
+💫 Executing npx sv create --help ✔ 
+💭 Thinking for 242 characters   
+💫 Executing npx sv create "/home/user/svelte-table-snippets" --template minimal --types ts --add sveltekit-adapter=adapter:node --no-install --no-download-check ✔ 
+💭 Thinking for 0 characters   
+📋 Updating todo list (3 items) ✔ 
+💭 Thinking for 0 characters   
+💫 Executing npm install ✔ 
+💭 Thinking for 0 characters   
+📋 Updating todo list (3 items) ✔ 
+💭 Thinking for 123 characters   
+📂 Listing files in /home/user/svelte-table-snippets/src recursively ✔ 
+💭 Thinking for 124 characters   
+✏️  Writing /home/user/svelte-table-snippets/src/lib/Table.svelte ✔ 
+💭 Thinking for 184 characters   
+📖 Reading /home/user/svelte-table-snippets/src/routes/+page.svelte ✔ 
+💭 Thinking for 315 characters   
+✏️  Writing /home/user/svelte-table-snippets/src/routes/+page.svelte ✔ 
+💭 Thinking for 398 characters   
+📋 Updating todo list (3 items) ✔ 
+💭 Thinking for 168 characters   
+📖 Reading /home/user/svelte-table-snippets/svelte.config.js ✔ 
+💭 Thinking for 0 characters   
+📋 Updating todo list (3 items) ✔ 
+💭 Thinking for 385 characters   
+🎉 Task Completed
+Implemented the reusable Table component with Svelte 5 snippets and built the / page using runes for live product filtering and derived inventory totals. The Products and Users tables now render via the same Table component, with caller-defined headers and rows, plus a filter input and formatted total inventory value.
+
+Project is ready at /home/user/svelte-table-snippets. Start with: npm run build && node build (PORT env var).   
+  

@@ -1,0 +1,30 @@
+- Initializing MCP connections...
+You
+You are a software tester assigned to verify a test case using the agent browser. ## Critical Instructions * You **must** use the agent browser to perform all verification steps. * **Do NOT** attempt to execute any system commands, scripts, or actions that start, open, terminate, or kill any process or service (including but not limited to starting servers, opening ports, killing background jobs). * **Do NOT** attempt to access, open, or modify network ports through any means, including indirect methods (such as running programs that bind to ports). * If the verification steps reference a URL or port that cannot be accessed via the agent browser, immediately return a `"fail"` status. * If you encounter any verification step that you cannot execute, or are unsure how to proceed at any point, immediately return a `"fail"` status. * For example: If you see a login page but no login step exists in the instructions, stop and return `"fail"`. ## Reason for this test The page at http://localhost:3000/ must let the user switch between English, German, and French using buttons inside a SvelteKit form action. The <html lang> attribute must always reflect the selected locale (because it is set by the server inside hooks.server.js via transformPageChunk), and the greeting text must update accordingly. The selected locale must persist across page reloads via the `locale` cookie. ## Verification Steps Follow these steps precisely and in order: Open http://localhost:3000/ in a fresh browser session with cookies cleared. Verify that document.documentElement.lang === 'en' and the page shows the text 'Hello, world!' and an element with data-testid='current-locale' whose text is 'en'. Click the button with data-testid='locale-btn-de'. After the navigation/update settles, verify document.documentElement.lang === 'de', the page shows 'Hallo, Welt!', and the current-locale element shows 'de'. Then click data-testid='locale-btn-fr'; verify document.documentElement.lang === 'fr', the page shows 'Bonjour, le monde !', and the current-locale element shows 'fr'. Finally, reload the page (F5) and verify that the locale remains 'fr' (lang attribute 'fr' and greeting 'Bonjour, le monde !'). ## Result Format At the end of the test, respond with the following JSON: { "status": "pass" | "fail", "reason": "A detailed explanation describing why the test passed or failed." }   
+
+Pochi
+💭 Thinking for 893 characters   
+📋 Updating todo list (1 items) ✔ 
+❯ Verify locale switching on http://localhost:3000/ (browser)
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (6 items)
+| 💫 Executing agent-browser --version
+| 💫 Executing npm install -g agent-browser@0.24.0
+| 💫 Executing agent-browser --version
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (6 items)
+| 💫 Executing agent-browser open http://localhost:3000/
+| 💫 Executing agent-browser snapshot -i && agent-browser get html "html"
+| 💫 Executing agent-browser get html "html" && agent-browser get text "[data-testid='current-locale']" && agent-browser get text "h1"
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (6 items)
+| 💫 Executing agent-browser close
+✔ Verify locale switching on http://localhost:3000/ (browser)
+💭 Thinking for 287 characters   
+📋 Updating todo list (1 items) ✔ 
+🎉 Task Completed
+{
+  "status": "fail",
+  "reason": "The test failed at Step 2. Although the page correctly displayed 'Hello, world!' and the 'current-locale' element showed 'en', the `document.documentElement.lang` attribute was missing from the `<html>` tag. The requirement specifies that the `<html lang>` attribute must reflect the selected locale as set by the server. Since it was missing, the verification failed."
+}   
+  

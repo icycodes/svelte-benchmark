@@ -1,0 +1,157 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 13,
+            "passed": 8,
+            "failed": 5,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1779942727540,
+            "stop": 1779943062800
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_project_directory_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1779942727628,
+                "stop": 1779942727629,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_package_json_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1779942727629,
+                "stop": 1779942727630,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_svelte_config_uses_adapter_node",
+                "status": "passed",
+                "duration": 0,
+                "start": 1779942727630,
+                "stop": 1779942727630,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_tree_node_component_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1779942727630,
+                "stop": 1779942727631,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_tree_node_uses_props_rune",
+                "status": "passed",
+                "duration": 1,
+                "start": 1779942727631,
+                "stop": 1779942727632,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_tree_node_is_recursive",
+                "status": "passed",
+                "duration": 0,
+                "start": 1779942727632,
+                "stop": 1779942727632,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_page_file_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1779942727632,
+                "stop": 1779942727633,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_runes_used_in_page_or_component",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 148,
+                "start": 1779942727633,
+                "stop": 1779942727781,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_runes_used_in_page_or_component():\n        combined = \"\"\n        for path in (PAGE_FILE, TREE_NODE_FILE):\n            with open(path, \"r\", encoding=\"utf-8\") as f:\n                combined += f.read() + \"\\n\"\n>       assert \"$state(\" in combined, (\n            \"Expected at least one $state(...) usage in +page.svelte or TreeNode.svelte.\"\n        )\nE       AssertionError: Expected at least one $state(...) usage in +page.svelte or TreeNode.svelte.\nE       assert '$state(' in '<script lang=\"ts\">\\n\\timport TreeNode from \\'$lib/TreeNode.svelte\\';\\n\\timport { tree, treeStats } from \\'$lib/tree.s...ap;\\n\\t\\toverflow: hidden;\\n\\t\\ttext-overflow: ellipsis;\\n\\t}\\n\\n\\t.file-row {\\n\\t\\tcolor: #4b5563;\\n\\t}\\n</style>\\n\\n'\n\ntests/test_final_state.py:91: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_root_returns_200",
+                "status": "passed",
+                "duration": 3920,
+                "start": 1779942727781,
+                "stop": 1779942731701,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_initial_status_bar_zero_counts",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 19,
+                "start": 1779942731702,
+                "stop": 1779942731721,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "start_app = None\n\n    def test_initial_status_bar_zero_counts(start_app):\n        r = requests.get(\"http://localhost:3000/\", timeout=15)\n        # Open-folder count element with text 0\n        open_count_match = re.search(\n            r'data-testid=[\"\\']open-folder-count[\"\\'][^>]*>\\s*0\\s*<',\n            r.text,\n        )\n        assert open_count_match, (\n            \"Expected an element with data-testid='open-folder-count' and text \"\n            \"content '0' in the initial server-rendered page.\"\n        )\n        visible_count_match = re.search(\n            r'data-testid=[\"\\']visible-file-count[\"\\'][^>]*>\\s*0\\s*<',\n            r.text,\n        )\n>       assert visible_count_match, (\n            \"Expected an element with data-testid='visible-file-count' and text \"\n            \"content '0' in the initial server-rendered page.\"\n        )\nE       AssertionError: Expected an element with data-testid='visible-file-count' and text content '0' in the initial server-rendered page.\nE       assert None\n\ntests/test_final_state.py:171: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_initial_root_folder_rendered_collapsed",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 12,
+                "start": 1779942731721,
+                "stop": 1779942731733,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "start_app = None\n\n    def test_initial_root_folder_rendered_collapsed(start_app):\n        r = requests.get(\"http://localhost:3000/\", timeout=15)\n        # A folder row for \"root\" should be present, with data-open=false and \u25b6 glyph.\n        folder_pattern = re.compile(\n            r'<[^>]*data-testid=[\"\\']folder[\"\\'][^>]*data-folder-name=[\"\\']root[\"\\'][^>]*>',\n            re.IGNORECASE,\n        )\n        matches = folder_pattern.findall(r.text)\n>       assert matches, (\n            \"Expected a folder row with data-testid='folder' and \"\n            \"data-folder-name='root' on the initial page.\"\n        )\nE       AssertionError: Expected a folder row with data-testid='folder' and data-folder-name='root' on the initial page.\nE       assert []\n\ntests/test_final_state.py:185: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_initial_no_file_rows_rendered",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 16,
+                "start": 1779942731734,
+                "stop": 1779942731750,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "start_app = None\n\n    def test_initial_no_file_rows_rendered(start_app):\n        r = requests.get(\"http://localhost:3000/\", timeout=15)\n        # No <... data-testid=\"file\" ...> should be present because root is collapsed.\n        file_matches = re.findall(r'data-testid=[\"\\']file[\"\\']', r.text)\n>       assert not file_matches, (\n            \"Expected no elements with data-testid='file' on the initial page \"\n            f\"(root is collapsed), found {len(file_matches)}.\"\n        )\nE       AssertionError: Expected no elements with data-testid='file' on the initial page (root is collapsed), found 4.\nE       assert not ['data-testid=\"file\"', 'data-testid=\"file\"', 'data-testid=\"file\"', 'data-testid=\"file\"']\n\ntests/test_final_state.py:209: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_recursive_toggle_and_live_counts_in_browser",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 331049,
+                "start": 1779942731751,
+                "stop": 1779943062800,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "start_app = None\n\n    def test_recursive_toggle_and_live_counts_in_browser(start_app):\n        reason = (\n            \"The file-explorer page at / must render a recursive folder/file tree \"\n            \"driven by Svelte 5 runes. Toggling a folder must independently expand \"\n            \"or collapse only that folder's subtree, and the always-visible status \"\n            \"bar must reactively show the number of currently open folders and the \"\n            \"number of currently visible files (i.e. files whose entire parent \"\n            \"chain is open).\"\n        )\n        truth = (\n            \"Navigate to http://localhost:3000/. \"\n            \"Step 1 (initial collapsed state): Verify that the element with \"\n            \"attribute data-testid='open-folder-count' has the text '0', that the \"\n            \"element with attribute data-testid='visible-file-count' has the text \"\n            \"'0', that exactly one folder row is visible with \"\n            \"data-folder-name='root' showing the closed indicator '\u25b6', and that \"\n            \"no element with data-testid='file' is present in the DOM. \"\n            \"Step 2 (expand root): Click the folder row whose \"\n            \"data-folder-name='root'. After the click, verify the root folder row \"\n            \"now shows the open indicator '\u25bc' and has data-open='true'; that \"\n            \"folder rows with data-folder-name='src' and data-folder-name='docs' \"\n            \"are now present in the DOM both showing '\u25b6' and data-open='false'; \"\n            \"that a file row with data-file-name='package.json' is present; that \"\n            \"no file rows with data-file-name equal to 'app.js', 'math.js', \"\n            \"'str.js', 'index.css', or 'readme.md' are present; that the \"\n            \"open-folder-count text is '1'; and that the visible-file-count text \"\n            \"is '1'. \"\n            \"Step 3 (expand src): Click the folder row with data-folder-name='src'. \"\n            \"After the click, verify the src folder row shows '\u25bc' and has \"\n            \"data-open='true'; that the root folder row still has data-open='true' \"\n            \"(toggling src must not collapse root); that a folder row with \"\n            \"data-folder-name='utils' is now present with data-open='false' and \"\n            \"the '\u25b6' indicator; that file rows with data-file-name='app.js' and \"\n            \"data-file-name='index.css' are present; that file rows with \"\n            \"data-file-name='math.js' and data-file-name='str.js' are NOT present \"\n            \"(utils is still closed); that open-folder-count is '2'; and that \"\n            \"visible-file-count is '3'. \"\n            \"Step 4 (expand utils, deep nesting): Click the folder row with \"\n            \"data-folder-name='utils'. After the click, verify that utils has \"\n            \"data-open='true' and shows '\u25bc'; that root and src still have \"\n            \"data-open='true'; that file rows with data-file-name='math.js' and \"\n            \"data-file-name='str.js' are now present; that open-folder-count is \"\n            \"'3'; and that visible-file-count is '5'. \"\n            \"Step 5 (collapse src independently): Click the folder row with \"\n            \"data-folder-name='src' again. After the click, verify that src has \"\n            \"data-open='false' and shows '\u25b6'; that root still has data-open='true'; \"\n            \"that file rows with data-file-name equal to 'app.js', 'index.css', \"\n            \"'math.js', or 'str.js' are NOT present in the DOM; that no folder \"\n            \"row with data-folder-name='utils' is present (it lives under the \"\n            \"collapsed src); that the folder row with data-folder-name='docs' is \"\n            \"still present (sibling of src is not affected); that open-folder-count \"\n            \"is '1'; and that visible-file-count is '1'.\"\n        )\n    \n        verifier = PochiVerifier()\n        result = verifier.verify(\n            reason=reason,\n            truth=truth,\n            use_browser_agent=True,\n            trajectory_dir=\"/logs/verifier/pochi/test_recursive_toggle_and_live_counts_in_browser\",\n        )\n>       assert result.status == \"pass\", f\"Browser verification failed: {result.reason}\"\nE       AssertionError: Browser verification failed: The test failed at Step 1 because the application at http://localhost:3000/ does not match the expected initial state. \nE         \nE         Specific failures:\nE         1. The 'visible-file-count' element displayed '4' instead of '0'. This is because the application's tree model includes four top-level files ('package.json', 'svelte.config.js', 'tsconfig.json', 'vite.config.ts') which are visible even when all folders are closed.\nE         2. The application displayed three top-level folders ('src', 'static', 'tests') instead of a single 'root' folder.\nE         3. Four file rows were present in the DOM, whereas the test case expected no files to be present initially.\nE         \nE         The application appears to be serving its own project directory structure instead of the mock 'root' structure required by the test case. Since I am prohibited from executing system commands to rebuild the project or restart the server, and the running server is using a pre-built version of the code with hard-coded data, I cannot proceed with the subsequent verification steps.\nE       assert 'fail' == 'pass'\nE         - pass\nE         + fail\n\ntests/test_final_state.py:281: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

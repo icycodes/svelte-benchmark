@@ -1,0 +1,39 @@
+- Initializing MCP connections...
+You
+You are a software tester assigned to verify a test case using the agent browser. ## Critical Instructions - You **must** use the agent browser to perform all verification steps. - **Do NOT** attempt to execute any system commands, scripts, or actions that start, open, terminate, or kill any process or service (including but not limited to starting servers, opening ports, killing background jobs). - **Do NOT** attempt to access, open, or modify network ports through any means, including indirect methods (such as running programs that bind to ports). - If the verification steps reference a URL or port that cannot be accessed via the agent browser, immediately return a `"fail"` status. - If you encounter any verification step that you cannot execute, or are unsure how to proceed at any point, immediately return a `"fail"` status. - For example: If you see a login page but no login step exists in the instructions, stop and return `"fail"`. ## Reason for this test When the Like button is clicked for a post whose server endpoint fails, the optimistic UI update must be rolled back so the displayed like count matches the previous value again. ## Verification Steps Follow these steps precisely and in order: Open http://localhost:3000/ in the browser and wait until the page is fully loaded and hydrated (the element with data-testid='like-broken' must be present and clickable). Check that the text content of the element with data-testid='likes-broken' is exactly '0'. Click the button with data-testid='like-broken' exactly once. Within 150 ms of the click, while the server endpoint is still sleeping for its artificial ~300 ms delay, check that the text content of the element with data-testid='likes-broken' is exactly '1' (the optimistic update is visible). Then wait ~1000 ms so the server's HTTP 500 response settles, and check that the text content of data-testid='likes-broken' is back to exactly '0' (the optimistic change has been rolled back). Pass only if both the intermediate optimistic value AND the final rolled-back value are observed. ## Result Format At the end of the test, respond with the following JSON: { "status": "pass" | "fail", "reason": "A detailed explanation describing why the test passed or failed." }   
+
+Pochi
+💭 Thinking for 537 characters   
+📋 Updating todo list (1 items) ✔ 
+💭 Thinking for 223 characters   
+❯ Verify optimistic UI rollback on http://localhost:3000/ (browser)
+| 💫 Executing agent-browser --version
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (5 items)
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (5 items)
+| 💫 Executing agent-browser open http://localhost:3000/
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (5 items)
+| 💫 Executing agent-browser snapshot -i
+| 💫 Executing agent-browser get text "[data-testid='likes-broken']"
+| 💫 Executing agent-browser get html "[data-testid='like-broken']"
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (5 items)
+| 💫 Executing agent-browser click "[data-testid='like-broken']" && agent-browser get text "[data-testid='likes-broken']"
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (5 items)
+| 💫 Executing agent-browser wait 1200 && agent-browser get text "[data-testid='likes-broken']"
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (5 items)
+| 💫 Executing agent-browser close
+| 📋 Updating todo list (0 items)
+| 📋 Updating todo list (5 items)
+✔ Verify optimistic UI rollback on http://localhost:3000/ (browser)
+📋 Updating todo list (1 items) ✔ 
+🎉 Task Completed
+{
+  "status": "pass",
+  "reason": "The test passed. The agent browser successfully navigated to http://localhost:3000/, verified the initial state ('0'), observed the optimistic update ('1') immediately after clicking the 'like-broken' button, and confirmed the rollback to the original state ('0') after the server error occurred."
+}   
+  

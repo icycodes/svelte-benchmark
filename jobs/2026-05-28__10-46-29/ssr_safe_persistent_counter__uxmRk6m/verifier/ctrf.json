@@ -1,0 +1,106 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 9,
+            "passed": 9,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1779939855883,
+            "stop": 1779940168004
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_ssr_returns_200",
+                "status": "passed",
+                "duration": 2157,
+                "start": 1779939855967,
+                "stop": 1779939858124,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_ssr_html_contains_heading",
+                "status": "passed",
+                "duration": 8,
+                "start": 1779939858124,
+                "stop": 1779939858132,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_ssr_html_initial_count_is_zero",
+                "status": "passed",
+                "duration": 8,
+                "start": 1779939858133,
+                "stop": 1779939858141,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_ssr_html_hydration_status_is_loading",
+                "status": "passed",
+                "duration": 11,
+                "start": 1779939858141,
+                "stop": 1779939858152,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_ssr_does_not_leak_window_errors",
+                "status": "passed",
+                "duration": 10,
+                "start": 1779939858152,
+                "stop": 1779939858162,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_browser_initial_hydration_and_counter",
+                "status": "passed",
+                "duration": 97112,
+                "start": 1779939858163,
+                "stop": 1779939955275,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_browser_increment_and_persistence",
+                "status": "passed",
+                "duration": 115515,
+                "start": 1779939955276,
+                "stop": 1779940070791,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_browser_reset_clears_counter",
+                "status": "passed",
+                "duration": 97166,
+                "start": 1779940070792,
+                "stop": 1779940167958,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_package_json_uses_svelte_5",
+                "status": "passed",
+                "duration": 44,
+                "start": 1779940167959,
+                "stop": 1779940168003,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

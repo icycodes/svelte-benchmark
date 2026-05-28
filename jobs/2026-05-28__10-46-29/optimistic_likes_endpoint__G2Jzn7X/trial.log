@@ -1,0 +1,103 @@
+Skipping image OS validation for hb__optimistic_likes_endpoint: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-g2jzn7x > /logs/artifacts/run-id && echo optimistic_likes_endpoint__G2Jzn7X > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# SvelteKit Optimistic UI: Like Button
+
+## Background
+Build a small SvelteKit application that demonstrates an *optimistic UI* pattern for a "Like" button. The page lists several posts and lets the user like any of them. When the user clicks the button, the displayed count must update *immediately* (without waiting for the network round-trip) and then be reconciled with the value returned by the server. If the server request fails, the optimistic change must be rolled back so the UI reflects the previous count again.
+
+The app must be implemented with **Svelte 5 runes** (`$state`, `$derived`) and **SvelteKit** filesystem routing. The optimistic behavior must be implemented using Svelte 5.25's *overridable derived values* (i.e. by reassigning a `$derived` variable) rather than mirroring state with a separate `$state` variable updated inside an `$effect`.
+
+## Requirements
+- Project path: `/home/user/myproject` (a SvelteKit app created with the official `sv` CLI / `npx sv create`).
+- The root route `/` (page `+page.svelte`) shows a list of four posts. The data must be loaded via a `+page.server.js` `load` function from an in-memory store on the server (do NOT hardcode the list inside `+page.svelte`).
+- A POST endpoint `POST /api/posts/[id]/like` (`src/routes/api/posts/[id]/like/+server.js`) increments the like count for the post with the given id and returns the new count as JSON.
+- Liking the post whose id is `broken` must always fail with HTTP status 500 so the UI rollback behavior can be tested.
+- The endpoint must introduce an artificial server delay of at least 250 ms before responding so the optimistic update is observable in the browser.
+- The page must show, for each post, the current like count and a Like button. Clicking the Like button must:
+  1. Update the displayed count *immediately* (optimistic), without `await`ing the server response.
+  2. Send `POST /api/posts/[id]/like` to the server.
+  3. On success, keep the new count (the server's authoritative value).
+  4. On failure, revert the displayed count to its previous value.
+
+## Implementation Hints
+- Initialise the project with the official Svelte CLI (`npx sv create`) using the *minimal* template, TypeScript optional, and install dependencies. Remove or replace the default home page.
+- Keep an in-memory `Map<string, { id, title, likes }>` on the server module and mutate it inside the POST handler so liking is persistent across requests within the same server process.
+- For the page, derive the displayed likes count from the data prop using `$derived`. Because Svelte 5.25+ allows reassigning derived values, you can simply do `likes += 1` (optimistic) before awaiting the request, and `likes -= 1` on failure.
+- Use the JSON helper from `@sveltejs/kit` (`import { json } from '@sveltejs/kit'`) and throw `error(500, ...)` for the `broken` id.
+- Make sure the page is interactive (CSR is enabled by default, so hydrate is fine).
+
+## Acceptance Criteria
+- Project path: `/home/user/myproject`
+- Start command (must serve a production build on port 3000): `PORT=3000 node build`
+- Port: `3000`
+- Initial in-memory data (must be present in the server module on every cold start):
+  - `{ id: "1", title: "First Post", likes: 0 }`
+  - `{ id: "2", title: "Second Post", likes: 5 }`
+  - `{ id: "3", title: "Third Post", likes: 10 }`
+  - `{ id: "broken", title: "Broken Post", likes: 0 }`
+- Routes:
+  - `GET /` returns an HTML page listing all posts. For every post the markup MUST contain:
+    - A container element with attribute `data-testid="post-<id>"`.
+    - Inside that container, an element with `data-testid="title-<id>"` whose text content is the post title.
+    - Inside that container, an element with `data-testid="likes-<id>"` whose visible text content is the integer like count (no extra non-digit characters around the number; e.g. `0`, `5`).
+    - Inside that container, a `<button>` element with `data-testid="like-<id>"` and visible text including the word `Like` (case-insensitive).
+  - `POST /api/posts/<id>/like` increments the like count for the post and responds with:
+    - HTTP status 200
+    - JSON body of shape `{ "id": string, "likes": number }`
+    - The returned `likes` value MUST equal the previous server-side value plus 1.
+  - `POST /api/posts/broken/like` MUST respond with HTTP status 500 and MUST NOT change any state.
+  - `POST /api/posts/<unknown-id>/like` (an id that does not exist) MUST respond with HTTP status 404.
+- Optimistic UI behavior (verified in a real browser):
+  - When the user clicks the Like button for an existing post, the value in `data-testid="likes-<id>"` MUST change to `previous + 1` *before* the network response settles (i.e. within ~100 ms of the click, while the endpoint is still sleeping).
+  - After the server response, the value MUST still be `previous + 1`.
+  - When the user clicks the Like button for post `broken`, the value in `data-testid="likes-broken"` MUST momentarily change to `1` and then revert back to `0` once the failing server response arrives.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.

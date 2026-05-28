@@ -1,0 +1,124 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 11,
+            "passed": 11,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1779939403849,
+            "stop": 1779939545344
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_root_redirects_to_products",
+                "status": "passed",
+                "duration": 3931,
+                "start": 1779939403950,
+                "stop": 1779939407881,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_api_products_returns_required_data",
+                "status": "passed",
+                "duration": 6,
+                "start": 1779939407882,
+                "stop": 1779939407888,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_products_page_renders_all_when_no_filter",
+                "status": "passed",
+                "duration": 7,
+                "start": 1779939407889,
+                "stop": 1779939407896,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_products_page_ssr_filter_apple",
+                "status": "passed",
+                "duration": 9,
+                "start": 1779939407897,
+                "stop": 1779939407906,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_products_page_ssr_filter_case_insensitive_uppercase",
+                "status": "passed",
+                "duration": 7,
+                "start": 1779939407907,
+                "stop": 1779939407914,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_products_page_ssr_filter_no_match",
+                "status": "passed",
+                "duration": 6,
+                "start": 1779939407915,
+                "stop": 1779939407921,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_products_page_form_is_get_to_products",
+                "status": "passed",
+                "duration": 10,
+                "start": 1779939407921,
+                "stop": 1779939407931,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_source_products_page_uses_runes_and_goto",
+                "status": "passed",
+                "duration": 2,
+                "start": 1779939407932,
+                "stop": 1779939407934,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_source_products_load_uses_searchparams_and_fetch",
+                "status": "passed",
+                "duration": 2,
+                "start": 1779939407934,
+                "stop": 1779939407936,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_source_api_products_server_endpoint_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1779939407936,
+                "stop": 1779939407937,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_browser_interactive_search",
+                "status": "passed",
+                "duration": 137406,
+                "start": 1779939407938,
+                "stop": 1779939545344,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

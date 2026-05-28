@@ -1,0 +1,1 @@
+[37m2026-05-28 04:36:37.443[39m[0m[0m	[33m[1mWARN[22m[39m[0m[0m	[37m$bunfs/root/pochi:467148[39m[0m[0m[1m[37m	ignoreWalk[39m[22m[0m[0m	Error reading directory /src: ENOENT: no such file or directory, scandir '/src'

@@ -1,0 +1,79 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 6,
+            "passed": 6,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1779937352492,
+            "stop": 1779937873590
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_star_rating_component_exists",
+                "status": "passed",
+                "duration": 0,
+                "start": 1779937352505,
+                "stop": 1779937352505,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_star_rating_uses_bindable_rune",
+                "status": "passed",
+                "duration": 0,
+                "start": 1779937352506,
+                "stop": 1779937352506,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_initial_render",
+                "status": "passed",
+                "duration": 167128,
+                "start": 1779937352506,
+                "stop": 1779937519634,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_click_fourth_star_updates_bound_value",
+                "status": "passed",
+                "duration": 92357,
+                "start": 1779937519636,
+                "stop": 1779937611993,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_click_second_star_decreases_rating",
+                "status": "passed",
+                "duration": 101562,
+                "start": 1779937611993,
+                "stop": 1779937713555,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_reset_button_writes_through_binding",
+                "status": "passed",
+                "duration": 160034,
+                "start": 1779937713556,
+                "stop": 1779937873590,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

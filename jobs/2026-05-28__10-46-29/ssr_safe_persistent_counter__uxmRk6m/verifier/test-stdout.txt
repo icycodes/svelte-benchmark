@@ -1,0 +1,25 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0, xprocess-1.0.2
+collected 9 items
+
+tests/test_final_state.py .........                                      [100%]
+
+==================================== PASSES ====================================
+_____________________________ test_ssr_returns_200 _____________________________
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/ssr_safe_persistent_counter_app$ npm run dev -- --host 0.0.0.0 --port 5173
+process 'ssr_safe_persistent_counter_app' started pid=678
+ssr_safe_persistent_counter_app process startup detected
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_ssr_returns_200
+PASSED tests/test_final_state.py::test_ssr_html_contains_heading
+PASSED tests/test_final_state.py::test_ssr_html_initial_count_is_zero
+PASSED tests/test_final_state.py::test_ssr_html_hydration_status_is_loading
+PASSED tests/test_final_state.py::test_ssr_does_not_leak_window_errors
+PASSED tests/test_final_state.py::test_browser_initial_hydration_and_counter
+PASSED tests/test_final_state.py::test_browser_increment_and_persistence
+PASSED tests/test_final_state.py::test_browser_reset_clears_counter
+PASSED tests/test_final_state.py::test_package_json_uses_svelte_5
+======================== 9 passed in 312.12s (0:05:12) =========================

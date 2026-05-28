@@ -1,0 +1,96 @@
+Skipping image OS validation for hb__generic_data_table_snippets: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-vq24rz5 > /logs/artifacts/run-id && echo generic_data_table_snippets__Vq24Rz5 > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Generic Data Table with Svelte 5 Snippets
+
+## Background
+Build a small **SvelteKit** application that demonstrates the power of **Svelte 5 Snippets** (`{#snippet ...}` / `{@render ...}`) by implementing a single reusable `<Table />` component that can render data with caller-defined column headers and per-row cells. The same component is reused to render two completely different datasets (Products and Users) on the same page, proving that the table can be customized per use site without hard-coded columns.
+
+The page must also use Svelte 5 **runes** (`$state`, `$derived`, `$props`) to drive a live filter and a computed summary.
+
+## Requirements
+- A single page served at `/` that uses one reusable `Table` component to render two distinct tables.
+- The reusable `Table` component must accept the dataset and use **Svelte 5 Snippets** for `header` and `row` rendering. The component itself must contain **no hard-coded column names** — the caller supplies the columns via snippets.
+- The `Table` component must declare its props with `$props()` and render snippets with `{@render header()}` / `{@render row(item)}`.
+- The `/` page must render two tables using the same `Table` component:
+  - A **Products** table whose `row` snippet renders the name, unit price, quantity, and the line total (price × quantity).
+  - A **Users** table whose `row` snippet renders the user's name, email, and role.
+- Reactivity: The page must include a case-insensitive product name filter input that updates the Products table live. Use Svelte 5 `$state` for the filter input and `$derived` for the filtered list.
+- Summary: Display a visible "total inventory value" that equals the sum over all *filtered* products of `price × quantity`. It must be computed with `$derived` (so it updates as the filter changes) and rendered with a dollar sign, e.g. `$1234.50`.
+
+## Implementation Hints
+- Initialize the project with the SvelteKit CLI (`npx sv create`) using the minimal template and TypeScript or JavaScript — either is acceptable.
+- Use the **Node adapter** (`@sveltejs/adapter-node`) so the built app can be served with `node build` and listens on the `PORT` env var.
+- Put the reusable component at `src/lib/Table.svelte` and the page at `src/routes/+page.svelte`.
+- In `Table.svelte`, destructure props with `$props()` and accept at least `data`, `header`, and `row` — `header` and `row` should be snippets. Render rows by iterating `{#each data as item}` and calling `{@render row(item)}` inside a `<tr>`.
+- In `+page.svelte`, declare the two datasets as plain constants (Products and Users) and pass them, plus inline `{#snippet header()}` and `{#snippet row(item)}` blocks, to two separate `<Table />` instances.
+- Use `$state` to hold the filter string and `$derived` for both the filtered Products array and the inventory total.
+- Format the total with two decimal places (e.g. `$1234.50`).
+
+## Acceptance Criteria
+- Project path: /home/user/svelte-table-snippets
+- Start command: `npm run build && node build`
+- Port: 3000 (the server must listen on the port given in the `PORT` environment variable)
+- Routes:
+  - `GET /` — Renders the demo page. The page must contain:
+    - Two HTML `<table>` elements (one for Products, one for Users) that are rendered by the same generic `Table` component.
+    - A products filter `<input>` whose typed value filters the Products table by name (case-insensitive substring match).
+    - A visible inventory-total element whose text content includes the current sum (filtered) of `price × quantity` for the Products table, formatted as a dollar amount with two decimal places (e.g. `$1234.50`).
+- Reusable component:
+  - There must be a single reusable table component at `src/lib/Table.svelte` (or `src/lib/Table.svelte` re-exported via `src/lib/index.js`/`.ts`).
+  - The component must accept at minimum `data`, `header`, and `row` via `$props()` and render the supplied snippets with `{@render header()}` and `{@render row(item)}`.
+  - The component file must not hard-code the product or user column names.
+- Svelte 5 runes:
+  - `src/routes/+page.svelte` must use at least `$state(` and `$derived(` from Svelte 5 runes.
+  - `src/lib/Table.svelte` must use `$props(` and `{@render` to render its caller-provided snippets.
+- Snippets:
+  - `src/routes/+page.svelte` must define `{#snippet header()}` blocks (one per table) and `{#snippet row(...)}` blocks (one per table) and pass them to the two `<Table />` instances.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.

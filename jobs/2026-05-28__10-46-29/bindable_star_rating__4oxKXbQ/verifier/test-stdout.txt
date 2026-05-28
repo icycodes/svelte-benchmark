@@ -1,0 +1,22 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0, xprocess-1.0.2
+collected 6 items
+
+tests/test_final_state.py ......                                         [100%]
+
+==================================== PASSES ====================================
+_____________________________ test_initial_render ______________________________
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/rating_app$ bash -lc npm run build && PORT=3000 HOST=0.0.0.0 node build
+process 'rating_app' started pid=657
+rating_app process startup detected
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_star_rating_component_exists
+PASSED tests/test_final_state.py::test_star_rating_uses_bindable_rune
+PASSED tests/test_final_state.py::test_initial_render
+PASSED tests/test_final_state.py::test_click_fourth_star_updates_bound_value
+PASSED tests/test_final_state.py::test_click_second_star_decreases_rating
+PASSED tests/test_final_state.py::test_reset_button_writes_through_binding
+======================== 6 passed in 464.48s (0:07:44) =========================

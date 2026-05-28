@@ -1,0 +1,27 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0, xprocess-1.0.2
+collected 11 items
+
+tests/test_final_state.py ...........                                    [100%]
+
+==================================== PASSES ====================================
+_______________________ test_root_redirects_to_products ________________________
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/sveltekit_search$ node build
+process 'sveltekit_search' started pid=816
+sveltekit_search process startup detected
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_root_redirects_to_products
+PASSED tests/test_final_state.py::test_api_products_returns_required_data
+PASSED tests/test_final_state.py::test_products_page_renders_all_when_no_filter
+PASSED tests/test_final_state.py::test_products_page_ssr_filter_apple
+PASSED tests/test_final_state.py::test_products_page_ssr_filter_case_insensitive_uppercase
+PASSED tests/test_final_state.py::test_products_page_ssr_filter_no_match
+PASSED tests/test_final_state.py::test_products_page_form_is_get_to_products
+PASSED tests/test_final_state.py::test_source_products_page_uses_runes_and_goto
+PASSED tests/test_final_state.py::test_source_products_load_uses_searchparams_and_fetch
+PASSED tests/test_final_state.py::test_source_api_products_server_endpoint_exists
+PASSED tests/test_final_state.py::test_browser_interactive_search
+======================== 11 passed in 141.50s (0:02:21) ========================

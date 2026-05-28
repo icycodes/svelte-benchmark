@@ -1,0 +1,1 @@
+[37m2026-05-28 04:24:43.490[39m[0m[0m	[33m[1mWARN[22m[39m[0m[0m	[37m$bunfs/root/pochi:467148[39m[0m[0m[1m[37m	ignoreWalk[39m[22m[0m[0m	Error reading directory /proc/970/net: EINVAL: invalid argument, scandir '/proc/970/net'

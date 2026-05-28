@@ -1,0 +1,199 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0, xprocess-1.0.2
+collected 18 items
+
+tests/test_final_state.py .....F.....FFFFFFF                             [100%]
+
+=================================== FAILURES ===================================
+_____________________ test_table_component_uses_props_rune _____________________
+
+    def test_table_component_uses_props_rune():
+        with open(TABLE_FILE, "r", encoding="utf-8") as f:
+            content = f.read()
+>       assert "$props(" in content, (
+            f"Table.svelte must declare props using the $props() rune; not found in {TABLE_FILE}."
+        )
+E       AssertionError: Table.svelte must declare props using the $props() rune; not found in /home/user/svelte-table-snippets/src/lib/Table.svelte.
+E       assert '$props(' in '<script lang="ts">\n  type TableProps<T> = {\n    data: T[];\n    header: () => unknown;\n    row: (item: T) => unkno...>\n    {#each data as item}\n      <tr>\n        {@render row(item)}\n      </tr>\n    {/each}\n  </tbody>\n</table>\n'
+
+tests/test_final_state.py:76: AssertionError
+____________________________ test_root_returns_200 _____________________________
+
+start_app = None
+
+    def test_root_returns_200(start_app):
+        r = requests.get("http://localhost:3000/", timeout=15)
+>       assert r.status_code == 200, (
+            f"GET / expected 200, got {r.status_code}. Body:\n{r.text[:500]}"
+        )
+E       AssertionError: GET / expected 200, got 500. Body:
+E         <!doctype html>
+E         <html lang="en">
+E         	<head>
+E         		<meta charset="utf-8" />
+E         		<meta name="viewport" content="width=device-width, initial-scale=1" />
+E         		<meta name="text-scale" content="scale" />
+E         		<!--12qhfyh--><link rel="icon" href="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='107'%20height='128'%20viewBox='0%200%20107%20128'%3e%3ctitle%3esvelte-logo%3c/title%3e%3cpath%20d='M94.157%2022.819c-10.4-14.885-30.94-19.297-45.792-9.835L22.282%2029.608A29.92%2029.92%200%200%200%208.76
+E       assert 500 == 200
+E        +  where 500 = <Response [500]>.status_code
+
+tests/test_final_state.py:193: AssertionError
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/svelte_table_app$ node build
+process 'svelte_table_app' started pid=970
+svelte_table_app process startup detected
+________________________ test_root_contains_two_tables _________________________
+
+start_app = None
+
+    def test_root_contains_two_tables(start_app):
+        r = requests.get("http://localhost:3000/", timeout=15)
+        table_open_count = len(re.findall(r"<table\b", r.text, flags=re.IGNORECASE))
+>       assert table_open_count >= 2, (
+            f"Expected at least 2 <table> elements on /, found {table_open_count}."
+        )
+E       AssertionError: Expected at least 2 <table> elements on /, found 0.
+E       assert 0 >= 2
+
+tests/test_final_state.py:201: AssertionError
+_______________________ test_root_contains_product_rows ________________________
+
+start_app = None
+
+    def test_root_contains_product_rows(start_app):
+        r = requests.get("http://localhost:3000/", timeout=15)
+        for needle in ("Apple", "Banana", "Cherry", "Date"):
+>           assert needle in r.text, (
+                f"Expected product name {needle!r} to be rendered in the page."
+            )
+E           AssertionError: Expected product name 'Apple' to be rendered in the page.
+E           assert 'Apple' in '<!doctype html>\n<html lang="en">\n\t<head>\n\t\t<meta charset="utf-8" />\n\t\t<meta name="viewport" content="width=d...t\t\t\t\t\t\tstatus: 500\n\t\t\t\t\t\t});\n\t\t\t\t\t});\n\t\t\t\t}\n\t\t\t</script>\n\t\t</div>\n\t</body>\n</html>\n'
+E            +  where '<!doctype html>\n<html lang="en">\n\t<head>\n\t\t<meta charset="utf-8" />\n\t\t<meta name="viewport" content="width=d...t\t\t\t\t\t\tstatus: 500\n\t\t\t\t\t\t});\n\t\t\t\t\t});\n\t\t\t\t}\n\t\t\t</script>\n\t\t</div>\n\t</body>\n</html>\n' = <Response [500]>.text
+
+tests/test_final_state.py:209: AssertionError
+_________________________ test_root_contains_user_rows _________________________
+
+start_app = None
+
+    def test_root_contains_user_rows(start_app):
+        r = requests.get("http://localhost:3000/", timeout=15)
+        needles = [
+            "Alice",
+            "Bob",
+            "Carol",
+            "alice@example.com",
+            "bob@example.com",
+            "carol@example.com",
+            "admin",
+            "editor",
+            "viewer",
+        ]
+        for needle in needles:
+>           assert needle in r.text, (
+                f"Expected user-table value {needle!r} to be rendered in the page."
+            )
+E           AssertionError: Expected user-table value 'Alice' to be rendered in the page.
+E           assert 'Alice' in '<!doctype html>\n<html lang="en">\n\t<head>\n\t\t<meta charset="utf-8" />\n\t\t<meta name="viewport" content="width=d...t\t\t\t\t\t\tstatus: 500\n\t\t\t\t\t\t});\n\t\t\t\t\t});\n\t\t\t\t}\n\t\t\t</script>\n\t\t</div>\n\t</body>\n</html>\n'
+E            +  where '<!doctype html>\n<html lang="en">\n\t<head>\n\t\t<meta charset="utf-8" />\n\t\t<meta name="viewport" content="width=d...t\t\t\t\t\t\tstatus: 500\n\t\t\t\t\t\t});\n\t\t\t\t\t});\n\t\t\t\t}\n\t\t\t</script>\n\t\t</div>\n\t</body>\n</html>\n' = <Response [500]>.text
+
+tests/test_final_state.py:228: AssertionError
+____________________ test_root_contains_computed_line_total ____________________
+
+start_app = None
+
+    def test_root_contains_computed_line_total(start_app):
+        # Apple price 2.50 * qty 4 = 10.00 should appear as a line total in the row snippet.
+        r = requests.get("http://localhost:3000/", timeout=15)
+>       assert "10.00" in r.text, (
+            "Expected a computed line total (price * qty, e.g. 10.00) to be rendered "
+            "by the products row snippet."
+        )
+E       AssertionError: Expected a computed line total (price * qty, e.g. 10.00) to be rendered by the products row snippet.
+E       assert '10.00' in '<!doctype html>\n<html lang="en">\n\t<head>\n\t\t<meta charset="utf-8" />\n\t\t<meta name="viewport" content="width=d...t\t\t\t\t\t\tstatus: 500\n\t\t\t\t\t\t});\n\t\t\t\t\t});\n\t\t\t\t}\n\t\t\t</script>\n\t\t</div>\n\t</body>\n</html>\n'
+E        +  where '<!doctype html>\n<html lang="en">\n\t<head>\n\t\t<meta charset="utf-8" />\n\t\t<meta name="viewport" content="width=d...t\t\t\t\t\t\tstatus: 500\n\t\t\t\t\t\t});\n\t\t\t\t\t});\n\t\t\t\t}\n\t\t\t</script>\n\t\t</div>\n\t</body>\n</html>\n' = <Response [500]>.text
+
+tests/test_final_state.py:236: AssertionError
+______________________ test_root_contains_inventory_total ______________________
+
+start_app = None
+
+    def test_root_contains_inventory_total(start_app):
+        # Total = 10.00 + 10.00 + 26.00 + 10.00 = 56.00
+        r = requests.get("http://localhost:3000/", timeout=15)
+>       assert "$56.00" in r.text, (
+            "Expected the inventory total '$56.00' to be visible on /."
+        )
+E       AssertionError: Expected the inventory total '$56.00' to be visible on /.
+E       assert '$56.00' in '<!doctype html>\n<html lang="en">\n\t<head>\n\t\t<meta charset="utf-8" />\n\t\t<meta name="viewport" content="width=d...t\t\t\t\t\t\tstatus: 500\n\t\t\t\t\t\t});\n\t\t\t\t\t});\n\t\t\t\t}\n\t\t\t</script>\n\t\t</div>\n\t</body>\n</html>\n'
+E        +  where '<!doctype html>\n<html lang="en">\n\t<head>\n\t\t<meta charset="utf-8" />\n\t\t<meta name="viewport" content="width=d...t\t\t\t\t\t\tstatus: 500\n\t\t\t\t\t\t});\n\t\t\t\t\t});\n\t\t\t\t}\n\t\t\t</script>\n\t\t</div>\n\t</body>\n</html>\n' = <Response [500]>.text
+
+tests/test_final_state.py:245: AssertionError
+________________ test_filter_updates_table_and_total_in_browser ________________
+
+start_app = None
+
+    def test_filter_updates_table_and_total_in_browser(start_app):
+        reason = (
+            "The Products table on /, rendered by a generic Table component using "
+            "Svelte 5 Snippets, must update live as the user types into a filter "
+            "input. The inventory-total summary, computed with $derived, must also "
+            "update accordingly."
+        )
+        truth = (
+            "Navigate to http://localhost:3000/. Verify that the page shows two "
+            "tables, that the Products table contains rows for 'Apple', 'Banana', "
+            "'Cherry', and 'Date', and that the inventory-total element shows "
+            "'$56.00'. Locate the product filter text input on the page and type "
+            "'app' into it. After typing, verify that the Products table still "
+            "shows 'Apple' but no longer shows 'Banana', 'Cherry', or 'Date', and "
+            "that the inventory-total element now shows '$10.00'. Then clear the "
+            "filter input; verify that all four products ('Apple', 'Banana', "
+            "'Cherry', 'Date') are visible again and that the inventory-total "
+            "element shows '$56.00' once more."
+        )
+    
+        verifier = PochiVerifier()
+        result = verifier.verify(
+            reason=reason,
+            truth=truth,
+            use_browser_agent=True,
+            trajectory_dir="/logs/verifier/pochi/test_filter_updates_table_and_total_in_browser",
+        )
+>       assert result.status == "pass", f"Browser verification failed: {result.reason}"
+E       AssertionError: Browser verification failed: The test failed because the application at http://localhost:3000/ was not in a verifiable state and the browser agent violated critical instructions. 
+E         
+E         Specifically:
+E         1. Upon initial navigation, the site returned a 500 Internal Server Error due to syntax errors in the Svelte 5 runes (incorrect use of `$derived`).
+E         2. The initial dataset in the source code did not match the test requirements (it contained 'Svelte Starter Kit' instead of 'Apple', 'Banana', 'Cherry', and 'Date').
+E         3. The browser agent attempted to fix the source code, rebuild the application, and restart the server, which was explicitly forbidden by the critical instructions (\"Do NOT attempt to execute any system commands... or actions that start, open, terminate, or kill any process or service\").
+E         4. Subsequent verification shows that the server at http://localhost:3000/ is currently inaccessible (ERR_CONNECTION_REFUSED).
+E         
+E         Per the instructions, encountering a 500 error or an inaccessible URL requires an immediate 'fail' status.
+E       assert 'fail' == 'pass'
+E         - pass
+E         + fail
+
+tests/test_final_state.py:282: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_project_directory_exists
+PASSED tests/test_final_state.py::test_package_json_exists
+PASSED tests/test_final_state.py::test_svelte_config_uses_adapter_node
+PASSED tests/test_final_state.py::test_build_output_index_exists
+PASSED tests/test_final_state.py::test_table_component_file_exists
+PASSED tests/test_final_state.py::test_table_component_renders_snippets
+PASSED tests/test_final_state.py::test_table_component_has_no_hardcoded_data
+PASSED tests/test_final_state.py::test_page_uses_snippet_blocks
+PASSED tests/test_final_state.py::test_page_uses_runes
+PASSED tests/test_final_state.py::test_page_imports_table_component
+FAILED tests/test_final_state.py::test_table_component_uses_props_rune - Asse...
+FAILED tests/test_final_state.py::test_root_returns_200 - AssertionError: GET...
+FAILED tests/test_final_state.py::test_root_contains_two_tables - AssertionEr...
+FAILED tests/test_final_state.py::test_root_contains_product_rows - Assertion...
+FAILED tests/test_final_state.py::test_root_contains_user_rows - AssertionErr...
+FAILED tests/test_final_state.py::test_root_contains_computed_line_total - As...
+FAILED tests/test_final_state.py::test_root_contains_inventory_total - Assert...
+FAILED tests/test_final_state.py::test_filter_updates_table_and_total_in_browser
+=================== 8 failed, 10 passed in 465.62s (0:07:45) ===================

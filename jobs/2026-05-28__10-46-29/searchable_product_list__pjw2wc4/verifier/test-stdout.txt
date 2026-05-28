@@ -1,0 +1,423 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0, xprocess-1.0.2
+collected 11 items
+
+tests/test_final_state.py EEEEEEE...E                                    [100%]
+
+==================================== ERRORS ====================================
+______________ ERROR at setup of test_root_redirects_to_products _______________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7a95c16c3530>
+
+    @pytest.fixture(scope="session")
+    def start_app(xprocess):
+        """Build then start the SvelteKit app on PORT=3000."""
+>       _build_project()
+
+tests/test_final_state.py:45: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _build_project():
+        """Run `npm run build` so that `node build` has something to serve."""
+        result = subprocess.run(
+            ["npm", "run", "build"],
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True,
+            timeout=600,
+        )
+>       assert result.returncode == 0, (
+            f"`npm run build` failed in {PROJECT_DIR}.\n"
+            f"stdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+        )
+E       AssertionError: `npm run build` failed in /home/user/sveltekit-search.
+E         stdout:
+E         
+E         > sveltekit-search@0.0.1 build
+E         > vite build
+E         
+E         
+E         stderr:
+E         error during build:
+E         Error [ERR_MODULE_NOT_FOUND]: Cannot find package '@sveltejs/adapter-auto' imported from /home/user/sveltekit-search/svelte.config.js
+E             at Object.getPackageJSONURL (node:internal/modules/package_json_reader:301:9)
+E             at packageResolve (node:internal/modules/esm/resolve:764:81)
+E             at moduleResolve (node:internal/modules/esm/resolve:855:18)
+E             at defaultResolve (node:internal/modules/esm/resolve:988:11)
+E             at #cachedDefaultResolve (node:internal/modules/esm/loader:697:20)
+E             at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:714:38)
+E             at ModuleLoader.resolveSync (node:internal/modules/esm/loader:746:52)
+E             at #resolve (node:internal/modules/esm/loader:679:17)
+E             at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:599:35)
+E             at ModuleJob.syncLink (node:internal/modules/esm/module_job:162:33)
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['npm', 'run', 'build'], returncode=1, stdout='\n> sveltekit-search@0.0.1 build\n> vite build\n\... (node:internal/modules/esm/loader:599:35)\n    at ModuleJob.syncLink (node:internal/modules/esm/module_job:162:33)\n").returncode
+
+tests/test_final_state.py:36: AssertionError
+__________ ERROR at setup of test_api_products_returns_required_data ___________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7a95c16c3530>
+
+    @pytest.fixture(scope="session")
+    def start_app(xprocess):
+        """Build then start the SvelteKit app on PORT=3000."""
+>       _build_project()
+
+tests/test_final_state.py:45: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _build_project():
+        """Run `npm run build` so that `node build` has something to serve."""
+        result = subprocess.run(
+            ["npm", "run", "build"],
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True,
+            timeout=600,
+        )
+>       assert result.returncode == 0, (
+            f"`npm run build` failed in {PROJECT_DIR}.\n"
+            f"stdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+        )
+E       AssertionError: `npm run build` failed in /home/user/sveltekit-search.
+E         stdout:
+E         
+E         > sveltekit-search@0.0.1 build
+E         > vite build
+E         
+E         
+E         stderr:
+E         error during build:
+E         Error [ERR_MODULE_NOT_FOUND]: Cannot find package '@sveltejs/adapter-auto' imported from /home/user/sveltekit-search/svelte.config.js
+E             at Object.getPackageJSONURL (node:internal/modules/package_json_reader:301:9)
+E             at packageResolve (node:internal/modules/esm/resolve:764:81)
+E             at moduleResolve (node:internal/modules/esm/resolve:855:18)
+E             at defaultResolve (node:internal/modules/esm/resolve:988:11)
+E             at #cachedDefaultResolve (node:internal/modules/esm/loader:697:20)
+E             at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:714:38)
+E             at ModuleLoader.resolveSync (node:internal/modules/esm/loader:746:52)
+E             at #resolve (node:internal/modules/esm/loader:679:17)
+E             at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:599:35)
+E             at ModuleJob.syncLink (node:internal/modules/esm/module_job:162:33)
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['npm', 'run', 'build'], returncode=1, stdout='\n> sveltekit-search@0.0.1 build\n> vite build\n\... (node:internal/modules/esm/loader:599:35)\n    at ModuleJob.syncLink (node:internal/modules/esm/module_job:162:33)\n").returncode
+
+tests/test_final_state.py:36: AssertionError
+_______ ERROR at setup of test_products_page_renders_all_when_no_filter ________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7a95c16c3530>
+
+    @pytest.fixture(scope="session")
+    def start_app(xprocess):
+        """Build then start the SvelteKit app on PORT=3000."""
+>       _build_project()
+
+tests/test_final_state.py:45: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _build_project():
+        """Run `npm run build` so that `node build` has something to serve."""
+        result = subprocess.run(
+            ["npm", "run", "build"],
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True,
+            timeout=600,
+        )
+>       assert result.returncode == 0, (
+            f"`npm run build` failed in {PROJECT_DIR}.\n"
+            f"stdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+        )
+E       AssertionError: `npm run build` failed in /home/user/sveltekit-search.
+E         stdout:
+E         
+E         > sveltekit-search@0.0.1 build
+E         > vite build
+E         
+E         
+E         stderr:
+E         error during build:
+E         Error [ERR_MODULE_NOT_FOUND]: Cannot find package '@sveltejs/adapter-auto' imported from /home/user/sveltekit-search/svelte.config.js
+E             at Object.getPackageJSONURL (node:internal/modules/package_json_reader:301:9)
+E             at packageResolve (node:internal/modules/esm/resolve:764:81)
+E             at moduleResolve (node:internal/modules/esm/resolve:855:18)
+E             at defaultResolve (node:internal/modules/esm/resolve:988:11)
+E             at #cachedDefaultResolve (node:internal/modules/esm/loader:697:20)
+E             at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:714:38)
+E             at ModuleLoader.resolveSync (node:internal/modules/esm/loader:746:52)
+E             at #resolve (node:internal/modules/esm/loader:679:17)
+E             at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:599:35)
+E             at ModuleJob.syncLink (node:internal/modules/esm/module_job:162:33)
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['npm', 'run', 'build'], returncode=1, stdout='\n> sveltekit-search@0.0.1 build\n> vite build\n\... (node:internal/modules/esm/loader:599:35)\n    at ModuleJob.syncLink (node:internal/modules/esm/module_job:162:33)\n").returncode
+
+tests/test_final_state.py:36: AssertionError
+____________ ERROR at setup of test_products_page_ssr_filter_apple _____________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7a95c16c3530>
+
+    @pytest.fixture(scope="session")
+    def start_app(xprocess):
+        """Build then start the SvelteKit app on PORT=3000."""
+>       _build_project()
+
+tests/test_final_state.py:45: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _build_project():
+        """Run `npm run build` so that `node build` has something to serve."""
+        result = subprocess.run(
+            ["npm", "run", "build"],
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True,
+            timeout=600,
+        )
+>       assert result.returncode == 0, (
+            f"`npm run build` failed in {PROJECT_DIR}.\n"
+            f"stdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+        )
+E       AssertionError: `npm run build` failed in /home/user/sveltekit-search.
+E         stdout:
+E         
+E         > sveltekit-search@0.0.1 build
+E         > vite build
+E         
+E         
+E         stderr:
+E         error during build:
+E         Error [ERR_MODULE_NOT_FOUND]: Cannot find package '@sveltejs/adapter-auto' imported from /home/user/sveltekit-search/svelte.config.js
+E             at Object.getPackageJSONURL (node:internal/modules/package_json_reader:301:9)
+E             at packageResolve (node:internal/modules/esm/resolve:764:81)
+E             at moduleResolve (node:internal/modules/esm/resolve:855:18)
+E             at defaultResolve (node:internal/modules/esm/resolve:988:11)
+E             at #cachedDefaultResolve (node:internal/modules/esm/loader:697:20)
+E             at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:714:38)
+E             at ModuleLoader.resolveSync (node:internal/modules/esm/loader:746:52)
+E             at #resolve (node:internal/modules/esm/loader:679:17)
+E             at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:599:35)
+E             at ModuleJob.syncLink (node:internal/modules/esm/module_job:162:33)
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['npm', 'run', 'build'], returncode=1, stdout='\n> sveltekit-search@0.0.1 build\n> vite build\n\... (node:internal/modules/esm/loader:599:35)\n    at ModuleJob.syncLink (node:internal/modules/esm/module_job:162:33)\n").returncode
+
+tests/test_final_state.py:36: AssertionError
+__ ERROR at setup of test_products_page_ssr_filter_case_insensitive_uppercase __
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7a95c16c3530>
+
+    @pytest.fixture(scope="session")
+    def start_app(xprocess):
+        """Build then start the SvelteKit app on PORT=3000."""
+>       _build_project()
+
+tests/test_final_state.py:45: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _build_project():
+        """Run `npm run build` so that `node build` has something to serve."""
+        result = subprocess.run(
+            ["npm", "run", "build"],
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True,
+            timeout=600,
+        )
+>       assert result.returncode == 0, (
+            f"`npm run build` failed in {PROJECT_DIR}.\n"
+            f"stdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+        )
+E       AssertionError: `npm run build` failed in /home/user/sveltekit-search.
+E         stdout:
+E         
+E         > sveltekit-search@0.0.1 build
+E         > vite build
+E         
+E         
+E         stderr:
+E         error during build:
+E         Error [ERR_MODULE_NOT_FOUND]: Cannot find package '@sveltejs/adapter-auto' imported from /home/user/sveltekit-search/svelte.config.js
+E             at Object.getPackageJSONURL (node:internal/modules/package_json_reader:301:9)
+E             at packageResolve (node:internal/modules/esm/resolve:764:81)
+E             at moduleResolve (node:internal/modules/esm/resolve:855:18)
+E             at defaultResolve (node:internal/modules/esm/resolve:988:11)
+E             at #cachedDefaultResolve (node:internal/modules/esm/loader:697:20)
+E             at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:714:38)
+E             at ModuleLoader.resolveSync (node:internal/modules/esm/loader:746:52)
+E             at #resolve (node:internal/modules/esm/loader:679:17)
+E             at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:599:35)
+E             at ModuleJob.syncLink (node:internal/modules/esm/module_job:162:33)
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['npm', 'run', 'build'], returncode=1, stdout='\n> sveltekit-search@0.0.1 build\n> vite build\n\... (node:internal/modules/esm/loader:599:35)\n    at ModuleJob.syncLink (node:internal/modules/esm/module_job:162:33)\n").returncode
+
+tests/test_final_state.py:36: AssertionError
+___________ ERROR at setup of test_products_page_ssr_filter_no_match ___________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7a95c16c3530>
+
+    @pytest.fixture(scope="session")
+    def start_app(xprocess):
+        """Build then start the SvelteKit app on PORT=3000."""
+>       _build_project()
+
+tests/test_final_state.py:45: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _build_project():
+        """Run `npm run build` so that `node build` has something to serve."""
+        result = subprocess.run(
+            ["npm", "run", "build"],
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True,
+            timeout=600,
+        )
+>       assert result.returncode == 0, (
+            f"`npm run build` failed in {PROJECT_DIR}.\n"
+            f"stdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+        )
+E       AssertionError: `npm run build` failed in /home/user/sveltekit-search.
+E         stdout:
+E         
+E         > sveltekit-search@0.0.1 build
+E         > vite build
+E         
+E         
+E         stderr:
+E         error during build:
+E         Error [ERR_MODULE_NOT_FOUND]: Cannot find package '@sveltejs/adapter-auto' imported from /home/user/sveltekit-search/svelte.config.js
+E             at Object.getPackageJSONURL (node:internal/modules/package_json_reader:301:9)
+E             at packageResolve (node:internal/modules/esm/resolve:764:81)
+E             at moduleResolve (node:internal/modules/esm/resolve:855:18)
+E             at defaultResolve (node:internal/modules/esm/resolve:988:11)
+E             at #cachedDefaultResolve (node:internal/modules/esm/loader:697:20)
+E             at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:714:38)
+E             at ModuleLoader.resolveSync (node:internal/modules/esm/loader:746:52)
+E             at #resolve (node:internal/modules/esm/loader:679:17)
+E             at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:599:35)
+E             at ModuleJob.syncLink (node:internal/modules/esm/module_job:162:33)
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['npm', 'run', 'build'], returncode=1, stdout='\n> sveltekit-search@0.0.1 build\n> vite build\n\... (node:internal/modules/esm/loader:599:35)\n    at ModuleJob.syncLink (node:internal/modules/esm/module_job:162:33)\n").returncode
+
+tests/test_final_state.py:36: AssertionError
+_________ ERROR at setup of test_products_page_form_is_get_to_products _________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7a95c16c3530>
+
+    @pytest.fixture(scope="session")
+    def start_app(xprocess):
+        """Build then start the SvelteKit app on PORT=3000."""
+>       _build_project()
+
+tests/test_final_state.py:45: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _build_project():
+        """Run `npm run build` so that `node build` has something to serve."""
+        result = subprocess.run(
+            ["npm", "run", "build"],
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True,
+            timeout=600,
+        )
+>       assert result.returncode == 0, (
+            f"`npm run build` failed in {PROJECT_DIR}.\n"
+            f"stdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+        )
+E       AssertionError: `npm run build` failed in /home/user/sveltekit-search.
+E         stdout:
+E         
+E         > sveltekit-search@0.0.1 build
+E         > vite build
+E         
+E         
+E         stderr:
+E         error during build:
+E         Error [ERR_MODULE_NOT_FOUND]: Cannot find package '@sveltejs/adapter-auto' imported from /home/user/sveltekit-search/svelte.config.js
+E             at Object.getPackageJSONURL (node:internal/modules/package_json_reader:301:9)
+E             at packageResolve (node:internal/modules/esm/resolve:764:81)
+E             at moduleResolve (node:internal/modules/esm/resolve:855:18)
+E             at defaultResolve (node:internal/modules/esm/resolve:988:11)
+E             at #cachedDefaultResolve (node:internal/modules/esm/loader:697:20)
+E             at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:714:38)
+E             at ModuleLoader.resolveSync (node:internal/modules/esm/loader:746:52)
+E             at #resolve (node:internal/modules/esm/loader:679:17)
+E             at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:599:35)
+E             at ModuleJob.syncLink (node:internal/modules/esm/module_job:162:33)
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['npm', 'run', 'build'], returncode=1, stdout='\n> sveltekit-search@0.0.1 build\n> vite build\n\... (node:internal/modules/esm/loader:599:35)\n    at ModuleJob.syncLink (node:internal/modules/esm/module_job:162:33)\n").returncode
+
+tests/test_final_state.py:36: AssertionError
+______________ ERROR at setup of test_browser_interactive_search _______________
+
+xprocess = <xprocess.xprocess.XProcess object at 0x7a95c16c3530>
+
+    @pytest.fixture(scope="session")
+    def start_app(xprocess):
+        """Build then start the SvelteKit app on PORT=3000."""
+>       _build_project()
+
+tests/test_final_state.py:45: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _build_project():
+        """Run `npm run build` so that `node build` has something to serve."""
+        result = subprocess.run(
+            ["npm", "run", "build"],
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True,
+            timeout=600,
+        )
+>       assert result.returncode == 0, (
+            f"`npm run build` failed in {PROJECT_DIR}.\n"
+            f"stdout:\n{result.stdout}\nstderr:\n{result.stderr}"
+        )
+E       AssertionError: `npm run build` failed in /home/user/sveltekit-search.
+E         stdout:
+E         
+E         > sveltekit-search@0.0.1 build
+E         > vite build
+E         
+E         
+E         stderr:
+E         error during build:
+E         Error [ERR_MODULE_NOT_FOUND]: Cannot find package '@sveltejs/adapter-auto' imported from /home/user/sveltekit-search/svelte.config.js
+E             at Object.getPackageJSONURL (node:internal/modules/package_json_reader:301:9)
+E             at packageResolve (node:internal/modules/esm/resolve:764:81)
+E             at moduleResolve (node:internal/modules/esm/resolve:855:18)
+E             at defaultResolve (node:internal/modules/esm/resolve:988:11)
+E             at #cachedDefaultResolve (node:internal/modules/esm/loader:697:20)
+E             at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:714:38)
+E             at ModuleLoader.resolveSync (node:internal/modules/esm/loader:746:52)
+E             at #resolve (node:internal/modules/esm/loader:679:17)
+E             at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:599:35)
+E             at ModuleJob.syncLink (node:internal/modules/esm/module_job:162:33)
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['npm', 'run', 'build'], returncode=1, stdout='\n> sveltekit-search@0.0.1 build\n> vite build\n\... (node:internal/modules/esm/loader:599:35)\n    at ModuleJob.syncLink (node:internal/modules/esm/module_job:162:33)\n").returncode
+
+tests/test_final_state.py:36: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_source_products_page_uses_runes_and_goto
+PASSED tests/test_final_state.py::test_source_products_load_uses_searchparams_and_fetch
+PASSED tests/test_final_state.py::test_source_api_products_server_endpoint_exists
+ERROR tests/test_final_state.py::test_root_redirects_to_products - AssertionE...
+ERROR tests/test_final_state.py::test_api_products_returns_required_data - As...
+ERROR tests/test_final_state.py::test_products_page_renders_all_when_no_filter
+ERROR tests/test_final_state.py::test_products_page_ssr_filter_apple - Assert...
+ERROR tests/test_final_state.py::test_products_page_ssr_filter_case_insensitive_uppercase
+ERROR tests/test_final_state.py::test_products_page_ssr_filter_no_match - Ass...
+ERROR tests/test_final_state.py::test_products_page_form_is_get_to_products
+ERROR tests/test_final_state.py::test_browser_interactive_search - AssertionE...
+========================= 3 passed, 8 errors in 0.94s ==========================

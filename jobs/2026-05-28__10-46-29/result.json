@@ -1,0 +1,122 @@
+{
+    "id": "5006804a-a803-49c4-a09e-3b606596f68e",
+    "started_at": "2026-05-28T10:46:29.223196",
+    "updated_at": "2026-05-28T12:41:02.266387",
+    "finished_at": "2026-05-28T12:41:02.266387",
+    "n_total_trials": 30,
+    "stats": {
+        "n_completed_trials": 30,
+        "n_errored_trials": 13,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "pochi__gemini-3.1-pro__tasks": {
+                "n_trials": 5,
+                "n_errors": 5,
+                "metrics": [
+                    {
+                        "mean": 0.3
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "bindable_star_rating__4oxKXbQ",
+                            "runes_migration_refactor__yhUad74",
+                            "optimistic_likes_endpoint__G2Jzn7X"
+                        ],
+                        "0.0": [
+                            "todo_list_form_actions__x57xRgS",
+                            "generic_data_table_snippets__Vq24Rz5"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "VerifierTimeoutError": [
+                        "multi_step_signup_wizard__Eu4jgQg",
+                        "i18n_lang_switcher_hooks__sXCHzQf",
+                        "searchable_product_list__9jDk5Gv",
+                        "ssr_safe_persistent_counter__GZBT4wy",
+                        "reactive_file_explorer_tree__GpoZERg"
+                    ]
+                }
+            },
+            "pochi__gpt-5.2-codex__tasks": {
+                "n_trials": 8,
+                "n_errors": 3,
+                "metrics": [
+                    {
+                        "mean": 0.4
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "bindable_star_rating__hcNive6",
+                            "searchable_product_list__JvQYoGh",
+                            "ssr_safe_persistent_counter__uxmRk6m",
+                            "optimistic_likes_endpoint__Hgmehck"
+                        ],
+                        "0.0": [
+                            "i18n_lang_switcher_hooks__BU23cQt",
+                            "todo_list_form_actions__csdYjvy",
+                            "generic_data_table_snippets__NmX2xjp",
+                            "reactive_file_explorer_tree__JzvyFrW"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "VerifierTimeoutError": [
+                        "multi_step_signup_wizard__Mawec3t",
+                        "runes_migration_refactor__WLGmGmL"
+                    ],
+                    "AgentTimeoutError": [
+                        "reactive_file_explorer_tree__JzvyFrW"
+                    ]
+                }
+            },
+            "pochi__claude-4-6-sonnet__tasks": {
+                "n_trials": 5,
+                "n_errors": 5,
+                "metrics": [
+                    {
+                        "mean": 0.1
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "0.0": [
+                            "searchable_product_list__pjw2wc4",
+                            "todo_list_form_actions__yD7o3vw",
+                            "generic_data_table_snippets__kN2Nzop",
+                            "reactive_file_explorer_tree__aeLrCs5"
+                        ],
+                        "1.0": [
+                            "optimistic_likes_endpoint__4RHgMTq"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "VerifierTimeoutError": [
+                        "multi_step_signup_wizard__aPqXsSP",
+                        "bindable_star_rating__4CiAm8j",
+                        "i18n_lang_switcher_hooks__BGNtioV",
+                        "ssr_safe_persistent_counter__EhNvMJv"
+                    ],
+                    "RuntimeError": [
+                        "runes_migration_refactor__k7efi6Q"
+                    ]
+                }
+            }
+        },
+        "n_input_tokens": 0,
+        "n_cache_tokens": 0,
+        "n_output_tokens": 675358,
+        "cost_usd": null
+    }
+}

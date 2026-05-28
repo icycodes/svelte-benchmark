@@ -1,0 +1,1 @@
+import{a as t,f as o}from"../chunks/CCaUakoW.js";import{a2 as p,ar as r}from"../chunks/BtAD9gsq.js";p();var m=o("<h1>Welcome</h1> <p>Replace this page with the searchable product list implementation.</p>",1);function i(a){var e=m();r(2),t(a,e)}export{i as component};

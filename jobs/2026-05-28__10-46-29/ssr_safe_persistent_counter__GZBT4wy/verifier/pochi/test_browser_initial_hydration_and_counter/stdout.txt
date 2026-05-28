@@ -1,0 +1,74 @@
+[03:43:17.300 window] ERROR (#1): LiveStore.UnknownError: { "cause": LiveStore.SqliteError: { "query": {"sql":"create  index if not exists \"idx_eventlog_seqNum\" on \"eventlog\" (\"seqNumGlobal\", \"seqNumClient\", \"seqNumRebaseGeneration\")","bindValues":{}}, "code": undefined, "cause": RuntimeError: access to a null reference (evaluating 'func(...cArgs)'), "note": undefined } (cause: RuntimeError: access to a null reference (evaluating 'func(...cArgs)')), "note": undefined, "payload": undefined }
+  LiveStore.UnknownError: { "cause": LiveStore.SqliteError: { "query": {"sql":"create  index if not exists \"idx_eventlog_seqNum\" on \"eventlog\" (\"seqNumGlobal\", \"seqNumClient\", \"seqNumRebaseGeneration\")","bindValues":{}}, "code": undefined, "cause": RuntimeError: access to a null reference (evaluating 'func(...cArgs)'), "note": undefined } (cause: RuntimeError: access to a null reference (evaluating 'func(...cArgs)')), "note": undefined, "payload": undefined }
+    at <anonymous> (/$bunfs/root/pochi:66498:247)
+    at @livestore/adapter-node:adapter (/$bunfs/root/pochi:489334:33)
+    at createStore:makeAdapter (/$bunfs/root/pochi:464493:102)
+    at createStore (/$bunfs/root/pochi:464523:35)
+    at createStore (/$bunfs/root/pochi:464454:33) {
+  [cause]: LiveStore.SqliteError: { "query": {"sql":"create  index if not exists \"idx_eventlog_seqNum\" on \"eventlog\" (\"seqNumGlobal\", \"seqNumClient\", \"seqNumRebaseGeneration\")","bindValues":{}}, "code": undefined, "cause": RuntimeError: access to a null reference (evaluating 'func(...cArgs)'), "note": undefined }
+      at prepare (/$bunfs/root/pochi:488398:30)
+      at dbExecute (/$bunfs/root/pochi:70795:26)
+      at <anonymous> (/$bunfs/root/pochi:70919:14)
+      at @livestore/common:migrateTable (/$bunfs/root/pochi:70928:33)
+      at @livestore/common:leader-thread:boot (/$bunfs/root/pochi:482849:33)
+      at @livestore/common:leader-thread (/$bunfs/root/pochi:482849:105)
+      at @livestore/adapter-node:adapter (/$bunfs/root/pochi:489334:33)
+      at createStore:makeAdapter (/$bunfs/root/pochi:464493:102)
+      at createStore (/$bunfs/root/pochi:464523:35)
+      at createStore (/$bunfs/root/pochi:464454:33) {
+    [cause]: RuntimeError: access to a null reference (evaluating 'func(...cArgs)')
+        at unknown
+        at unknown
+        at unknown
+        at unknown
+        at unknown
+        at unknown
+        at unknown
+        at unknown
+        at ccall (/$bunfs/root/pochi:486091:19)
+        at <anonymous> (/$bunfs/root/pochi:487368:25)
+        at prepare (/$bunfs/root/pochi:488328:41)
+        at dbExecute (/$bunfs/root/pochi:70795:26)
+        at <anonymous> (/$bunfs/root/pochi:70919:14)
+  }
+}
+  spanId: livestore-noop-span-idcmpoy75f7000pn4mi86pdcyju
+  traceId: livestore-noop-trace-idcmpoy75f7000qn4mi2hwx0wqs
+  thread: window
+  debugInstanceId: eLiwLiz9jM
+  storeId: LJJsxGJ7yuyAHYVUMYS7zdmEwQy4GyK6VR6s5FvbYX34xENueuFHA6upAZucEnFHuQytRqsAtRK5EBGn61Voqq5oVQyTUwEhSETZxA9ayKzbx2kzRoEHxksRXN4
+[03:43:17.311 window] ERROR (#1): LiveStore.UnknownError: { "cause": LiveStore.SqliteError: { "query": {"sql":"create  index if not exists \"idx_eventlog_seqNum\" on \"eventlog\" (\"seqNumGlobal\", \"seqNumClient\", \"seqNumRebaseGeneration\")","bindValues":{}}, "code": undefined, "cause": RuntimeError: access to a null reference (evaluating 'func(...cArgs)'), "note": undefined } (cause: RuntimeError: access to a null reference (evaluating 'func(...cArgs)')), "note": undefined, "payload": undefined }
+  LiveStore.UnknownError: { "cause": LiveStore.SqliteError: { "query": {"sql":"create  index if not exists \"idx_eventlog_seqNum\" on \"eventlog\" (\"seqNumGlobal\", \"seqNumClient\", \"seqNumRebaseGeneration\")","bindValues":{}}, "code": undefined, "cause": RuntimeError: access to a null reference (evaluating 'func(...cArgs)'), "note": undefined } (cause: RuntimeError: access to a null reference (evaluating 'func(...cArgs)')), "note": undefined, "payload": undefined }
+    at <anonymous> (/$bunfs/root/pochi:66498:247)
+    at @livestore/adapter-node:adapter (/$bunfs/root/pochi:489334:33)
+    at createStore:makeAdapter (/$bunfs/root/pochi:464493:102)
+    at createStore (/$bunfs/root/pochi:464523:35)
+    at createStore (/$bunfs/root/pochi:464454:33) {
+  [cause]: LiveStore.SqliteError: { "query": {"sql":"create  index if not exists \"idx_eventlog_seqNum\" on \"eventlog\" (\"seqNumGlobal\", \"seqNumClient\", \"seqNumRebaseGeneration\")","bindValues":{}}, "code": undefined, "cause": RuntimeError: access to a null reference (evaluating 'func(...cArgs)'), "note": undefined }
+      at prepare (/$bunfs/root/pochi:488398:30)
+      at dbExecute (/$bunfs/root/pochi:70795:26)
+      at <anonymous> (/$bunfs/root/pochi:70919:14)
+      at @livestore/common:migrateTable (/$bunfs/root/pochi:70928:33)
+      at @livestore/common:leader-thread:boot (/$bunfs/root/pochi:482849:33)
+      at @livestore/common:leader-thread (/$bunfs/root/pochi:482849:105)
+      at @livestore/adapter-node:adapter (/$bunfs/root/pochi:489334:33)
+      at createStore:makeAdapter (/$bunfs/root/pochi:464493:102)
+      at createStore (/$bunfs/root/pochi:464523:35)
+      at createStore (/$bunfs/root/pochi:464454:33) {
+    [cause]: RuntimeError: access to a null reference (evaluating 'func(...cArgs)')
+        at unknown
+        at unknown
+        at unknown
+        at unknown
+        at unknown
+        at unknown
+        at unknown
+        at unknown
+        at ccall (/$bunfs/root/pochi:486091:19)
+        at <anonymous> (/$bunfs/root/pochi:487368:25)
+        at prepare (/$bunfs/root/pochi:488328:41)
+        at dbExecute (/$bunfs/root/pochi:70795:26)
+        at <anonymous> (/$bunfs/root/pochi:70919:14)
+  }
+}
+  thread: window

@@ -1,0 +1,533 @@
+1:"$Sreact.fragment"
+2:I[47618,["/svelte-benchmark/pr-preview/pr-2/_next/static/chunks/babff0e7418ab052.js","/svelte-benchmark/pr-preview/pr-2/_next/static/chunks/3ecbb78a8ff87549.js"],"AppQueryProvider"]
+3:I[20416,["/svelte-benchmark/pr-preview/pr-2/_next/static/chunks/babff0e7418ab052.js","/svelte-benchmark/pr-preview/pr-2/_next/static/chunks/3ecbb78a8ff87549.js"],"ThemeProvider"]
+4:I[63155,["/svelte-benchmark/pr-preview/pr-2/_next/static/chunks/babff0e7418ab052.js","/svelte-benchmark/pr-preview/pr-2/_next/static/chunks/3ecbb78a8ff87549.js"],"ThemeToggle"]
+5:I[36064,["/svelte-benchmark/pr-preview/pr-2/_next/static/chunks/d2c13bb33c4fcd54.js","/svelte-benchmark/pr-preview/pr-2/_next/static/chunks/c21188132e0e0d48.js"],"default"]
+6:I[81497,["/svelte-benchmark/pr-preview/pr-2/_next/static/chunks/d2c13bb33c4fcd54.js","/svelte-benchmark/pr-preview/pr-2/_next/static/chunks/c21188132e0e0d48.js"],"default"]
+7:"$Sreact.suspense"
+8:I[42654,["/svelte-benchmark/pr-preview/pr-2/_next/static/chunks/babff0e7418ab052.js","/svelte-benchmark/pr-preview/pr-2/_next/static/chunks/3ecbb78a8ff87549.js","/svelte-benchmark/pr-preview/pr-2/_next/static/chunks/27029b329fa19586.js","/svelte-benchmark/pr-preview/pr-2/_next/static/chunks/f9f579c42c486944.js"],"TasksPageClient"]
+17:I[9986,["/svelte-benchmark/pr-preview/pr-2/_next/static/chunks/d2c13bb33c4fcd54.js","/svelte-benchmark/pr-preview/pr-2/_next/static/chunks/c21188132e0e0d48.js"],"default"]
+:HL["/svelte-benchmark/pr-preview/pr-2/_next/static/chunks/5bd528c251f986a3.css","style"]
+:HL["/svelte-benchmark/pr-preview/pr-2/_next/static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+9:Te70,# Reusable Star Rating Component with Svelte 5 `$bindable`
+
+## Background
+You are building a SvelteKit application that lets visitors rate products. To keep the UI consistent, you need a reusable `StarRating` component implemented with Svelte 5 runes. The component must accept and expose its current rating through two-way binding so that the host page can both read and write the value without resorting to event dispatching.
+
+This task evaluates your ability to design a Svelte 5 component using `$state`, `$props`, and most importantly `$bindable`, then wire it into a SvelteKit route that reflects the bound value reactively.
+
+## Requirements
+- Create a SvelteKit application at `/home/user/rating-app` using Svelte 5 runes mode.
+- Implement a reusable component at `src/lib/StarRating.svelte` that:
+  - Renders exactly five interactive star buttons.
+  - Exposes a numeric `value` prop that is bindable (the parent can use `bind:value`).
+  - Accepts an optional `max` prop (defaults to `5`).
+  - When a star at position `n` (1-indexed) is clicked, the bound value updates to `n`.
+  - Visually distinguishes filled stars (value index <= current value) from empty stars so they can be detected from the DOM (e.g. via a stable class name or `data-*` attribute).
+- Create a page route at `src/routes/+page.svelte` that:
+  - Holds a single rating state initialised to `0`.
+  - Uses `bind:value` to connect the `StarRating` component to this state.
+  - Displays the current numeric rating in a heading so it can be inspected from the page.
+  - Provides a button labelled `Reset` that sets the bound value back to `0` from the parent side, demonstrating that the binding is truly two-way.
+
+## Implementation Hints
+- Initialise the project with the official Svelte scaffolder (`npx sv create`) and choose the Svelte 5 / SvelteKit template with the `node` adapter so the app can run with `npm run build && node build`.
+- Use the `$bindable()` helper inside `$props()` to declare the bindable `value` prop; remember that an initial value passed to `$bindable()` acts as the default when the parent does not bind.
+- Use `$state` only where local component state is genuinely needed; the rating itself should live on the parent and flow into the child via the bindable prop.
+- Make the filled/empty state observable from the DOM with a stable hook such as a `filled` class on each star element or a `data-filled` attribute set to `"true"` or `"false"`. The verifier will use a stable selector.
+- The display heading should include the exact text `Rating: <n>` (where `<n>` is the current numeric value) so it can be located reliably.
+- Configure the adapter so the production build is started with `node build` and listens on port 3000.
+
+## Acceptance Criteria
+- Project path: `/home/user/rating-app`
+- Start command: `npm run build && PORT=3000 HOST=0.0.0.0 node build`
+- Port: `3000`
+- Routes:
+  - `GET /`: Returns the rating page UI that:
+    - Contains a heading whose text matches the pattern `Rating: <n>` reflecting the current rating (initially `0`).
+    - Contains exactly 5 interactive star elements, each clickable to set the rating to its 1-indexed position.
+    - Marks filled vs. empty stars with a stable, queryable DOM hook (such as a `filled` class on the star element or a `data-filled` attribute) so a test can count how many stars are currently filled.
+    - Provides a `Reset` button that sets the rating back to `0` and updates the heading and stars accordingly.
+- The `StarRating` component file must exist at `src/lib/StarRating.svelte` and expose a bindable `value` prop using the Svelte 5 `$bindable()` rune so that `<StarRating bind:value={rating} />` works in any consumer.
+
+a:T1178,# Generic Data Table with Svelte 5 Snippets
+
+## Background
+Build a small **SvelteKit** application that demonstrates the power of **Svelte 5 Snippets** (`{#snippet ...}` / `{@render ...}`) by implementing a single reusable `<Table />` component that can render data with caller-defined column headers and per-row cells. The same component is reused to render two completely different datasets (Products and Users) on the same page, proving that the table can be customized per use site without hard-coded columns.
+
+The page must also use Svelte 5 **runes** (`$state`, `$derived`, `$props`) to drive a live filter and a computed summary.
+
+## Requirements
+- A single page served at `/` that uses one reusable `Table` component to render two distinct tables.
+- The reusable `Table` component must accept the dataset and use **Svelte 5 Snippets** for `header` and `row` rendering. The component itself must contain **no hard-coded column names** — the caller supplies the columns via snippets.
+- The `Table` component must declare its props with `$props()` and render snippets with `{@render header()}` / `{@render row(item)}`.
+- The `/` page must render two tables using the same `Table` component:
+  - A **Products** table whose `row` snippet renders the name, unit price, quantity, and the line total (price × quantity).
+  - A **Users** table whose `row` snippet renders the user's name, email, and role.
+- Reactivity: The page must include a case-insensitive product name filter input that updates the Products table live. Use Svelte 5 `$state` for the filter input and `$derived` for the filtered list.
+- Summary: Display a visible "total inventory value" that equals the sum over all *filtered* products of `price × quantity`. It must be computed with `$derived` (so it updates as the filter changes) and rendered with a dollar sign, e.g. `$1234.50`.
+
+## Implementation Hints
+- Initialize the project with the SvelteKit CLI (`npx sv create`) using the minimal template and TypeScript or JavaScript — either is acceptable.
+- Use the **Node adapter** (`@sveltejs/adapter-node`) so the built app can be served with `node build` and listens on the `PORT` env var.
+- Put the reusable component at `src/lib/Table.svelte` and the page at `src/routes/+page.svelte`.
+- In `Table.svelte`, destructure props with `$props()` and accept at least `data`, `header`, and `row` — `header` and `row` should be snippets. Render rows by iterating `{#each data as item}` and calling `{@render row(item)}` inside a `<tr>`.
+- In `+page.svelte`, declare the two datasets as plain constants (Products and Users) and pass them, plus inline `{#snippet header()}` and `{#snippet row(item)}` blocks, to two separate `<Table />` instances.
+- Use `$state` to hold the filter string and `$derived` for both the filtered Products array and the inventory total.
+- Format the total with two decimal places (e.g. `$1234.50`).
+
+## Acceptance Criteria
+- Project path: /home/user/svelte-table-snippets
+- Start command: `npm run build && node build`
+- Port: 3000 (the server must listen on the port given in the `PORT` environment variable)
+- Routes:
+  - `GET /` — Renders the demo page. The page must contain:
+    - Two HTML `<table>` elements (one for Products, one for Users) that are rendered by the same generic `Table` component.
+    - A products filter `<input>` whose typed value filters the Products table by name (case-insensitive substring match).
+    - A visible inventory-total element whose text content includes the current sum (filtered) of `price × quantity` for the Products table, formatted as a dollar amount with two decimal places (e.g. `$1234.50`).
+- Reusable component:
+  - There must be a single reusable table component at `src/lib/Table.svelte` (or `src/lib/Table.svelte` re-exported via `src/lib/index.js`/`.ts`).
+  - The component must accept at minimum `data`, `header`, and `row` via `$props()` and render the supplied snippets with `{@render header()}` and `{@render row(item)}`.
+  - The component file must not hard-code the product or user column names.
+- Svelte 5 runes:
+  - `src/routes/+page.svelte` must use at least `$state(` and `$derived(` from Svelte 5 runes.
+  - `src/lib/Table.svelte` must use `$props(` and `{@render` to render its caller-provided snippets.
+- Snippets:
+  - `src/routes/+page.svelte` must define `{#snippet header()}` blocks (one per table) and `{#snippet row(...)}` blocks (one per table) and pass them to the two `<Table />` instances.
+
+b:T170a,# SvelteKit i18n Lang Switcher with `hooks.server.js` and `transformPageChunk`
+
+## Background
+Build a small SvelteKit application that supports three UI locales (`en`, `de`, `fr`) and exposes a language switcher. The user's chosen locale must persist across page reloads via a cookie, and the server must rewrite the root `<html>` element so its `lang` attribute reflects the active locale — exactly the kind of `app.html` rewrite that is normally tricky to get right in SvelteKit. The rewrite must be performed inside `src/hooks.server.{js,ts}` using the `transformPageChunk` option of `resolve` (see https://svelte.dev/docs/kit/hooks#Server-hooks-handle), not inside the page component, so the correct `lang` attribute is already present on the initial server-rendered HTML.
+
+The page must use Svelte 5 runes (`$props`, `$state`, or `$derived`) and SvelteKit form actions (with progressive enhancement via `use:enhance`) for the locale switch — the app must work with JavaScript disabled too.
+
+Supported locales and greetings:
+- `en` → "Hello, world!"
+- `de` → "Hallo, Welt!"
+- `fr` → "Bonjour, le monde !"
+
+The default locale (when no cookie is set or the cookie value is invalid) is `en`.
+
+## Requirements
+- A SvelteKit project that builds and runs with **`@sveltejs/adapter-node`**.
+- Routes:
+  - `GET /` — renders a page showing:
+    - The greeting for the current locale (the exact strings above).
+    - The current locale code in an element with `data-testid="current-locale"` (text content is the locale code, e.g. `en`).
+    - Three locale buttons inside an HTML `<form method="POST">` that switches to the selected locale. The buttons must be `<button type="submit" name="locale" value="en|de|fr">...</button>`, each with `data-testid="locale-btn-<code>"`.
+  - The form on `/` must POST to a SvelteKit form action that sets the `locale` cookie to the submitted value and redirects (HTTP 303) back to `/`.
+- `hooks.server.{js,ts}` must:
+  - Read the `locale` cookie from the incoming request, validate it against the allowed set (`en`, `de`, `fr`), and fall back to `en` if missing or invalid.
+  - Populate `event.locals.locale` with the resolved locale so server `load` functions can read it.
+  - Use `resolve(event, { transformPageChunk })` to rewrite the `lang` attribute of the `<html>` element so the server-rendered HTML contains `<html lang="<locale>">`.
+- The root `+layout.server.{js,ts}` (or equivalent server load) must expose the resolved locale (e.g. as `data.locale`) to the page component.
+- Svelte 5: the `/` page (`+page.svelte`) must use at least one Svelte 5 rune (`$props`, `$state`, or `$derived`).
+- Progressive enhancement: the locale switch form must use `use:enhance` from `$app/forms` **and** also work without JavaScript (i.e. plain `<form method="POST">` with a valid form action).
+- The application must listen on port 3000 when started with the production build.
+
+## Implementation Hints
+- Scaffold with `npx sv create` and pick Svelte 5 + the Node adapter, or add `@sveltejs/adapter-node` manually and run `svelte-kit sync` so the build works.
+- In `src/app.html`, leave the default `<html lang="en">` opening tag and rewrite it inside `transformPageChunk` using a string replace; the `event.locals.locale` set by `handle` is the source of truth.
+- Store the chosen locale in a (non-HTTP-only is fine) `locale` cookie via `event.cookies.set('locale', value, { path: '/' })` from inside the form action.
+- Use `redirect(303, '/')` from `@sveltejs/kit` after setting the cookie so the next render picks up the new locale.
+- Keep the translations table in a small module (e.g. `src/lib/i18n.{js,ts}`) so the same dictionary can be reused from server and client code.
+- Define `App.Locals` in `src/app.d.ts` (if using TypeScript) so `event.locals.locale` is typed.
+
+## Acceptance Criteria
+- Project path: /home/user/sveltekit-i18n
+- Start command: `npm run build && node build`
+- Port: 3000 (the server must listen on port 3000; the verifier sets `PORT=3000` and `HOST=0.0.0.0`)
+- Routes (accessible at `http://localhost:3000`):
+  - `GET /`:
+    - Returns HTTP 200.
+    - The response HTML contains a root `<html>` element whose `lang` attribute equals the resolved locale (`en` by default).
+    - The page contains the greeting text corresponding to the resolved locale (one of the three exact greetings listed above).
+    - The page contains an element with `data-testid="current-locale"` whose visible text is the resolved locale code.
+    - The page contains three submit buttons with `data-testid` values `locale-btn-en`, `locale-btn-de`, and `locale-btn-fr` inside a `<form method="POST">` that posts to `/` (the default form action of the page is acceptable).
+  - Submitting the locale switch form:
+    - POSTing the form (i.e. `name="locale"` set to one of `en|de|fr`) updates the `locale` cookie on the response and returns an HTTP 303 redirect whose `Location` header is `/`.
+    - The subsequent `GET /` (sending back the `locale` cookie) reflects the new locale in both the `<html lang="...">` attribute and the greeting text.
+- Server-side rendering:
+  - The `<html lang>` attribute must be set on the initial HTML returned by the server (i.e. it must be observable from a plain `curl` of `/`, with no JavaScript execution).
+- Cookies:
+  - The locale must be persisted via a cookie named `locale`. Setting an unknown value in the cookie (e.g. `xx`) must cause the page to fall back to the default locale `en` (and **not** crash).
+- Progressive enhancement (source-level):
+  - `src/routes/+page.svelte` must import `enhance` from `$app/forms` and apply it via `use:enhance` to the locale switch form.
+  - There must be a `+page.server.{js,ts}` (or equivalent root server file) that exports an `actions` object handling the locale switch.
+  - `src/hooks.server.{js,ts}` must exist and call `resolve(event, { transformPageChunk: ... })`.
+
+c:T1d36,# SvelteKit Multi-Step Signup Wizard
+
+## Background
+Build a multi-step signup wizard using **SvelteKit** and **Svelte 5 runes**. The wizard is split across three pages (`/signup/step-1`, `/signup/step-2`, `/signup/step-3`) and a final review page (`/signup/review`). State must be persisted between steps using **server-side sessions backed by cookies** so that data survives page reloads and direct navigation. Each step uses a SvelteKit **Form Action** in a `+page.server.{js,ts}` file with `redirect(303, ...)` to move to the next step on success, and `fail(...)` to return validation errors back to the same step. The UI must use Svelte 5 runes (`$props`, `$state`, `$derived`) and progressive enhancement via `use:enhance` from `$app/forms`.
+
+The signup data eventually collected across steps is:
+- Step 1: `email` (required, valid email format)
+- Step 2: `password` (required, length >= 8) and `confirmPassword` (must match)
+- Step 3: `firstName` and `lastName` (both required, non-empty)
+
+When the user clicks "Submit" on the review page, a final form action validates that all data is present, writes a new user record to a JSON file on disk, clears the session, and redirects to `/signup/done?email=<email>`.
+
+## Requirements
+- A SvelteKit project that builds and runs with **`@sveltejs/adapter-node`**.
+- Routes:
+  - `GET /` — redirect to `/signup/step-1`.
+  - `GET /signup/step-1` — renders a form to collect the email.
+  - `GET /signup/step-2` — renders a form to collect password and password confirmation. If `email` is missing from the session, redirect back to `/signup/step-1`.
+  - `GET /signup/step-3` — renders a form to collect first and last name. If any of `email`/`password` is missing from the session, redirect back to the appropriate earlier step.
+  - `GET /signup/review` — displays all collected fields (except the raw password) and a submit button. If any required field is missing in the session, redirect back to the appropriate step.
+  - `GET /signup/done` — shows a success message including the submitted email taken from a query string parameter `email`.
+- Each `/signup/step-N` page (and `/signup/review`) has a Form Action that validates the submitted fields and, on success, stores them in the session and `redirect(303, ...)` to the next step (or `/signup/done` for the review page).
+- Validation errors must be returned via `fail(400, { ... })` so that the same page re-renders with an error message and the previously submitted value preserved (the password field does not need to be preserved).
+- Session storage:
+  - Use a server-only session store keyed by a session id stored in an **HTTP-only cookie** (any cookie name is fine).
+  - Session data must persist across page reloads and direct URL navigation within the same browser session, but is allowed to be lost when the server restarts (in-memory storage is acceptable).
+  - The session cookie should be set on first request that has no session.
+- Final submission:
+  - On successful submission from `/signup/review`, append the user record `{ email, firstName, lastName, passwordLength }` to a JSON file on disk (an array of users). `passwordLength` is the integer length of the chosen password. Do **not** store the raw password.
+  - Clear the wizard session data after a successful submission, then redirect to `/signup/done?email=<email>`.
+- Svelte 5: each page component (`+page.svelte`) must use Svelte 5 runes (at least one of `$props`, `$state`, or `$derived`).
+- Progressive enhancement: every form must use `use:enhance` from `$app/forms` and must also work without JavaScript (i.e. plain `<form method="POST">` with a valid `action`).
+
+## Implementation Hints
+- Scaffold with the SvelteKit CLI (`npx sv create`) and pick Svelte 5 with the Node adapter, or add `@sveltejs/adapter-node` manually.
+- Implement a small server-only session module under `src/lib/server/` exporting helpers such as `getSession(cookies)` and `saveSession(cookies, data)`; back it with a `Map<string, SessionData>` keyed by a random session id.
+- Read/write the session id from `event.cookies` inside `+page.server.{js,ts}` files (both inside `load` and inside `actions`).
+- Use `redirect(303, ...)` (from `@sveltejs/kit`) inside actions for post-submit navigation, and `redirect(303, ...)` inside `load` to send the user back to an earlier step when prerequisite fields are missing.
+- Use `fail(400, { field, message, value })` for validation errors so the page can show error messages and repopulate inputs from the returned `form` prop.
+- Persist completed signups to a JSON file inside the project directory (for example `data/users.json`). Make sure the parent directory exists before writing.
+
+## Acceptance Criteria
+- Project path: /home/user/sveltekit-wizard
+- Start command: `npm run build && node build` (the Node adapter must be configured and the build must succeed)
+- Port: 3000 (the server must listen on port 3000; the `PORT` environment variable is set in the environment)
+- Routes (all accessible in a browser at `http://localhost:3000`):
+  - `GET /` — redirects (HTTP 3xx) to `/signup/step-1`.
+  - `GET /signup/step-1` — renders a form containing an input element with `name="email"` and a submit control.
+  - `GET /signup/step-2` — renders a form containing inputs with `name="password"` and `name="confirmPassword"`. Visiting this route directly without first completing step 1 must redirect back to `/signup/step-1`.
+  - `GET /signup/step-3` — renders a form containing inputs with `name="firstName"` and `name="lastName"`. Visiting directly without completing steps 1 and 2 must redirect back to the first incomplete step.
+  - `GET /signup/review` — renders a summary of the collected fields and a submit button. Visiting directly without completing earlier steps must redirect back to the first incomplete step. The password value itself must **not** appear on this page.
+  - `GET /signup/done?email=<email>` — renders a success message that includes the `email` query string value.
+- Form Actions:
+  - On each step, a POST to the step's URL processes the submitted fields, stores them in the session on success, and redirects to the next step.
+  - On validation failure, the same step page is re-rendered with a visible error message and (where applicable) the previously submitted value re-populated.
+  - The final submission from `/signup/review` appends a user record to a JSON file inside the project directory and redirects to `/signup/done?email=<email>`.
+- Persistence:
+  - The list of completed signups is stored in a JSON file inside the project directory (any path under the project is fine, e.g. `data/users.json`).
+  - Each completed signup record is an object with at least the fields `email` (string), `firstName` (string), `lastName` (string), and `passwordLength` (number). The raw password must not appear in the file.
+- Session:
+  - Session data is keyed by an HTTP-only cookie set by the server.
+  - The same session must allow navigation between `/signup/step-1`, `/signup/step-2`, `/signup/step-3`, and `/signup/review` while keeping the previously submitted values.
+- Svelte 5 & progressive enhancement (source-level requirements):
+  - Each `src/routes/signup/**/+page.svelte` must use at least one Svelte 5 rune (`$state`, `$derived`, or `$props`).
+  - Each step form must use `use:enhance` imported from `$app/forms`.
+  - The step pages must contain `+page.server.js` or `+page.server.ts` exporting an `actions` object.
+
+d:T13ab,# SvelteKit Optimistic UI: Like Button
+
+## Background
+Build a small SvelteKit application that demonstrates an *optimistic UI* pattern for a "Like" button. The page lists several posts and lets the user like any of them. When the user clicks the button, the displayed count must update *immediately* (without waiting for the network round-trip) and then be reconciled with the value returned by the server. If the server request fails, the optimistic change must be rolled back so the UI reflects the previous count again.
+
+The app must be implemented with **Svelte 5 runes** (`$state`, `$derived`) and **SvelteKit** filesystem routing. The optimistic behavior must be implemented using Svelte 5.25's *overridable derived values* (i.e. by reassigning a `$derived` variable) rather than mirroring state with a separate `$state` variable updated inside an `$effect`.
+
+## Requirements
+- Project path: `/home/user/myproject` (a SvelteKit app created with the official `sv` CLI / `npx sv create`).
+- The root route `/` (page `+page.svelte`) shows a list of four posts. The data must be loaded via a `+page.server.js` `load` function from an in-memory store on the server (do NOT hardcode the list inside `+page.svelte`).
+- A POST endpoint `POST /api/posts/[id]/like` (`src/routes/api/posts/[id]/like/+server.js`) increments the like count for the post with the given id and returns the new count as JSON.
+- Liking the post whose id is `broken` must always fail with HTTP status 500 so the UI rollback behavior can be tested.
+- The endpoint must introduce an artificial server delay of at least 250 ms before responding so the optimistic update is observable in the browser.
+- The page must show, for each post, the current like count and a Like button. Clicking the Like button must:
+  1. Update the displayed count *immediately* (optimistic), without `await`ing the server response.
+  2. Send `POST /api/posts/[id]/like` to the server.
+  3. On success, keep the new count (the server's authoritative value).
+  4. On failure, revert the displayed count to its previous value.
+
+## Implementation Hints
+- Initialise the project with the official Svelte CLI (`npx sv create`) using the *minimal* template, TypeScript optional, and install dependencies. Remove or replace the default home page.
+- Keep an in-memory `Map<string, { id, title, likes }>` on the server module and mutate it inside the POST handler so liking is persistent across requests within the same server process.
+- For the page, derive the displayed likes count from the data prop using `$derived`. Because Svelte 5.25+ allows reassigning derived values, you can simply do `likes += 1` (optimistic) before awaiting the request, and `likes -= 1` on failure.
+- Use the JSON helper from `@sveltejs/kit` (`import { json } from '@sveltejs/kit'`) and throw `error(500, ...)` for the `broken` id.
+- Make sure the page is interactive (CSR is enabled by default, so hydrate is fine).
+
+## Acceptance Criteria
+- Project path: `/home/user/myproject`
+- Start command (must serve a production build on port 3000): `PORT=3000 node build`
+- Port: `3000`
+- Initial in-memory data (must be present in the server module on every cold start):
+  - `{ id: "1", title: "First Post", likes: 0 }`
+  - `{ id: "2", title: "Second Post", likes: 5 }`
+  - `{ id: "3", title: "Third Post", likes: 10 }`
+  - `{ id: "broken", title: "Broken Post", likes: 0 }`
+- Routes:
+  - `GET /` returns an HTML page listing all posts. For every post the markup MUST contain:
+    - A container element with attribute `data-testid="post-<id>"`.
+    - Inside that container, an element with `data-testid="title-<id>"` whose text content is the post title.
+    - Inside that container, an element with `data-testid="likes-<id>"` whose visible text content is the integer like count (no extra non-digit characters around the number; e.g. `0`, `5`).
+    - Inside that container, a `<button>` element with `data-testid="like-<id>"` and visible text including the word `Like` (case-insensitive).
+  - `POST /api/posts/<id>/like` increments the like count for the post and responds with:
+    - HTTP status 200
+    - JSON body of shape `{ "id": string, "likes": number }`
+    - The returned `likes` value MUST equal the previous server-side value plus 1.
+  - `POST /api/posts/broken/like` MUST respond with HTTP status 500 and MUST NOT change any state.
+  - `POST /api/posts/<unknown-id>/like` (an id that does not exist) MUST respond with HTTP status 404.
+- Optimistic UI behavior (verified in a real browser):
+  - When the user clicks the Like button for an existing post, the value in `data-testid="likes-<id>"` MUST change to `previous + 1` *before* the network response settles (i.e. within ~100 ms of the click, while the endpoint is still sleeping).
+  - After the server response, the value MUST still be `previous + 1`.
+  - When the user clicks the Like button for post `broken`, the value in `data-testid="likes-broken"` MUST momentarily change to `1` and then revert back to `0` once the failing server response arrives.
+
+e:T13b9,# Reactive Nested File Explorer with Svelte 5 Runes
+
+## Background
+Build a small **SvelteKit** application that demonstrates **Svelte 5 fine-grained reactivity** by implementing an interactive, nested file-explorer tree. Toggling a folder must update only the affected subtree (the rest of the tree stays mounted), and an always-visible status bar at the top of the page must recompute, in real time, how many folders are currently open and how many total files are visible in the expanded portions of the tree.
+
+The component must be **recursive** (folders contain folders), driven by the new **runes** (`$state`, `$derived`, `$props`), and rendered through a single reusable component.
+
+## Requirements
+- A single page served at `/` that renders one **recursive** file-explorer component for a hard-coded tree of folders and files.
+- A reusable component must render a node. When the node is a folder, the component must render itself recursively for each child. Folders must start **collapsed** by default.
+- Clicking a folder must toggle that folder open/closed. Toggling one folder must **not** collapse other open folders.
+- Files (leaf nodes) must be rendered as plain rows that are not clickable as folders.
+- An always-visible status bar at the top of the page must display the live counts of:
+  - the number of folders currently open, and
+  - the total number of files visible (i.e. files inside open folders, recursively; files inside collapsed folders do not count).
+  These counts must update reactively as folders are toggled, using `$state` for the open/closed state and `$derived` for the counts.
+- Each rendered folder row must include a small indicator showing whether it is open or closed (e.g. a `▶` for closed and `▼` for open). The indicator must update immediately when the folder is toggled.
+
+## Implementation Hints
+- Initialize the project with the SvelteKit CLI (`npx sv create`) using the minimal template (JavaScript or TypeScript is acceptable).
+- Use the **Node adapter** (`@sveltejs/adapter-node`) so the built app can be served with `node build` and the server listens on the `PORT` environment variable.
+- Put the recursive component at `src/lib/TreeNode.svelte` and have `src/routes/+page.svelte` render it with the top-level tree.
+- The recursive component must accept its props with `$props()` and import/render itself by name to traverse children.
+- Model the tree as plain JavaScript data and wrap the per-folder `open` flag in `$state` so toggles are fine-grained — collapsing one folder must not re-mount sibling subtrees.
+- Compute the status-bar counts with `$derived` (or `$derived.by`) based on the shared reactive tree, not by manually wiring callbacks from each child.
+- You are free to style the page minimally; only the observable DOM behavior described in the acceptance criteria is verified.
+
+## Acceptance Criteria
+- Project path: /home/user/svelte-file-explorer
+- Start command: `npm run build && node build`
+- Port: 3000 (the server must listen on the port given in the `PORT` environment variable)
+- Routes:
+  - `GET /` — Renders the demo page. The page must contain:
+    - An always-visible status bar with two reactive counters: the number of currently open folders and the number of currently visible files. The counters must be machine-readable: the open-folders counter must have `data-testid="open-folder-count"` and the visible-files counter must have `data-testid="visible-file-count"`, and the text content of each element must be the current integer count (e.g. `0`, `3`).
+    - A recursive folder/file tree. Every folder row must:
+      - have `data-testid="folder"` and a `data-folder-name` attribute equal to the folder's name,
+      - have a `data-open` attribute whose value is `"true"` when the folder is open and `"false"` when closed,
+      - act as a click target that toggles the folder open/closed (clicking the folder row, or a button/icon inside it, must flip the state),
+      - show a textual indicator that contains `▼` when open and `▶` when closed.
+    - Every file row must have `data-testid="file"` and a `data-file-name` attribute equal to the file's name. File rows for files inside a closed folder must not be present in the DOM (i.e. they are only rendered when their parent chain is fully open).
+- Recursive component:
+  - There must be a single reusable component at `src/lib/TreeNode.svelte` that is used recursively to render both folders and files.
+  - `TreeNode.svelte` must declare its props using `$props(` and must reference itself by name (e.g. `<TreeNode ... />`) inside its template to recurse on children.
+- Svelte 5 runes:
+  - The source files of the page and the component, taken together, must use at least one `$state(` and at least one `$derived(` (or `$derived.by(`) call.
+- SvelteKit Node adapter:
+  - `svelte.config.js` (or `.ts`) must import `adapter` from `@sveltejs/adapter-node` and use it as the kit adapter.
+  - The build output `/home/user/svelte-file-explorer/build/index.js` must exist after running `npm run build`.
+
+f:Tfd4,# Migrate a Svelte 4 Tip Calculator to Svelte 5 Runes
+
+## Background
+You are working with a SvelteKit project located at `/home/user/tip-calculator`. The project is a small "Tip Calculator" web app that lets the user enter a bill amount, choose a tip percentage, and split the result across a number of people.
+
+The project was originally written using Svelte 4 idioms (`export let`, `$:` reactive statements, the `on:event` directive, and `createEventDispatcher`). It is currently running on Svelte 5 in legacy mode. The team has decided to fully adopt the Svelte 5 reactivity model. Your job is to migrate the application from Svelte 4 patterns to **Svelte 5 runes** (`$state`, `$derived`, `$props`, and `$bindable`) while keeping the UI behavior identical.
+
+## Requirements
+- Update the existing Svelte components so they use the Svelte 5 runes API and the new event-attribute syntax. The following Svelte 4 patterns must NOT appear anywhere under `src/`:
+  - `export let` for declaring component props.
+  - Top-level `$:` labeled statements for reactivity.
+  - The `on:click` / `on:input` / `on:change` event-directive syntax.
+  - `createEventDispatcher` / `dispatch(...)`.
+- The migrated components must use Svelte 5 runes where appropriate:
+  - Props are declared with `$props()` (and `$bindable()` when two-way binding is required).
+  - Local mutable state uses `$state(...)`.
+  - Derived values use `$derived(...)` (or `$derived.by(...)`).
+  - DOM events use the new attribute form, e.g. `onclick={...}`, `oninput={...}`.
+- The user-visible behavior of the page at `/` must remain the same:
+  - Editing the **Bill amount** updates the calculated totals reactively.
+  - Choosing a different **Tip percentage** updates the tip and total.
+  - Editing the **Number of people** updates the per-person amount.
+  - The page renders the tip amount, total amount, and per-person amount, each labeled and tagged for testing as described in the Acceptance Criteria.
+
+## Implementation Hints
+- Inspect the existing files under `src/lib/` and `src/routes/` to find every Svelte 4 pattern that needs to be replaced.
+- For reusable inputs, prefer `$bindable()` so the parent can keep using `bind:value={...}` two-way binding.
+- For computed values (tip, total, perPerson), prefer `$derived(...)` instead of `$:`.
+- The Svelte 5 event attribute is a plain DOM attribute, e.g. `<button onclick={handler}>`. Do not keep the colon (`on:click`).
+- You do not need to install new dependencies; `svelte` is already at version 5 in this project.
+
+## Acceptance Criteria
+- Project path: /home/user/tip-calculator
+- Start command: `npm run dev -- --host 0.0.0.0 --port 3000`
+- Port: 3000
+- Route: `GET /` serves the Tip Calculator UI.
+- The migrated source under `/home/user/tip-calculator/src/` must satisfy ALL of the following:
+  - It must NOT contain any of the strings `export let`, `on:click`, `on:input`, `on:change`, `createEventDispatcher`, or any top-level `$:` reactive statement.
+  - It must contain at least one usage each of `$props(`, `$state(`, and `$derived(` across the files under `src/`.
+- Required UI elements on `/` (used by the browser verifier):
+  - An `<input data-testid="bill-input">` for the bill amount (number).
+  - An `<input data-testid="people-input">` for the number of people (number, minimum 1).
+  - One or more `<button data-testid="tip-<n>">` elements that select a tip percentage of `<n>` (the existing project provides at least the buttons for `5`, `10`, and `15`). The currently selected button must carry the CSS class `selected`.
+  - A `<span data-testid="tip-amount">` showing the tip amount in dollars, formatted with exactly 2 decimal places (e.g. `5.00`).
+  - A `<span data-testid="total-amount">` showing bill + tip, formatted with exactly 2 decimal places.
+  - A `<span data-testid="per-person">` showing total / people, formatted with exactly 2 decimal places.
+- The page must remain reactive: changing the bill input, the tip button, or the people input must update all three output spans without a full page reload.
+
+10:T1d4f,# SvelteKit Searchable Product List with URL-Synced Query
+
+## Background
+Build a small **SvelteKit** + **Svelte 5** app whose `/products` page renders a list of products that can be filtered by typing into a search box. The search term is the single source of truth and lives in the URL as the `?q=` query string parameter. The page **must work both server-rendered and on the client**:
+
+- Visiting `http://localhost:3000/products?q=apple` directly returns SSR HTML that already contains only the matching products (no client-side filtering needed for the first paint).
+- Once hydrated, typing into the search input updates the URL via `goto(...)` from `$app/navigation` (using `replaceState: true` and `keepFocus: true`) and the SvelteKit `load` function re-runs to produce the new filtered list.
+- Removing the query (empty box or visiting `/products` with no `q`) shows all products again.
+
+The page must also expose a JSON API at `/api/products` returning the raw product list, and the page's `load` function must use SvelteKit's provided `fetch` to call that endpoint (so SvelteKit can inline the response into the SSR'd HTML and avoid a second request on hydration).
+
+## Requirements
+- A SvelteKit project that builds and runs with **`@sveltejs/adapter-node`**.
+- Routes:
+  - `GET /` — redirects to `/products`.
+  - `GET /products` — renders the products page. Reads `q` from `url.searchParams` inside a **universal** `load` function (`+page.js` / `+page.ts`), uses the load `fetch` to call `/api/products`, filters case-insensitively against the product `name`, and exposes both the original query and the filtered list to the page component as `data`.
+  - `GET /api/products` — returns the raw product list as JSON (a `+server.js` / `+server.ts` route).
+- Products: a fixed list of at least 6 products is exposed via `/api/products`. Each product is an object with at least the fields `id` (number), `name` (string), and `price` (number). The list **must** include exactly one product whose `name` is `"Apple iPhone"`, exactly one whose `name` is `"Banana Phone"`, and exactly one whose `name` is `"Cherry Tablet"`. The set of names must be unique. The remaining products can be anything else (e.g. `"Pear Laptop"`, `"Grape Watch"`, `"Melon Speaker"`).
+- Filtering:
+  - Filtering is **case-insensitive** and matches if the query is a substring of the product name.
+  - An empty or missing `q` returns the full product list.
+  - The page must render one DOM element per visible product, each marked with `data-testid="product-item"`, so the filtered list is easy to test in a browser.
+- Page UI:
+  - Each `+page.svelte` involved must use **Svelte 5 runes** (at least one of `$props`, `$state`, `$derived`).
+  - The `/products` page contains a search input with `name="q"` and `data-testid="search-input"`, plus a visible counter showing how many products are currently displayed (the actual format is up to you, but the number itself must appear on the page).
+  - The search input is initialized from `data.q` (the value read by `load`) so server-rendered HTML and client state agree.
+- URL synchronisation:
+  - As the user types into the search input, the URL must update to `/products?q=<value>` (or `/products` when the value is empty) via `goto(...)` from `$app/navigation` with `replaceState: true` and `keepFocus: true`.
+  - The update should be **debounced** by roughly 150–300 ms so a fast typist does not push one history entry per keystroke. (No history entries are pushed at all because `replaceState` is used.)
+  - After the URL changes, the page's `load` function reruns and the filtered list updates without a full page reload.
+- Progressive enhancement / no-JS path:
+  - The search input must live inside a `<form method="get" action="/products">` so that when JavaScript is disabled, pressing Enter submits the form via a normal GET navigation that produces the same filtered SSR page.
+
+## Implementation Hints
+- Scaffold a Svelte 5 + SvelteKit project (e.g. `npx sv create`) and configure `@sveltejs/adapter-node` so `npm run build` produces a `build/` directory that can be served with `node build`.
+- Put the product data in a small module under `src/lib/server/` (or inline in the API route) and re-use it from the `/api/products` `+server.{js,ts}` handler.
+- In `src/routes/products/+page.{js,ts}`, export a universal `load` function that destructures `{ url, fetch }`, reads `url.searchParams.get('q')`, fetches `/api/products`, filters the JSON, and returns `{ q, products }`.
+- In `src/routes/products/+page.svelte`, use `$props()` to receive `data`, `$state` to hold the current input value, and an `$effect` (with a `setTimeout`/`clearTimeout` debounce) to call `goto` from `$app/navigation` when the input changes.
+- Use `goto("/products?q=...", { replaceState: true, keepFocus: true })` so the input stays focused and no extra history entries are created.
+- Make sure to **not** call `goto` during SSR (gate the `$effect` so it only runs in the browser, e.g. by checking `browser` from `$app/environment` or by relying on `$effect`'s client-only semantics).
+- Filtering must be case-insensitive (e.g. `name.toLowerCase().includes(q.toLowerCase())`).
+
+## Acceptance Criteria
+- Project path: /home/user/sveltekit-search
+- Start command: `npm run build && node build` (the Node adapter must be configured and the build must succeed)
+- Port: 3000 (the server must listen on port 3000; the `PORT` environment variable is set in the environment)
+- Routes (all accessible at `http://localhost:3000`):
+  - `GET /` — redirects (HTTP 3xx) to `/products`.
+  - `GET /products` — returns HTTP 200 and HTML containing a search input with `name="q"` and `data-testid="search-input"`, plus one element per visible product with `data-testid="product-item"`.
+  - `GET /products?q=<term>` — returns HTTP 200 and SSR HTML where only products whose name contains `<term>` (case-insensitive) appear as `data-testid="product-item"` elements. Non-matching products must not appear as `data-testid="product-item"` elements in the HTML.
+  - `GET /api/products` — returns HTTP 200 with a JSON array of product objects, each having at least the fields `id` (number), `name` (string), and `price` (number).
+- Page behaviour in a real browser:
+  - On `/products`, all products are visible as `data-testid="product-item"` elements.
+  - Typing `Apple` into the search input (which has `data-testid="search-input"`) causes the URL to become `/products?q=Apple` (the exact casing typed) without a full page reload, and the list shrinks to only the items whose name contains `Apple` (case-insensitive).
+  - Clearing the search input causes the URL to become `/products` (no `q` parameter) and the full product list is shown again.
+  - The search input remains focused while typing (focus is preserved across navigations).
+- Source-level requirements:
+  - `src/routes/products/+page.svelte` uses at least one Svelte 5 rune (`$state(`, `$derived(`, or `$props(`).
+  - `src/routes/products/+page.svelte` imports `goto` from `$app/navigation` and calls it with both `replaceState: true` and `keepFocus: true` somewhere in the file.
+  - `src/routes/products/+page.{js,ts}` exports a `load` function that uses `url.searchParams` and the load `fetch` (i.e. references `fetch('/api/products')` or an equivalent relative path).
+  - The search input is wrapped in a `<form>` whose `method` is `get` (case-insensitive) and whose `action` is `/products`, so the page also works without JavaScript.
+
+11:Td83,# SSR-Safe Persistent Counter with Svelte 5 `$effect`
+
+## Background
+A common friction point with SvelteKit is that pages are pre-rendered on the server, where browser-only globals like `window` and `localStorage` are not available. Naive code that touches these globals during component initialization breaks SSR.
+
+In this task, you will build a small SvelteKit application that demonstrates the canonical Svelte 5 pattern for safely integrating browser-only state with SSR: deferring all client-only work to a `$effect`.
+
+## Requirements
+- Create a SvelteKit project at `/home/user/myproject`.
+- The home route (`/`) must render a counter UI with:
+  - A `<h1>` heading containing the text `Persistent Counter`.
+  - An element with `data-testid="count"` that displays the current numeric counter value.
+  - A button with `data-testid="increment"` and visible text `Increment` that increases the counter by 1 on click.
+  - A button with `data-testid="reset"` and visible text `Reset` that sets the counter back to 0.
+- The counter value must persist across full-page reloads by being saved to and loaded from `localStorage` under the key `persistent_counter_value`.
+- SSR must keep working: a plain `curl` request to the server must succeed with HTTP 200 and the response body must contain the heading text `Persistent Counter` and an initial count of `0`. Touching `window`, `document`, or `localStorage` outside of a `$effect` is therefore not allowed.
+- Add a small status indicator with `data-testid="hydration-status"`:
+  - On the server-rendered HTML, its text must be `loading` (case-insensitive).
+  - After hydration in the browser, its text must change to `ready`.
+
+## Implementation Hints
+- Use Svelte 5 runes (`$state`, `$effect`) — not legacy `export let` or `$:` syntax.
+- Initialize the counter state with a safe default (e.g. `0`). Then use a single `$effect` to read the existing value from `localStorage` on first run and to write back to `localStorage` whenever the value changes.
+- `$effect` only runs in the browser, so any code inside it is safe to use `localStorage` directly without `if (typeof window !== 'undefined')` guards.
+- For the hydration-status element, switch its text from `loading` to `ready` inside the same `$effect` (or a second `$effect`).
+- Use `npx sv create` to scaffold the project, then run `npm install` and `npm run dev` (configured to listen on `0.0.0.0:5173`).
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Start command: npm run dev -- --host 0.0.0.0 --port 5173
+- Port: 5173
+- Routes:
+  - `GET /` returns HTTP 200. The server-rendered HTML must contain the text `Persistent Counter`, an initial counter value of `0`, and a hydration-status element whose text is `loading`.
+- Browser-checkable features at `http://localhost:5173/`:
+  - The `<h1>` heading shows `Persistent Counter`.
+  - The element with `data-testid="count"` initially shows `0`.
+  - After hydration, the element with `data-testid="hydration-status"` shows `ready`.
+  - Clicking the `data-testid="increment"` button increases the displayed count by 1 each time.
+  - Clicking the `data-testid="reset"` button resets the displayed count to `0`.
+  - After incrementing the counter several times and reloading the page, the displayed count is restored to the last value.
+  - The browser's `localStorage` contains a key `persistent_counter_value` whose value equals the current counter (serialized as JSON, e.g. `"5"` or `5`).
+
+12:Td0c,# SvelteKit Todo List with Form Actions
+
+## Background
+Build a simple but complete todo list web application using **SvelteKit** and **Svelte 5 runes**. The app must use SvelteKit's filesystem-based routing and **Form Actions** (`+page.server.js`/`.ts`) to read and write data from the server, and it must persist todos in a JSON file so that they survive a server restart. The UI should use Svelte 5's new reactivity primitives (`$state`, `$derived`, `$props`).
+
+## Requirements
+- A single-page SvelteKit app served at `/`.
+- The page displays:
+  - An input form to add a new todo.
+  - A list of existing todos. Each list item shows the text, a control to toggle completion, and a delete control.
+  - The number of remaining (incomplete) todos.
+- Three named **Form Actions** on the root page:
+  - `add` — adds a new todo from the submitted `text` field.
+  - `toggle` — toggles the `completed` flag of the todo whose `id` was submitted.
+  - `delete` — removes the todo whose `id` was submitted.
+- Todos must be persisted to a JSON file on disk so that data survives a server restart.
+- The forms must work both without JavaScript (native form POSTs) and with progressive enhancement (`use:enhance`).
+
+## Implementation Hints
+- Initialize the project with the SvelteKit CLI and pick the Svelte 5 / TypeScript or JavaScript template — either is fine.
+- Use the **Node adapter** (`@sveltejs/adapter-node`) so the built app can be served with `node build`.
+- Put server-only logic (file reads/writes, action handlers, `load` function) in `src/routes/+page.server.{js,ts}`. Put UI in `src/routes/+page.svelte`.
+- Use Svelte 5 runes such as `$props`, `$state`, and `$derived` in the page component (for example, to compute the remaining count).
+- Use `<form method="POST" action="?/add">` etc. for the Form Actions, and add `use:enhance` from `$app/forms` for progressive enhancement.
+- Use a stable id for each todo (e.g., `crypto.randomUUID()`), and serialize the todos to a JSON file under the project directory.
+
+## Acceptance Criteria
+- Project path: /home/user/sveltekit-todos
+- Start command: `npm run build && node build` (the Node adapter must be configured and the build must succeed)
+- Port: 3000 (the server must listen on port 3000; the `PORT` environment variable is set in the environment)
+- Routes:
+  - `GET /` — Renders the todo list page. The page must include:
+    - An input element to enter new todo text (e.g., `<input name="text">`).
+    - For each todo, a visible representation of its text, a control to toggle it complete/incomplete, and a control to delete it.
+    - A visible indication of the number of remaining (incomplete) todos.
+- Form Actions on `/` (in `+page.server.{js,ts}`):
+  - `?/add` — Reads a `text` field from the submitted form data and appends a new todo.
+  - `?/toggle` — Reads an `id` field and toggles the matching todo's completion state.
+  - `?/delete` — Reads an `id` field and removes the matching todo.
+- Persistence: Todos are written to a JSON file inside the project directory and reloaded by the `load` function. Restarting the server must not lose todos.
+- Svelte 5: The page component must use Svelte 5 runes (`$props`, `$state`, and/or `$derived`).
+- Progressive enhancement: Forms must work as plain HTML POSTs *and* use `use:enhance` for the JS-enhanced experience.
+
+0:{"P":null,"b":"PO2_8Mfmg4_nbuqpWt3u6","c":["","tasks",""],"q":"","i":false,"f":[[["",{"children":["tasks",{"children":["__PAGE__",{}]}]},"$undefined","$undefined",true],[["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/svelte-benchmark/pr-preview/pr-2/_next/static/chunks/5bd528c251f986a3.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","script","script-0",{"src":"/svelte-benchmark/pr-preview/pr-2/_next/static/chunks/babff0e7418ab052.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/svelte-benchmark/pr-preview/pr-2/_next/static/chunks/3ecbb78a8ff87549.js","async":true,"nonce":"$undefined"}]],["$","html",null,{"lang":"en","suppressHydrationWarning":true,"children":["$","body",null,{"className":"inter_5972bc34-module__OU16Qa__className antialiased","children":["$","$L2",null,{"children":["$","$L3",null,{"defaultTheme":"dark","children":[["$","div",null,{"className":"fixed right-4 top-6 z-50 sm:top-8","children":["$","$L4",null,{}]}],["$","$L5",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L6",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]]}]}]}]}]]}],{"children":[["$","$1","c",{"children":[null,["$","$L5",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L6",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["$","$1","c",{"children":[["$","div",null,{"className":"min-h-screen bg-background text-foreground font-sans selection:bg-primary/20","children":[["$","div",null,{"className":"fixed inset-0 -z-10 h-full w-full bg-background bg-[radial-gradient(#2a2a2a_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-20 dark:opacity-40"}],["$","$7",null,{"fallback":["$","div",null,{"className":"container mx-auto py-8 text-center","children":"Loading tasks..."}],"children":["$","$L8",null,{"tasksData":[{"taskName":"bindable_star_rating","instruction":"$9","trials":[{"job_name":"2026-05-28__10-46-29","trial_name":"bindable_star_rating__hcNive6","model":"gpt-5.2-codex","rawModel":"openai/gpt-5.2-codex","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":732.667,"latency_breakdown":{"env_setup":65.022,"agent_setup":20.256,"agent_exec":107.401,"verifier":521.785},"taskName":"bindable_star_rating","jobId":"hcNive6","exec_duration":107.401},{"job_name":"2026-05-28__10-46-29","trial_name":"bindable_star_rating__4CiAm8j","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":false,"reward":null,"error":true,"latency_sec":1136.688,"latency_breakdown":{"env_setup":56.991,"agent_setup":20.033,"agent_exec":437.552,"verifier":600.004},"taskName":"bindable_star_rating","jobId":"4CiAm8j","exec_duration":437.552},{"job_name":"2026-05-28__10-46-29","trial_name":"bindable_star_rating__4oxKXbQ","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":765.993,"latency_breakdown":{"env_setup":83.372,"agent_setup":41.393,"agent_exec":157.513,"verifier":465.151},"taskName":"bindable_star_rating","jobId":"4oxKXbQ","exec_duration":157.513},{"job_name":"2026-05-28__09-00-38","trial_name":"bindable_star_rating__yeD972k","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":null,"error":true,"latency_sec":850.831,"latency_breakdown":{"env_setup":107.5,"agent_setup":21.103,"agent_exec":98.599,"verifier":600.066},"taskName":"bindable_star_rating","jobId":"yeD972k","exec_duration":98.599}]},{"taskName":"generic_data_table_snippets","instruction":"$a","trials":[{"job_name":"2026-05-28__10-46-29","trial_name":"generic_data_table_snippets__kN2Nzop","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":726.818,"latency_breakdown":{"env_setup":85.678,"agent_setup":19.503,"agent_exec":260.717,"verifier":344.809},"taskName":"generic_data_table_snippets","jobId":"kN2Nzop","exec_duration":260.717},{"job_name":"2026-05-28__10-46-29","trial_name":"generic_data_table_snippets__NmX2xjp","model":"gpt-5.2-codex","rawModel":"openai/gpt-5.2-codex","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":990.93,"latency_breakdown":{"env_setup":68.294,"agent_setup":304.591,"agent_exec":136.94,"verifier":466.625},"taskName":"generic_data_table_snippets","jobId":"NmX2xjp","exec_duration":136.94},{"job_name":"2026-05-28__10-46-29","trial_name":"generic_data_table_snippets__Vq24Rz5","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":473.868,"latency_breakdown":{"env_setup":48.95,"agent_setup":20.254,"agent_exec":132.638,"verifier":249.852},"taskName":"generic_data_table_snippets","jobId":"Vq24Rz5","exec_duration":132.638},{"job_name":"2026-05-28__09-00-38","trial_name":"generic_data_table_snippets__cn5LDq9","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":null,"error":true,"latency_sec":875.692,"latency_breakdown":{"env_setup":58.532,"agent_setup":23.056,"agent_exec":178.035,"verifier":600.101},"taskName":"generic_data_table_snippets","jobId":"cn5LDq9","exec_duration":178.035}]},{"taskName":"i18n_lang_switcher_hooks","instruction":"$b","trials":[{"job_name":"2026-05-28__10-46-29","trial_name":"i18n_lang_switcher_hooks__BU23cQt","model":"gpt-5.2-codex","rawModel":"openai/gpt-5.2-codex","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":845.224,"latency_breakdown":{"env_setup":47.347,"agent_setup":20.488,"agent_exec":87.157,"verifier":114.732},"taskName":"i18n_lang_switcher_hooks","jobId":"BU23cQt","exec_duration":87.157},{"job_name":"2026-05-28__10-46-29","trial_name":"i18n_lang_switcher_hooks__sXCHzQf","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":false,"reward":null,"error":true,"latency_sec":1394.634,"latency_breakdown":{"env_setup":35.094,"agent_setup":79.479,"agent_exec":194.48,"verifier":600.075},"taskName":"i18n_lang_switcher_hooks","jobId":"sXCHzQf","exec_duration":194.48},{"job_name":"2026-05-28__10-46-29","trial_name":"i18n_lang_switcher_hooks__BGNtioV","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":false,"reward":null,"error":true,"latency_sec":1636.081,"latency_breakdown":{"env_setup":39.892,"agent_setup":20.421,"agent_exec":526.567,"verifier":600.002},"taskName":"i18n_lang_switcher_hooks","jobId":"BGNtioV","exec_duration":526.567},{"job_name":"2026-05-28__09-00-38","trial_name":"i18n_lang_switcher_hooks__nb9ftBd","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":1875.954,"latency_breakdown":{"env_setup":109.36,"agent_setup":21.161,"agent_exec":600.168,"verifier":585.606},"taskName":"i18n_lang_switcher_hooks","jobId":"nb9ftBd","exec_duration":600.168}]},{"taskName":"multi_step_signup_wizard","instruction":"$c","trials":[{"job_name":"2026-05-28__10-46-29","trial_name":"multi_step_signup_wizard__Mawec3t","model":"gpt-5.2-codex","rawModel":"openai/gpt-5.2-codex","agent":"Pochi","passed":false,"reward":null,"error":true,"latency_sec":1435.192,"latency_breakdown":{"env_setup":97.221,"agent_setup":21.453,"agent_exec":193.495,"verifier":600.003},"taskName":"multi_step_signup_wizard","jobId":"Mawec3t","exec_duration":193.495},{"job_name":"2026-05-28__10-46-29","trial_name":"multi_step_signup_wizard__aPqXsSP","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":false,"reward":null,"error":true,"latency_sec":1699.158,"latency_breakdown":{"env_setup":102.953,"agent_setup":19.185,"agent_exec":513.199,"verifier":600.003},"taskName":"multi_step_signup_wizard","jobId":"aPqXsSP","exec_duration":513.199},{"job_name":"2026-05-28__10-46-29","trial_name":"multi_step_signup_wizard__Eu4jgQg","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":false,"reward":null,"error":true,"latency_sec":995.845,"latency_breakdown":{"env_setup":78.708,"agent_setup":39.745,"agent_exec":259.062,"verifier":600.019},"taskName":"multi_step_signup_wizard","jobId":"Eu4jgQg","exec_duration":259.062},{"job_name":"2026-05-28__09-00-38","trial_name":"multi_step_signup_wizard__Nq5Gn2W","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":null,"error":true,"latency_sec":1161.918,"latency_breakdown":{"env_setup":109.842,"agent_setup":20.447,"agent_exec":409.409,"verifier":600.009},"taskName":"multi_step_signup_wizard","jobId":"Nq5Gn2W","exec_duration":409.409}]},{"taskName":"optimistic_likes_endpoint","instruction":"$d","trials":[{"job_name":"2026-05-28__10-46-29","trial_name":"optimistic_likes_endpoint__4RHgMTq","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":694.541,"latency_breakdown":{"env_setup":38.401,"agent_setup":19.428,"agent_exec":321.407,"verifier":300.276},"taskName":"optimistic_likes_endpoint","jobId":"4RHgMTq","exec_duration":321.407},{"job_name":"2026-05-28__10-46-29","trial_name":"optimistic_likes_endpoint__Hgmehck","model":"gpt-5.2-codex","rawModel":"openai/gpt-5.2-codex","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":449.459,"latency_breakdown":{"env_setup":14.937,"agent_setup":19.186,"agent_exec":157.153,"verifier":240.211},"taskName":"optimistic_likes_endpoint","jobId":"Hgmehck","exec_duration":157.153},{"job_name":"2026-05-28__10-46-29","trial_name":"optimistic_likes_endpoint__G2Jzn7X","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":528.816,"latency_breakdown":{"env_setup":49.563,"agent_setup":20.349,"agent_exec":194.029,"verifier":243.961},"taskName":"optimistic_likes_endpoint","jobId":"G2Jzn7X","exec_duration":194.029},{"job_name":"2026-05-28__09-00-38","trial_name":"optimistic_likes_endpoint__i4Vhqnv","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":700.846,"latency_breakdown":{"env_setup":53.033,"agent_setup":20.604,"agent_exec":277.672,"verifier":333.35},"taskName":"optimistic_likes_endpoint","jobId":"i4Vhqnv","exec_duration":277.672}]},{"taskName":"reactive_file_explorer_tree","instruction":"$e","trials":[{"job_name":"2026-05-28__10-46-29","trial_name":"reactive_file_explorer_tree__GpoZERg","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":false,"reward":null,"error":true,"latency_sec":1126.024,"latency_breakdown":{"env_setup":22.943,"agent_setup":19.947,"agent_exec":463.431,"verifier":600.1},"taskName":"reactive_file_explorer_tree","jobId":"GpoZERg","exec_duration":463.431},{"job_name":"2026-05-28__10-46-29","trial_name":"reactive_file_explorer_tree__aeLrCs5","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":696.845,"latency_breakdown":{"env_setup":14.246,"agent_setup":20.219,"agent_exec":305.987,"verifier":335.957},"taskName":"reactive_file_explorer_tree","jobId":"aeLrCs5","exec_duration":305.987},{"job_name":"2026-05-28__10-46-29","trial_name":"reactive_file_explorer_tree__JzvyFrW","model":"gpt-5.2-codex","rawModel":"openai/gpt-5.2-codex","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":683.71,"latency_breakdown":{"env_setup":44.927,"agent_setup":19.218,"agent_exec":600.219,"verifier":2.096},"taskName":"reactive_file_explorer_tree","jobId":"JzvyFrW","exec_duration":600.219},{"job_name":"2026-05-28__09-00-38","trial_name":"reactive_file_explorer_tree__xvWQGiT","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":575.519,"latency_breakdown":{"env_setup":48.476,"agent_setup":20.607,"agent_exec":172.58,"verifier":309.801},"taskName":"reactive_file_explorer_tree","jobId":"xvWQGiT","exec_duration":172.58}]},{"taskName":"runes_migration_refactor","instruction":"$f","trials":[{"job_name":"2026-05-28__10-46-29","trial_name":"runes_migration_refactor__yhUad74","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":752.926,"latency_breakdown":{"env_setup":28.446,"agent_setup":20.597,"agent_exec":147.8,"verifier":157.464},"taskName":"runes_migration_refactor","jobId":"yhUad74","exec_duration":147.8},{"job_name":"2026-05-28__10-46-29","trial_name":"runes_migration_refactor__WLGmGmL","model":"gpt-5.2-codex","rawModel":"openai/gpt-5.2-codex","agent":"Pochi","passed":false,"reward":null,"error":true,"latency_sec":1223.871,"latency_breakdown":{"env_setup":33.21,"agent_setup":20.85,"agent_exec":78.787,"verifier":600.014},"taskName":"runes_migration_refactor","jobId":"WLGmGmL","exec_duration":78.787},{"job_name":"2026-05-28__10-46-29","trial_name":"runes_migration_refactor__k7efi6Q","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":false,"reward":null,"error":true,"latency_sec":23.479,"latency_breakdown":{"env_setup":21.969,"agent_setup":null,"agent_exec":null,"verifier":null},"taskName":"runes_migration_refactor","jobId":"k7efi6Q","exec_duration":23.479},{"job_name":"2026-05-28__09-00-38","trial_name":"runes_migration_refactor__wsHXF3v","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":770.433,"latency_breakdown":{"env_setup":26.43,"agent_setup":21.966,"agent_exec":64.549,"verifier":158.34},"taskName":"runes_migration_refactor","jobId":"wsHXF3v","exec_duration":64.549}]},{"taskName":"searchable_product_list","instruction":"$10","trials":[{"job_name":"2026-05-28__10-46-29","trial_name":"searchable_product_list__pjw2wc4","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":791.168,"latency_breakdown":{"env_setup":45.739,"agent_setup":20.218,"agent_exec":351.286,"verifier":1.616},"taskName":"searchable_product_list","jobId":"pjw2wc4","exec_duration":351.286},{"job_name":"2026-05-28__10-46-29","trial_name":"searchable_product_list__9jDk5Gv","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":false,"reward":null,"error":true,"latency_sec":1395.834,"latency_breakdown":{"env_setup":45.866,"agent_setup":22.303,"agent_exec":302.799,"verifier":600.047},"taskName":"searchable_product_list","jobId":"9jDk5Gv","exec_duration":302.799},{"job_name":"2026-05-28__10-46-29","trial_name":"searchable_product_list__JvQYoGh","model":"gpt-5.2-codex","rawModel":"openai/gpt-5.2-codex","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":827.141,"latency_breakdown":{"env_setup":62.878,"agent_setup":19.767,"agent_exec":100.432,"verifier":142.191},"taskName":"searchable_product_list","jobId":"JvQYoGh","exec_duration":100.432},{"job_name":"2026-05-28__09-00-38","trial_name":"searchable_product_list__JtStG6T","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":1108.432,"latency_breakdown":{"env_setup":108.957,"agent_setup":19.433,"agent_exec":131.314,"verifier":253.9},"taskName":"searchable_product_list","jobId":"JtStG6T","exec_duration":131.314}]},{"taskName":"ssr_safe_persistent_counter","instruction":"$11","trials":[{"job_name":"2026-05-28__10-46-29","trial_name":"ssr_safe_persistent_counter__EhNvMJv","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":false,"reward":null,"error":true,"latency_sec":1006.614,"latency_breakdown":{"env_setup":61.981,"agent_setup":20.464,"agent_exec":306.003,"verifier":600.001},"taskName":"ssr_safe_persistent_counter","jobId":"EhNvMJv","exec_duration":306.003},{"job_name":"2026-05-28__10-46-29","trial_name":"ssr_safe_persistent_counter__uxmRk6m","model":"gpt-5.2-codex","rawModel":"openai/gpt-5.2-codex","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":459.08,"latency_breakdown":{"env_setup":40.873,"agent_setup":20.862,"agent_exec":65.279,"verifier":312.814},"taskName":"ssr_safe_persistent_counter","jobId":"uxmRk6m","exec_duration":65.279},{"job_name":"2026-05-28__10-46-29","trial_name":"ssr_safe_persistent_counter__GZBT4wy","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":false,"reward":null,"error":true,"latency_sec":851.006,"latency_breakdown":{"env_setup":40.516,"agent_setup":20.548,"agent_exec":166.734,"verifier":600.074},"taskName":"ssr_safe_persistent_counter","jobId":"GZBT4wy","exec_duration":166.734},{"job_name":"2026-05-28__09-00-38","trial_name":"ssr_safe_persistent_counter__7vULhxB","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":null,"error":true,"latency_sec":844.322,"latency_breakdown":{"env_setup":40.636,"agent_setup":24.463,"agent_exec":162.056,"verifier":600.029},"taskName":"ssr_safe_persistent_counter","jobId":"7vULhxB","exec_duration":162.056}]},{"taskName":"todo_list_form_actions","instruction":"$12","trials":[{"job_name":"2026-05-28__10-46-29","trial_name":"todo_list_form_actions__yD7o3vw","model":"claude-4-6-sonnet","rawModel":"anthropic/claude-4-6-sonnet","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":819.512,"latency_breakdown":{"env_setup":55.553,"agent_setup":48.253,"agent_exec":348.127,"verifier":0.761},"taskName":"todo_list_form_actions","jobId":"yD7o3vw","exec_duration":348.127},{"job_name":"2026-05-28__10-46-29","trial_name":"todo_list_form_actions__csdYjvy","model":"gpt-5.2-codex","rawModel":"openai/gpt-5.2-codex","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":628.074,"latency_breakdown":{"env_setup":30.458,"agent_setup":48.482,"agent_exec":103.814,"verifier":0.743},"taskName":"todo_list_form_actions","jobId":"csdYjvy","exec_duration":103.814},{"job_name":"2026-05-28__10-46-29","trial_name":"todo_list_form_actions__x57xRgS","model":"gemini-3.1-pro","rawModel":"google/gemini-3.1-pro","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":655.051,"latency_breakdown":{"env_setup":30.143,"agent_setup":20.569,"agent_exec":161.471,"verifier":0.786},"taskName":"todo_list_form_actions","jobId":"x57xRgS","exec_duration":161.471},{"job_name":"2026-05-28__09-00-38","trial_name":"todo_list_form_actions__NALHPrS","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":805.894,"latency_breakdown":{"env_setup":67.977,"agent_setup":20.294,"agent_exec":124.217,"verifier":0.791},"taskName":"todo_list_form_actions","jobId":"NALHPrS","exec_duration":124.217}]}]}]}]]}],["$L13","$L14"],"$L15"]}],{},null,false,false]},null,false,false]},null,false,false],"$L16",false]],"m":"$undefined","G":["$17",[]],"S":true}
+18:I[75049,["/svelte-benchmark/pr-preview/pr-2/_next/static/chunks/d2c13bb33c4fcd54.js","/svelte-benchmark/pr-preview/pr-2/_next/static/chunks/c21188132e0e0d48.js"],"OutletBoundary"]
+1a:I[75049,["/svelte-benchmark/pr-preview/pr-2/_next/static/chunks/d2c13bb33c4fcd54.js","/svelte-benchmark/pr-preview/pr-2/_next/static/chunks/c21188132e0e0d48.js"],"ViewportBoundary"]
+1c:I[75049,["/svelte-benchmark/pr-preview/pr-2/_next/static/chunks/d2c13bb33c4fcd54.js","/svelte-benchmark/pr-preview/pr-2/_next/static/chunks/c21188132e0e0d48.js"],"MetadataBoundary"]
+13:["$","script","script-0",{"src":"/svelte-benchmark/pr-preview/pr-2/_next/static/chunks/27029b329fa19586.js","async":true,"nonce":"$undefined"}]
+14:["$","script","script-1",{"src":"/svelte-benchmark/pr-preview/pr-2/_next/static/chunks/f9f579c42c486944.js","async":true,"nonce":"$undefined"}]
+15:["$","$L18",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@19"}]}]
+16:["$","$1","h",{"children":[null,["$","$L1a",null,{"children":"$L1b"}],["$","div",null,{"hidden":true,"children":["$","$L1c",null,{"children":["$","$7",null,{"name":"Next.Metadata","children":"$L1d"}]}]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}]
+1b:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+19:null
+1d:[["$","title","0",{"children":"Svelte and SvelteKit Benchmark"}],["$","meta","1",{"name":"description","content":"Performance results of AI coding models on Svelte and SvelteKit tasks, measuring success rate and execution time with high precision."}]]

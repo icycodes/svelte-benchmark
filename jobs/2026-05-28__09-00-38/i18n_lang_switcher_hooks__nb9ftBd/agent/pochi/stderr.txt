@@ -1,0 +1,50 @@
+[37m2026-05-28 01:02:53.168[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37mnative:1[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	pochi v0.6.12
+[37m2026-05-28 01:02:53.335[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:521107[39m[0m[0m[1m[37m	loadAgents[39m[22m[0m[0m	Loaded 6 custom agents (6 valid, 0 invalid)
+[37m2026-05-28 01:02:53.336[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:521108[39m[0m[0m[1m[37m	loadSkills[39m[22m[0m[0m	Loaded 2 skills (2 valid, 0 invalid)
+[37m2026-05-28 01:02:53.418[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:448506[39m[0m[0m[1m[37m	PochiVendor[39m[22m[0m[0m	JWT is expiring or missing, fetching a new one
+[37m2026-05-28 01:02:56.560[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:419064[39m[0m[0m[1m[37m	MCPHub[39m[22m[0m[0m	MCP servers configuration changed via signal:
+[37m2026-05-28 01:02:56.560[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:419176[39m[0m[0m[1m[37m	MCPHub[39m[22m[0m[0m	Build MCPHub Status
+[37m2026-05-28 01:02:56.746[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37mnative:7[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	Starting task runner...
+[37m2026-05-28 01:02:56.805[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:511948[39m[0m[0m[1m[37m	generateTaskTitle[39m[22m[0m[0m	Generating task title, old: null, new: # SvelteKit i18n Lang Switcher with `hooks.server.js` and `transformPageChunk`
+[37m2026-05-28 01:06:30.429[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:467270[39m[0m[0m[1m[37m	listFiles[39m[22m[0m[0m	handling listFile with dirPath /home/user/sveltekit-i18n and recursive [33mtrue[39m
+[37m2026-05-28 01:06:33.958[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:478867[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: path="/home/user/sveltekit-i18n/svelte.config.js" resolvedPath="/home/user/sveltekit-i18n/svelte.config.js" isVirtual=false cacheExists=true shouldCache=true startLine=undefined endLine=undefined
+[37m2026-05-28 01:06:33.958[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:478867[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: existingState=undefined
+[37m2026-05-28 01:06:33.961[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:520162[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: populating cache for "/home/user/sveltekit-i18n/svelte.config.js" mtime=1779930255939 contentLen=374
+[37m2026-05-28 01:06:48.691[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:478867[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: path="/home/user/sveltekit-i18n/src/app.html" resolvedPath="/home/user/sveltekit-i18n/src/app.html" isVirtual=false cacheExists=true shouldCache=true startLine=undefined endLine=undefined
+[37m2026-05-28 01:06:48.692[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:478867[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: existingState=undefined
+[37m2026-05-28 01:06:48.697[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:520162[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: populating cache for "/home/user/sveltekit-i18n/src/app.html" mtime=1779930255804 contentLen=331
+[37m2026-05-28 01:07:06.449[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:478867[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: path="/home/user/sveltekit-i18n/src/routes/+page.svelte" resolvedPath="/home/user/sveltekit-i18n/src/routes/+page.svelte" isVirtual=false cacheExists=true shouldCache=true startLine=undefined endLine=undefined
+[37m2026-05-28 01:07:06.451[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:478867[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: existingState=undefined
+[37m2026-05-28 01:07:06.457[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:520162[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: populating cache for "/home/user/sveltekit-i18n/src/routes/+page.svelte" mtime=1779930255807 contentLen=131
+[37m2026-05-28 01:07:14.260[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:478867[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: path="/home/user/sveltekit-i18n/src/routes/+layout.svelte" resolvedPath="/home/user/sveltekit-i18n/src/routes/+layout.svelte" isVirtual=false cacheExists=true shouldCache=true startLine=undefined endLine=undefined
+[37m2026-05-28 01:07:14.260[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:478867[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: existingState=undefined
+[37m2026-05-28 01:07:14.264[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:520162[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: populating cache for "/home/user/sveltekit-i18n/src/routes/+layout.svelte" mtime=1779930255807 contentLen=186
+[37m2026-05-28 01:07:20.831[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:478867[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: path="/home/user/sveltekit-i18n/src/app.d.ts" resolvedPath="/home/user/sveltekit-i18n/src/app.d.ts" isVirtual=false cacheExists=true shouldCache=true startLine=undefined endLine=undefined
+[37m2026-05-28 01:07:20.831[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:478867[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: existingState=undefined
+[37m2026-05-28 01:07:20.835[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:520162[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: populating cache for "/home/user/sveltekit-i18n/src/app.d.ts" mtime=1779930255807 contentLen=274
+[37m2026-05-28 01:08:53.199[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37mnative:7[39m[0m[0m[1m[37m	BackgroundJobManager[39m[22m[0m[0m	Failed to process job for task generate-title-eb84932d-9888-4406-9555-c3fa57072ea2
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m The DOMException.name getter can only be used on instances of DOMException, 1107, 17, 1107, 17, internal:util/inspect[0m[0m
+error stack:
+  • [33mutilinspect[39m[0m[0m	formatError[0m[0m
+	[37mutilinspect:1107[39m[0m[0m
+  • [33mutilinspect[39m[0m[0m	formatRaw[0m[0m
+	[37mutilinspect:854[39m[0m[0m
+  • [33mutilinspect[39m[0m[0m	formatWithOptionsInternal[0m[0m
+	[37mutilinspect:1661[39m[0m[0m
+  • [33mpochi[39m[0m[0m	transportFormatted[0m[0m
+	[37m$bunfs/root/pochi:421090[39m[0m[0m
+  • [33mpochi[39m[0m[0m	log[0m[0m
+	[37m$bunfs/root/pochi:421206[39m[0m[0m
+  • [33mpochi[39m[0m[0m	generateTaskTitleImpl[0m[0m
+	[37m$bunfs/root/pochi:511851[39m[0m[0m
+  • [33m[39m[0m[0m	[0m[0m
+	[37m[39m[0m[0m
+  • [33m[39m[0m[0m	[0m[0m
+	[37m[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-28 01:16:21.299[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37mnative:7[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	Task runner finished successfully.
+[37m2026-05-28 01:16:21.300[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37mnative:7[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	Shutting down...
+[37m2026-05-28 01:16:21.328[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37mnative:7[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	Shutdown completed. Process will exit.
+[37m2026-05-28 01:16:21.328[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	Process exiting with code 0

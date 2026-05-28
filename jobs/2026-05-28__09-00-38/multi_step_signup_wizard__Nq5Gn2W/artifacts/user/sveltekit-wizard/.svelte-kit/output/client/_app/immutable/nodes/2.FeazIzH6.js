@@ -1,0 +1,1 @@
+import"../chunks/CWj6FrbW.js";import{U as o,o as t,X as p,ae as m}from"../chunks/CucmRlgg.js";o();var n=p("<h1>Welcome</h1> <p>Replace this page with the signup wizard implementation.</p>",1);function l(e){var a=n();m(2),t(e,a)}export{l as component};

@@ -1,0 +1,97 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 8,
+            "passed": 8,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1779932270395,
+            "stop": 1779932603083
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_01_initial_render",
+                "status": "passed",
+                "duration": 168,
+                "start": 1779932270484,
+                "stop": 1779932270652,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_02_like_post_1_increments_twice",
+                "status": "passed",
+                "duration": 517,
+                "start": 1779932270653,
+                "stop": 1779932271170,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_03_like_post_2",
+                "status": "passed",
+                "duration": 258,
+                "start": 1779932271171,
+                "stop": 1779932271429,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_04_like_unknown_post_returns_404",
+                "status": "passed",
+                "duration": 258,
+                "start": 1779932271429,
+                "stop": 1779932271687,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_05_like_broken_returns_500_and_does_not_mutate",
+                "status": "passed",
+                "duration": 523,
+                "start": 1779932271688,
+                "stop": 1779932272211,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_06_endpoint_has_artificial_delay",
+                "status": "passed",
+                "duration": 258,
+                "start": 1779932272211,
+                "stop": 1779932272469,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_07_browser_optimistic_update",
+                "status": "passed",
+                "duration": 185418,
+                "start": 1779932272469,
+                "stop": 1779932457887,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_08_browser_optimistic_rollback",
+                "status": "passed",
+                "duration": 145195,
+                "start": 1779932457887,
+                "stop": 1779932603082,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

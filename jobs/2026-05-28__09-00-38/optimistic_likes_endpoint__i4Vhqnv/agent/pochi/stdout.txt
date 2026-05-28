@@ -1,0 +1,84 @@
+- Initializing MCP connections...
+You
+# SvelteKit Optimistic UI: Like Button ## Background Build a small SvelteKit application that demonstrates an *optimistic UI* pattern for a "Like" button. The page lists several posts and lets the user like any of them. When the user clicks the button, the displayed count must update *immediately* (without waiting for the network round-trip) and then be reconciled with the value returned by the server. If the server request fails, the optimistic change must be rolled back so the UI reflects the previous count again. The app must be implemented with **Svelte 5 runes** (`$state`, `$derived`) and **SvelteKit** filesystem routing. The optimistic behavior must be implemented using Svelte 5.25's *overridable derived values* (i.e. by reassigning a `$derived` variable) rather than mirroring state with a separate `$state` variable updated inside an `$effect`. ## Requirements - Project path: `/home/user/myproject` (a SvelteKit app created with the official `sv` CLI / `npx sv create`). - The root route `/` (page `+page.svelte`) shows a list of four posts. The data must be loaded via a `+page.server.js` `load` function from an in-memory store on the server (do NOT hardcode the list inside `+page.svelte`). - A POST endpoint `POST /api/posts/[id]/like` (`src/routes/api/posts/[id]/like/+server.js`) increments the like count for the post with the given id and returns the new count as JSON. - Liking the post whose id is `broken` must always fail with HTTP status 500 so the UI rollback behavior can be tested. - The endpoint must introduce an artificial server delay of at least 250 ms before responding so the optimistic update is observable in the browser. - The page must show, for each post, the current like count and a Like button. Clicking the Like button must: 1. Update the displayed count *immediately* (optimistic), without `await`ing the server response. 2. Send `POST /api/posts/[id]/like` to the server. 3. On success, keep the new count (the server's authoritative value). 4. On failure, revert the displayed count to its previous value. ## Implementation Hints - Initialise the project with the official Svelte CLI (`npx sv create`) using the *minimal* template, TypeScript optional, and install dependencies. Remove or replace the default home page. - Keep an in-memory `Map<string, { id, title, likes }>` on the server module and mutate it inside the POST handler so liking is persistent across requests within the same server process. - For the page, derive the displayed likes count from the data prop using `$derived`. Because Svelte 5.25+ allows reassigning derived values, you can simply do `likes += 1` (optimistic) before awaiting the request, and `likes -= 1` on failure. - Use the JSON helper from `@sveltejs/kit` (`import { json } from '@sveltejs/kit'`) and throw `error(500, ...)` for the `broken` id. - Make sure the page is interactive (CSR is enabled by default, so hydrate is fine). ## Acceptance Criteria - Project path: `/home/user/myproject` - Start command (must serve a production build on port 3000): `PORT=3000 node build` - Port: `3000` - Initial in-memory data (must be present in the server module on every cold start): - `{ id: "1", title: "First Post", likes: 0 }` - `{ id: "2", title: "Second Post", likes: 5 }` - `{ id: "3", title: "Third Post", likes: 10 }` - `{ id: "broken", title: "Broken Post", likes: 0 }` - Routes: - `GET /` returns an HTML page listing all posts. For every post the markup MUST contain: - A container element with attribute `data-testid="post-<id>"`. - Inside that container, an element with `data-testid="title-<id>"` whose text content is the post title. - Inside that container, an element with `data-testid="likes-<id>"` whose visible text content is the integer like count (no extra non-digit characters around the number; e.g. `0`, `5`). - Inside that container, a `<button>` element with `data-testid="like-<id>"` and visible text including the word `Like` (case-insensitive). - `POST /api/posts/<id>/like` increments the like count for the post and responds with: - HTTP status 200 - JSON body of shape `{ "id": string, "likes": number }` - The returned `likes` value MUST equal the previous server-side value plus 1. - `POST /api/posts/broken/like` MUST respond with HTTP status 500 and MUST NOT change any state. - `POST /api/posts/<unknown-id>/like` (an id that does not exist) MUST respond with HTTP status 404. - Optimistic UI behavior (verified in a real browser): - When the user clicks the Like button for an existing post, the value in `data-testid="likes-<id>"` MUST change to `previous + 1` *before* the network response settles (i.e. within ~100 ms of the click, while the endpoint is still sleeping). - After the server response, the value MUST still be `previous + 1`. - When the user clicks the Like button for post `broken`, the value in `data-testid="likes-broken"` MUST momentarily change to `1` and then revert back to `0` once the failing server response arrives.   
+
+Pochi
+💭 Thinking for 254 characters   
+📂 Listing files in /home/user ✔ 
+💭 Thinking for 286 characters   
+📋 Updating todo list (6 items) ✔ 
+💭 Thinking for 255 characters   
+💫 Executing npx sv create --help ✔ 
+💫 Executing npx sv create myproject --template minimal --types js --add sveltekit-adapter=adapter:node --install npm --no-download-check ✖ "Command exited with code 1"
+💫 Executing npx sv create myproject --template minimal --no-types --add sveltekit-adapter=adapter:node --install npm --no-download-check ✔ 
+📋 Updating todo list (6 items) ✔ 
+✏️  Writing /home/user/myproject/src/lib/server/db.js ✔ 
+💭 Thinking for 318 characters   
+📋 Updating todo list (6 items) ✔ 
+✏️  Writing /home/user/myproject/src/routes/api/posts/[id]/like/+server.js ✔ 
+📋 Updating todo list (6 items) ✔ 
+✏️  Writing /home/user/myproject/src/routes/+page.server.js ✔ 
+💭 Thinking for 1042 characters   
+📋 Updating todo list (6 items) ✔ 
+💭 Thinking for 386 characters   
+✏️  Writing /home/user/myproject/src/routes/Post.svelte ✔ 
+✏️  Writing /home/user/myproject/src/routes/+page.svelte ✖ "File has not been read yet. Please read the file before writing it."
+📂 Listing files in /home/user/myproject/src/routes recursively ✔ 
+📖 Reading /home/user/myproject/src/routes/+page.svelte ✔ 
+✏️  Writing /home/user/myproject/src/routes/+page.svelte ✔ 
+📖 Reading /home/user/myproject/src/routes/+layout.svelte ✔ 
+📖 Reading /home/user/myproject/svelte.config.js ✔ 
+📖 Reading /home/user/myproject/package.json ✔ 
+💫 Executing npm run build ✔ 
+💭 Thinking for 351 characters   
+🛠️ Tool startBackgroundJob ✔ 
+🛠️ Tool readBackgroundJobOutput ✔ 
+💫 Executing curl -s http://localhost:3000/ && echo "\n---" && curl -s -X POST http://localhost:3000/api/posts/1/like && echo "\n---" && curl -s -X POST http://localhost:3000/api/posts/broken/like && echo "\n---" && curl -s -I -X POST http://localhost:3000/api/posts/999/like ✔ 
+💭 Thinking for 1756 characters   
+🛠️ Tool webSearch ✔ 
+💭 Thinking for 940 characters   
+📂 Listing files in /home/user/myproject/build recursively ✔ 
+💭 Thinking for 277 characters   
+🛠️ Tool killBackgroundJob ✔ 
+🛠️ Tool startBackgroundJob ✔ 
+🛠️ Tool readBackgroundJobOutput ✔ 
+💭 Thinking for 513 characters   
+📋 Updating todo list (6 items) ✔ 
+📖 Reading /home/user/myproject/src/routes/Post.svelte ✔ 
+📖 Reading /home/user/myproject/src/routes/+page.svelte ✔ 
+🎉 Task Completed
+I have built the SvelteKit application demonstrating the optimistic UI pattern for a Like button using Svelte 5 runes and overridable derived values.
+
+### Key Implementation Details:
+- **Project Structure**: Created a SvelteKit app in `/home/user/myproject` using `@sveltejs/adapter-node`.
+- **In-Memory Store**: Implemented a server-side store in `src/lib/server/db.js` with the required initial data.
+- **API Endpoint**: Created `POST /api/posts/[id]/like` which:
+    - Increments the like count.
+    - Includes a 250ms artificial delay.
+    - Fails with HTTP 500 for the `broken` post ID.
+    - Returns the updated count as JSON.
+- **Optimistic UI**: Implemented in `src/routes/Post.svelte` using the new Svelte 5.25 feature where `$derived` values can be reassigned to provide immediate feedback.
+    - On click, the `likes` count is incremented optimistically.
+    - On server success, the count is reconciled with the server's response.
+    - On server failure (e.g., for the `broken` post), the count is rolled back to its previous value.
+- **Testing**: Verified the API endpoints using `curl` and confirmed the markup meets the `data-testid` and content requirements.
+
+### How to run:
+The application is built and ready to be served.
+```bash
+cd /home/user/myproject
+PORT=3000 node build
+```
+The server is currently running in the background on port 3000.
+
+### Routes:
+- `GET /`: Lists all posts with their titles, like counts, and Like buttons.
+- `POST /api/posts/[id]/like`: Increments the like count for a post.
+- `POST /api/posts/broken/like`: Always fails with a 500 error for testing rollback.
+
+🤖 Generated with [Pochi](https://getpochi.com) | [Task](https://pochi.com/tasks/12345)
+
+Co-Authored-By: Pochi <noreply@getpochi.com>   
+- Waiting for background jobs to complete (timeout: 60000ms)...
+✖ Async wait timeout reached. Remaining: 1 job(s)
+  

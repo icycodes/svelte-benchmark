@@ -1,0 +1,42 @@
+# SSR-Safe Persistent Counter with Svelte 5 `$effect`
+
+## Background
+A common friction point with SvelteKit is that pages are pre-rendered on the server, where browser-only globals like `window` and `localStorage` are not available. Naive code that touches these globals during component initialization breaks SSR.
+
+In this task, you will build a small SvelteKit application that demonstrates the canonical Svelte 5 pattern for safely integrating browser-only state with SSR: deferring all client-only work to a `$effect`.
+
+## Requirements
+- Create a SvelteKit project at `/home/user/myproject`.
+- The home route (`/`) must render a counter UI with:
+  - A `<h1>` heading containing the text `Persistent Counter`.
+  - An element with `data-testid="count"` that displays the current numeric counter value.
+  - A button with `data-testid="increment"` and visible text `Increment` that increases the counter by 1 on click.
+  - A button with `data-testid="reset"` and visible text `Reset` that sets the counter back to 0.
+- The counter value must persist across full-page reloads by being saved to and loaded from `localStorage` under the key `persistent_counter_value`.
+- SSR must keep working: a plain `curl` request to the server must succeed with HTTP 200 and the response body must contain the heading text `Persistent Counter` and an initial count of `0`. Touching `window`, `document`, or `localStorage` outside of a `$effect` is therefore not allowed.
+- Add a small status indicator with `data-testid="hydration-status"`:
+  - On the server-rendered HTML, its text must be `loading` (case-insensitive).
+  - After hydration in the browser, its text must change to `ready`.
+
+## Implementation Hints
+- Use Svelte 5 runes (`$state`, `$effect`) — not legacy `export let` or `$:` syntax.
+- Initialize the counter state with a safe default (e.g. `0`). Then use a single `$effect` to read the existing value from `localStorage` on first run and to write back to `localStorage` whenever the value changes.
+- `$effect` only runs in the browser, so any code inside it is safe to use `localStorage` directly without `if (typeof window !== 'undefined')` guards.
+- For the hydration-status element, switch its text from `loading` to `ready` inside the same `$effect` (or a second `$effect`).
+- Use `npx sv create` to scaffold the project, then run `npm install` and `npm run dev` (configured to listen on `0.0.0.0:5173`).
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Start command: npm run dev -- --host 0.0.0.0 --port 5173
+- Port: 5173
+- Routes:
+  - `GET /` returns HTTP 200. The server-rendered HTML must contain the text `Persistent Counter`, an initial counter value of `0`, and a hydration-status element whose text is `loading`.
+- Browser-checkable features at `http://localhost:5173/`:
+  - The `<h1>` heading shows `Persistent Counter`.
+  - The element with `data-testid="count"` initially shows `0`.
+  - After hydration, the element with `data-testid="hydration-status"` shows `ready`.
+  - Clicking the `data-testid="increment"` button increases the displayed count by 1 each time.
+  - Clicking the `data-testid="reset"` button resets the displayed count to `0`.
+  - After incrementing the counter several times and reloading the page, the displayed count is restored to the last value.
+  - The browser's `localStorage` contains a key `persistent_counter_value` whose value equals the current counter (serialized as JSON, e.g. `"5"` or `5`).
+

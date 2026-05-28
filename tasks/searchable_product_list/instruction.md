@@ -1,0 +1,62 @@
+# SvelteKit Searchable Product List with URL-Synced Query
+
+## Background
+Build a small **SvelteKit** + **Svelte 5** app whose `/products` page renders a list of products that can be filtered by typing into a search box. The search term is the single source of truth and lives in the URL as the `?q=` query string parameter. The page **must work both server-rendered and on the client**:
+
+- Visiting `http://localhost:3000/products?q=apple` directly returns SSR HTML that already contains only the matching products (no client-side filtering needed for the first paint).
+- Once hydrated, typing into the search input updates the URL via `goto(...)` from `$app/navigation` (using `replaceState: true` and `keepFocus: true`) and the SvelteKit `load` function re-runs to produce the new filtered list.
+- Removing the query (empty box or visiting `/products` with no `q`) shows all products again.
+
+The page must also expose a JSON API at `/api/products` returning the raw product list, and the page's `load` function must use SvelteKit's provided `fetch` to call that endpoint (so SvelteKit can inline the response into the SSR'd HTML and avoid a second request on hydration).
+
+## Requirements
+- A SvelteKit project that builds and runs with **`@sveltejs/adapter-node`**.
+- Routes:
+  - `GET /` — redirects to `/products`.
+  - `GET /products` — renders the products page. Reads `q` from `url.searchParams` inside a **universal** `load` function (`+page.js` / `+page.ts`), uses the load `fetch` to call `/api/products`, filters case-insensitively against the product `name`, and exposes both the original query and the filtered list to the page component as `data`.
+  - `GET /api/products` — returns the raw product list as JSON (a `+server.js` / `+server.ts` route).
+- Products: a fixed list of at least 6 products is exposed via `/api/products`. Each product is an object with at least the fields `id` (number), `name` (string), and `price` (number). The list **must** include exactly one product whose `name` is `"Apple iPhone"`, exactly one whose `name` is `"Banana Phone"`, and exactly one whose `name` is `"Cherry Tablet"`. The set of names must be unique. The remaining products can be anything else (e.g. `"Pear Laptop"`, `"Grape Watch"`, `"Melon Speaker"`).
+- Filtering:
+  - Filtering is **case-insensitive** and matches if the query is a substring of the product name.
+  - An empty or missing `q` returns the full product list.
+  - The page must render one DOM element per visible product, each marked with `data-testid="product-item"`, so the filtered list is easy to test in a browser.
+- Page UI:
+  - Each `+page.svelte` involved must use **Svelte 5 runes** (at least one of `$props`, `$state`, `$derived`).
+  - The `/products` page contains a search input with `name="q"` and `data-testid="search-input"`, plus a visible counter showing how many products are currently displayed (the actual format is up to you, but the number itself must appear on the page).
+  - The search input is initialized from `data.q` (the value read by `load`) so server-rendered HTML and client state agree.
+- URL synchronisation:
+  - As the user types into the search input, the URL must update to `/products?q=<value>` (or `/products` when the value is empty) via `goto(...)` from `$app/navigation` with `replaceState: true` and `keepFocus: true`.
+  - The update should be **debounced** by roughly 150–300 ms so a fast typist does not push one history entry per keystroke. (No history entries are pushed at all because `replaceState` is used.)
+  - After the URL changes, the page's `load` function reruns and the filtered list updates without a full page reload.
+- Progressive enhancement / no-JS path:
+  - The search input must live inside a `<form method="get" action="/products">` so that when JavaScript is disabled, pressing Enter submits the form via a normal GET navigation that produces the same filtered SSR page.
+
+## Implementation Hints
+- Scaffold a Svelte 5 + SvelteKit project (e.g. `npx sv create`) and configure `@sveltejs/adapter-node` so `npm run build` produces a `build/` directory that can be served with `node build`.
+- Put the product data in a small module under `src/lib/server/` (or inline in the API route) and re-use it from the `/api/products` `+server.{js,ts}` handler.
+- In `src/routes/products/+page.{js,ts}`, export a universal `load` function that destructures `{ url, fetch }`, reads `url.searchParams.get('q')`, fetches `/api/products`, filters the JSON, and returns `{ q, products }`.
+- In `src/routes/products/+page.svelte`, use `$props()` to receive `data`, `$state` to hold the current input value, and an `$effect` (with a `setTimeout`/`clearTimeout` debounce) to call `goto` from `$app/navigation` when the input changes.
+- Use `goto("/products?q=...", { replaceState: true, keepFocus: true })` so the input stays focused and no extra history entries are created.
+- Make sure to **not** call `goto` during SSR (gate the `$effect` so it only runs in the browser, e.g. by checking `browser` from `$app/environment` or by relying on `$effect`'s client-only semantics).
+- Filtering must be case-insensitive (e.g. `name.toLowerCase().includes(q.toLowerCase())`).
+
+## Acceptance Criteria
+- Project path: /home/user/sveltekit-search
+- Start command: `npm run build && node build` (the Node adapter must be configured and the build must succeed)
+- Port: 3000 (the server must listen on port 3000; the `PORT` environment variable is set in the environment)
+- Routes (all accessible at `http://localhost:3000`):
+  - `GET /` — redirects (HTTP 3xx) to `/products`.
+  - `GET /products` — returns HTTP 200 and HTML containing a search input with `name="q"` and `data-testid="search-input"`, plus one element per visible product with `data-testid="product-item"`.
+  - `GET /products?q=<term>` — returns HTTP 200 and SSR HTML where only products whose name contains `<term>` (case-insensitive) appear as `data-testid="product-item"` elements. Non-matching products must not appear as `data-testid="product-item"` elements in the HTML.
+  - `GET /api/products` — returns HTTP 200 with a JSON array of product objects, each having at least the fields `id` (number), `name` (string), and `price` (number).
+- Page behaviour in a real browser:
+  - On `/products`, all products are visible as `data-testid="product-item"` elements.
+  - Typing `Apple` into the search input (which has `data-testid="search-input"`) causes the URL to become `/products?q=Apple` (the exact casing typed) without a full page reload, and the list shrinks to only the items whose name contains `Apple` (case-insensitive).
+  - Clearing the search input causes the URL to become `/products` (no `q` parameter) and the full product list is shown again.
+  - The search input remains focused while typing (focus is preserved across navigations).
+- Source-level requirements:
+  - `src/routes/products/+page.svelte` uses at least one Svelte 5 rune (`$state(`, `$derived(`, or `$props(`).
+  - `src/routes/products/+page.svelte` imports `goto` from `$app/navigation` and calls it with both `replaceState: true` and `keepFocus: true` somewhere in the file.
+  - `src/routes/products/+page.{js,ts}` exports a `load` function that uses `url.searchParams` and the load `fetch` (i.e. references `fetch('/api/products')` or an equivalent relative path).
+  - The search input is wrapped in a `<form>` whose `method` is `get` (case-insensitive) and whose `action` is `/products`, so the page also works without JavaScript.
+

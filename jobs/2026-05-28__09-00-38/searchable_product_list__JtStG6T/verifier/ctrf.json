@@ -1,0 +1,127 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 11,
+            "passed": 10,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1779930872703,
+            "stop": 1779931125838
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_root_redirects_to_products",
+                "status": "passed",
+                "duration": 4638,
+                "start": 1779930872838,
+                "stop": 1779930877476,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_api_products_returns_required_data",
+                "status": "passed",
+                "duration": 4,
+                "start": 1779930877477,
+                "stop": 1779930877481,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_products_page_renders_all_when_no_filter",
+                "status": "passed",
+                "duration": 5,
+                "start": 1779930877482,
+                "stop": 1779930877487,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_products_page_ssr_filter_apple",
+                "status": "passed",
+                "duration": 9,
+                "start": 1779930877487,
+                "stop": 1779930877496,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_products_page_ssr_filter_case_insensitive_uppercase",
+                "status": "passed",
+                "duration": 9,
+                "start": 1779930877496,
+                "stop": 1779930877505,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_products_page_ssr_filter_no_match",
+                "status": "passed",
+                "duration": 7,
+                "start": 1779930877505,
+                "stop": 1779930877512,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_products_page_form_is_get_to_products",
+                "status": "passed",
+                "duration": 14,
+                "start": 1779930877513,
+                "stop": 1779930877527,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_source_products_page_uses_runes_and_goto",
+                "status": "passed",
+                "duration": 3,
+                "start": 1779930877527,
+                "stop": 1779930877530,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_source_products_load_uses_searchparams_and_fetch",
+                "status": "passed",
+                "duration": 2,
+                "start": 1779930877530,
+                "stop": 1779930877532,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_source_api_products_server_endpoint_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1779930877533,
+                "stop": 1779930877534,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_browser_interactive_search",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 248302,
+                "start": 1779930877535,
+                "stop": 1779931125837,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "start_app = None\n\n    def test_browser_interactive_search(start_app):\n        \"\"\"Use pochi-verifier to drive the products page in a real browser.\"\"\"\n        reason = (\n            \"The /products page of the SvelteKit app at /home/user/sveltekit-search \"\n            \"must filter a product list in real time as the user types into the \"\n            \"search input, with the URL kept in sync via goto(..., {replaceState: \"\n            \"true, keepFocus: true}) from $app/navigation and the SvelteKit load \"\n            \"function re-running to produce the filtered list. Clearing the \"\n            \"input must show all products again.\"\n        )\n        truth = (\n            \"Navigate to http://localhost:3000/products. Verify that the page \"\n            \"shows at least three elements with the attribute \"\n            \"data-testid='product-item', and that those elements include the \"\n            \"texts 'Apple iPhone', 'Banana Phone', and 'Cherry Tablet' (one of \"\n            \"each). Then click the input element with data-testid='search-input' \"\n            \"to focus it and type the literal text 'Apple' into it. Wait up to \"\n            \"2 seconds, then verify that: (a) the current page URL is exactly \"\n            \"'http://localhost:3000/products?q=Apple' (note the exact casing 'Apple') \"\n            \"without a full page reload, (b) the only element with \"\n            \"data-testid='product-item' visible on the page contains the text \"\n            \"'Apple iPhone', and (c) neither 'Banana Phone' nor 'Cherry Tablet' \"\n            \"appears inside any element with data-testid='product-item'. Then \"\n            \"select all the text in the search input and delete it so the input \"\n            \"is empty. Wait up to 2 seconds, then verify that: (d) the current \"\n            \"page URL becomes 'http://localhost:3000/products' (with no '?q=' \"\n            \"query string), and (e) all three of 'Apple iPhone', 'Banana Phone', \"\n            \"and 'Cherry Tablet' appear again, each inside an element with \"\n            \"data-testid='product-item'.\"\n        )\n    \n        verifier = PochiVerifier()\n        result = verifier.verify(\n            reason=reason,\n            truth=truth,\n            use_browser_agent=True,\n            trajectory_dir=\"/logs/verifier/pochi/test_browser_interactive_search\",\n        )\n>       assert result.status == \"pass\", (\n            f\"Browser verification failed: {result.reason}\"\n        )\nE       AssertionError: Browser verification failed: The test failed at step 5(d). After clearing the search input, the URL became 'http://localhost:3000/products?q=' instead of the expected 'http://localhost:3000/products' (with no '?q=' query string). All other steps passed, including the real-time filtering and the restoration of the product list upon clearing the input.\nE       assert 'fail' == 'pass'\nE         - pass\nE         + fail\n\ntests/test_final_state.py:412: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

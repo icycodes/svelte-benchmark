@@ -1,0 +1,7 @@
+{
+  "library_name": "SvelteKit",
+  "task_name": "todo_list_form_actions",
+  "complexity_level": "multi-step sequential command set",
+  "research_plan_path": "plan.md",
+  "output_dir": "tasks/"
+}

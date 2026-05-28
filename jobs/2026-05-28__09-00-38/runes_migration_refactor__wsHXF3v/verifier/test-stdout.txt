@@ -1,0 +1,23 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0, xprocess-1.0.2
+collected 7 items
+
+tests/test_final_state.py .......                                        [100%]
+
+==================================== PASSES ====================================
+________________________ test_required_test_ids_present ________________________
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/tip_calculator_dev$ npm run dev -- --host 0.0.0.0 --port 3000
+process 'tip_calculator_dev' started pid=722
+tip_calculator_dev process startup detected
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_no_legacy_export_let
+PASSED tests/test_final_state.py::test_no_legacy_event_directives
+PASSED tests/test_final_state.py::test_no_create_event_dispatcher
+PASSED tests/test_final_state.py::test_no_top_level_reactive_statements
+PASSED tests/test_final_state.py::test_runes_are_used
+PASSED tests/test_final_state.py::test_required_test_ids_present
+PASSED tests/test_final_state.py::test_tip_calculator_reactivity
+======================== 7 passed in 157.61s (0:02:37) =========================

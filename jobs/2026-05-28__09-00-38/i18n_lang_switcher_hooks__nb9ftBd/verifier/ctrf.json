@@ -1,0 +1,106 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 8,
+            "passed": 5,
+            "failed": 3,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1779931310998,
+            "stop": 1779931895921
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_get_default_locale_is_en",
+                "status": "passed",
+                "duration": 147,
+                "start": 1779931311087,
+                "stop": 1779931311234,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_switch_to_german_persists_in_cookie",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 47,
+                "start": 1779931311235,
+                "stop": 1779931311282,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "start_app = None\n\n    def test_switch_to_german_persists_in_cookie(start_app):\n        session = requests.Session()\n        # Submit the form action. Allow redirects=False so we can inspect the 303.\n        post = session.post(\n            APP_URL + \"/\",\n            data={\"locale\": \"de\"},\n            allow_redirects=False,\n            timeout=15,\n        )\n        # SvelteKit form actions return 303 redirects on success.\n        assert post.status_code in (200, 303), (\n            f\"Expected 303 (or 200) for locale switch POST, got {post.status_code}: {post.text[:200]}\"\n        )\n        # The cookie must be set on the response (either through a redirect or a 200 with Set-Cookie).\n        assert \"locale\" in session.cookies.get_dict(), (\n            f\"Expected 'locale' cookie to be set after POST, got cookies: {session.cookies.get_dict()}\"\n        )\n        assert session.cookies.get(\"locale\") == \"de\", (\n            f\"Expected locale cookie to equal 'de', got {session.cookies.get('locale')!r}\"\n        )\n    \n        # Now GET / with the cookie and verify the page reflects German.\n        get = session.get(APP_URL + \"/\", timeout=15)\n        assert get.status_code == 200, f\"GET / after switch returned {get.status_code}\"\n        body = get.text\n>       assert _html_lang(body) == \"de\", \"<html lang> should be 'de' after switching.\"\nE       AssertionError: <html lang> should be 'de' after switching.\nE       assert 'en' == 'de'\nE         - de\nE         + en\n\ntests/test_final_state.py:136: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_switch_to_french_persists_in_cookie",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 12,
+                "start": 1779931311282,
+                "stop": 1779931311294,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "start_app = None\n\n    def test_switch_to_french_persists_in_cookie(start_app):\n        session = requests.Session()\n        post = session.post(\n            APP_URL + \"/\",\n            data={\"locale\": \"fr\"},\n            allow_redirects=False,\n            timeout=15,\n        )\n        assert post.status_code in (200, 303), (\n            f\"Expected 303 (or 200) for locale switch POST, got {post.status_code}\"\n        )\n        assert session.cookies.get(\"locale\") == \"fr\", (\n            f\"Expected locale cookie to equal 'fr', got {session.cookies.get('locale')!r}\"\n        )\n    \n        get = session.get(APP_URL + \"/\", timeout=15)\n        assert get.status_code == 200, f\"GET / after switching to fr returned {get.status_code}\"\n        body = get.text\n>       assert _html_lang(body) == \"fr\", \"<html lang> should be 'fr' after switching to French.\"\nE       AssertionError: <html lang> should be 'fr' after switching to French.\nE       assert 'en' == 'fr'\nE         - fr\nE         + en\n\ntests/test_final_state.py:159: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_invalid_locale_cookie_falls_back_to_default",
+                "status": "passed",
+                "duration": 5,
+                "start": 1779931311295,
+                "stop": 1779931311300,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_server_side_lang_is_set_without_javascript",
+                "status": "passed",
+                "duration": 4,
+                "start": 1779931311300,
+                "stop": 1779931311304,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_hooks_server_file_uses_transform_page_chunk",
+                "status": "passed",
+                "duration": 0,
+                "start": 1779931311305,
+                "stop": 1779931311305,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_page_uses_enhance_and_actions_exist",
+                "status": "passed",
+                "duration": 1,
+                "start": 1779931311305,
+                "stop": 1779931311306,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_browser_locale_switcher_ui",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 584614,
+                "start": 1779931311306,
+                "stop": 1779931895920,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "start_app = None\nbrowser_verifier = <pochi_verifier.verifier.PochiVerifier object at 0x7e660c8a2db0>\n\n    def test_browser_locale_switcher_ui(start_app, browser_verifier):\n        reason = (\n            \"The page at http://localhost:3000/ must let the user switch between English, German, \"\n            \"and French using buttons inside a SvelteKit form action. The <html lang> attribute \"\n            \"must always reflect the selected locale (because it is set by the server inside \"\n            \"hooks.server.js via transformPageChunk), and the greeting text must update accordingly. \"\n            \"The selected locale must persist across page reloads via the `locale` cookie.\"\n        )\n        truth = (\n            \"Open http://localhost:3000/ in a fresh browser session with cookies cleared. \"\n            \"Verify that document.documentElement.lang === 'en' and the page shows the text \"\n            \"'Hello, world!' and an element with data-testid='current-locale' whose text is 'en'. \"\n            \"Click the button with data-testid='locale-btn-de'. After the navigation/update settles, \"\n            \"verify document.documentElement.lang === 'de', the page shows 'Hallo, Welt!', and the \"\n            \"current-locale element shows 'de'. Then click data-testid='locale-btn-fr'; verify \"\n            \"document.documentElement.lang === 'fr', the page shows 'Bonjour, le monde !', and the \"\n            \"current-locale element shows 'fr'. Finally, reload the page (F5) and verify that the \"\n            \"locale remains 'fr' (lang attribute 'fr' and greeting 'Bonjour, le monde !').\"\n        )\n        result = browser_verifier.verify(\n            reason=reason,\n            truth=truth,\n            use_browser_agent=True,\n            trajectory_dir=\"/logs/verifier/pochi/test_browser_locale_switcher_ui\",\n        )\n>       assert result.status == \"pass\", f\"Browser verification failed: {result.reason}\"\nE       AssertionError: Browser verification failed: The 'lang' attribute of the 'html' element (document.documentElement.lang) does not update dynamically when switching locales via the SvelteKit form action buttons. While the page content and the 'current-locale' element correctly updated to the selected language ('de' and 'fr' respectively), the 'lang' attribute remained 'en' until a manual page reload was performed. This violates the requirement that the <html lang> attribute must always reflect the selected locale during the verification steps.\nE       assert 'fail' == 'pass'\nE         - pass\nE         + fail\n\ntests/test_final_state.py:251: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

@@ -1,0 +1,88 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 7,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1779931740359,
+            "stop": 1779931897966
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_no_legacy_export_let",
+                "status": "passed",
+                "duration": 1,
+                "start": 1779931740372,
+                "stop": 1779931740373,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_no_legacy_event_directives",
+                "status": "passed",
+                "duration": 1,
+                "start": 1779931740373,
+                "stop": 1779931740374,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_no_create_event_dispatcher",
+                "status": "passed",
+                "duration": 1,
+                "start": 1779931740374,
+                "stop": 1779931740375,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_no_top_level_reactive_statements",
+                "status": "passed",
+                "duration": 1,
+                "start": 1779931740375,
+                "stop": 1779931740376,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_runes_are_used",
+                "status": "passed",
+                "duration": 1,
+                "start": 1779931740376,
+                "stop": 1779931740377,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_required_test_ids_present",
+                "status": "passed",
+                "duration": 2104,
+                "start": 1779931740377,
+                "stop": 1779931742481,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_tip_calculator_reactivity",
+                "status": "passed",
+                "duration": 155483,
+                "start": 1779931742482,
+                "stop": 1779931897965,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

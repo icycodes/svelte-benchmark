@@ -1,0 +1,7 @@
+{
+  "library_name": "Svelte / SvelteKit",
+  "task_name": "runes_migration_refactor",
+  "complexity_level": "multi-step sequential command set",
+  "research_plan_path": "plan.md",
+  "output_dir": "tasks/"
+}

@@ -1,0 +1,16 @@
+[37m2026-05-28 01:41:00.030[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:520210[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/home/user/svelte-table-snippets/node_modules/@rolldown/binding-linux-x64-gnu/rolldown-binding.linux-x64-gnu.node"},"lines":{"bytes":"v+z//8fs///P7P//1+z//9/s///n7P//7+z///fs////7P//B+3//w/t//8X7f//H+3//yft//8v7f//N+3//z/t//9H7f//T+3//1ft//9f7f//Z+3//2/t//937f//f+3//4ft//+P7f//l+3//5/t//+n7f//r+3//7ft//+/7f//x+3//8/t///X7f//3+3//+ft///v7f//9+3////t//8H7v//D+7//xfu//8f7v//J+7//y/u//837v//P+7//0fu//9P7v//V+7//1/u//9n7v//b+7//3fu//9/7v//h+7//4/u//+X7v//n+7//6fu//+v7v//t+7//7/u///H7v//z+7//9fu///f7v//5+7//+/u///37v///+7//wfv//8P7///F+///x/v//8n7///L+///zfv//8/7///R+///0/v//9X7///X+///2fv//9v7///d+///3/v//+H7///j+///5fv//+f7///p+///6/v//+37///v+///8fv///P7///1+///9/v///n7///7+////fv////7///B/D//w/w//8X8P//H/D//yfw//8v8P//N/D//z/w//9H8P//T/D//1fw//9f8P//Z/D//2/w//938P//f/D//4fw//+P8P//l/D//5/w//+n8P//r/D//7fw//+/8P//xfD//8vw///R8P//1/D//93w///j8P//6fD//+/w///18P//+/D//wLx//8J8f//EPH//xfx//8e8f//JfH//yzx//8z8f//OvH//0Hx//9I8f//T/H//1bx//9d8f//ZPH//2vx//9y8f//efH//4Dx//+H8f//jvH//5Xx//+c8f//o/H//6rx//+x8f//uPH//7/x///G8f//zfH//9Tx///b8f//4vH//+nx///w8f//9/H///7x//8F8v//DPL//xPy//8a8v//IfL//yjy//8v8v//NvL//z3y//9E8v//S/L//1Ly//9Z8v//YPL//2fy//9u8v//dfL//3zy//+D8v//ivL//5Hy//+Y8v//n/L//6by//+t8v//tPL//7vy///C8v//yfL//9Dy///X8v//3vL//+Xy///s8v//8/L///ry//8B8///CPP//w/z//8W8///HfP//yTz//8r8///MvP//znz//9A8///R/P//07z//9V8///XPP//2Pz//9q8///3+v//+fr///v6///9+v////r//8H7P//D+z//xfs//8f7P//J+z//y/s//837P//P+z//0fs//9P7P//V+z//1/s//9n7P//b+z//3fs//9/7P//h+z//4/s//+X7P//n+z//6fs//+v7P//t+z//01m4f8CZeH/i2Xh/4tl4f9oZeH/dWXh/0NMSUNPTE9SMjU2Y29sb3JURVJNZHVtYklHTk9SRV9JU19URVJNSU5BTENPTE9SVEVSTVRFUk1fUFJPR1JBTWlUZXJtLmFwcEFwcGxlX1Rlcm1pbmFsRk9SQ0VfQ09MT1JDTElDT0xPUl9GT1JDRQo="},"line_number":3328826,"absolute_offset":18412104,"submatches":[{"match":{"text":"Apple"},"start":1120,"end":1125}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 466993, 42, 466993, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:466993[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:520210[39m[0m[0m
+  • [33m[39m[0m[0m	[0m[0m
+	[37m[39m[0m[0m
+  • [33m[39m[0m[0m	[0m[0m
+	[37m[39m[0m[0m
+  • [33m[39m[0m[0m	[0m[0m
+	[37m[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m

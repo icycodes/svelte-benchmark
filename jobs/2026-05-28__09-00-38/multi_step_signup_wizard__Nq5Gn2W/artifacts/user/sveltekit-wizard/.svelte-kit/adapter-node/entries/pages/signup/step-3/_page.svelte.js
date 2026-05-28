@@ -1,0 +1,22 @@
+import { a as attr, e as escape_html } from "../../../../chunks/root.js";
+import "@sveltejs/kit/internal";
+import "../../../../chunks/exports.js";
+import "../../../../chunks/utils.js";
+import "@sveltejs/kit/internal/server";
+import "../../../../chunks/state.svelte.js";
+function _page($$renderer, $$props) {
+  $$renderer.component(($$renderer2) => {
+    let { data, form } = $$props;
+    $$renderer2.push(`<h1>Step 3: Personal Information</h1> <form method="POST"><div><label for="firstName">First Name:</label> <input type="text" id="firstName" name="firstName"${attr("value", form?.firstName ?? data.firstName)} required=""/></div> <div><label for="lastName">Last Name:</label> <input type="text" id="lastName" name="lastName"${attr("value", form?.lastName ?? data.lastName)} required=""/></div> `);
+    if (form?.message) {
+      $$renderer2.push("<!--[0-->");
+      $$renderer2.push(`<p style="color: red;">${escape_html(form.message)}</p>`);
+    } else {
+      $$renderer2.push("<!--[-1-->");
+    }
+    $$renderer2.push(`<!--]--> <button type="submit">Review</button></form>`);
+  });
+}
+export {
+  _page as default
+};

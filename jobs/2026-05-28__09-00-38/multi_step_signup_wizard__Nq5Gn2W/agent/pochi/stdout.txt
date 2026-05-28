@@ -1,0 +1,66 @@
+- Initializing MCP connections...
+You
+# SvelteKit Multi-Step Signup Wizard ## Background Build a multi-step signup wizard using **SvelteKit** and **Svelte 5 runes**. The wizard is split across three pages (`/signup/step-1`, `/signup/step-2`, `/signup/step-3`) and a final review page (`/signup/review`). State must be persisted between steps using **server-side sessions backed by cookies** so that data survives page reloads and direct navigation. Each step uses a SvelteKit **Form Action** in a `+page.server.{js,ts}` file with `redirect(303, ...)` to move to the next step on success, and `fail(...)` to return validation errors back to the same step. The UI must use Svelte 5 runes (`$props`, `$state`, `$derived`) and progressive enhancement via `use:enhance` from `$app/forms`. The signup data eventually collected across steps is: * Step 1: `email` (required, valid email format) * Step 2: `password` (required, length >= 8) and `confirmPassword` (must match) * Step 3: `firstName` and `lastName` (both required, non-empty) When the user clicks "Submit" on the review page, a final form action validates that all data is present, writes a new user record to a JSON file on disk, clears the session, and redirects to `/signup/done?email=<email>`. ## Requirements * A SvelteKit project that builds and runs with **`@sveltejs/adapter-node`**. * Routes: * `GET /` — redirect to `/signup/step-1`. * `GET /signup/step-1` — renders a form to collect the email. * `GET /signup/step-2` — renders a form to collect password and password confirmation. If `email` is missing from the session, redirect back to `/signup/step-1`. * `GET /signup/step-3` — renders a form to collect first and last name. If any of `email`/`password` is missing from the session, redirect back to the appropriate earlier step. * `GET /signup/review` — displays all collected fields (except the raw password) and a submit button. If any required field is missing in the session, redirect back to the appropriate step. * `GET /signup/done` — shows a success message including the submitted email taken from a query string parameter `email`. * Each `/signup/step-N` page (and `/signup/review`) has a Form Action that validates the submitted fields and, on success, stores them in the session and `redirect(303, ...)` to the next step (or `/signup/done` for the review page). * Validation errors must be returned via `fail(400, { ... })` so that the same page re-renders with an error message and the previously submitted value preserved (the password field does not need to be preserved). * Session storage: * Use a server-only session store keyed by a session id stored in an **HTTP-only cookie** (any cookie name is fine). * Session data must persist across page reloads and direct URL navigation within the same browser session, but is allowed to be lost when the server restarts (in-memory storage is acceptable). * The session cookie should be set on first request that has no session. * Final submission: * On successful submission from `/signup/review`, append the user record `{ email, firstName, lastName, passwordLength }` to a JSON file on disk (an array of users). `passwordLength` is the integer length of the chosen password. Do **not** store the raw password. * Clear the wizard session data after a successful submission, then redirect to `/signup/done?email=<email>`. * Svelte 5: each page component (`+page.svelte`) must use Svelte 5 runes (at least one of `$props`, `$state`, or `$derived`). * Progressive enhancement: every form must use `use:enhance` from `$app/forms` and must also work without JavaScript (i.e. plain `<form method="POST">` with a valid `action`). ## Implementation Hints * Scaffold with the SvelteKit CLI (`npx sv create`) and pick Svelte 5 with the Node adapter, or add `@sveltejs/adapter-node` manually. * Implement a small server-only session module under `src/lib/server/` exporting helpers such as `getSession(cookies)` and `saveSession(cookies, data)`; back it with a `Map<string, SessionData>` keyed by a random session id. * Read/write the session id from `event.cookies` inside `+page.server.{js,ts}` files (both inside `load` and inside `actions`). * Use `redirect(303, ...)` (from `@sveltejs/kit`) inside actions for post-submit navigation, and `redirect(303, ...)` inside `load` to send the user back to an earlier step when prerequisite fields are missing. * Use `fail(400, { field, message, value })` for validation errors so the page can show error messages and repopulate inputs from the returned `form` prop. * Persist completed signups to a JSON file inside the project directory (for example `data/users.json`). Make sure the parent directory exists before writing. ## Acceptance Criteria * Project path: /home/user/sveltekit-wizard * Start command: `npm run build && node build` (the Node adapter must be configured and the build must succeed) * Port: 3000 (the server must listen on port 3000; the `PORT` environment variable is set in the environment) * Routes (all accessible in a browser at `http://localhost:3000`): * `GET /` — redirects (HTTP 3xx) to `/signup/step-1`. * `GET /signup/step-1` — renders a form containing an input element with `name="email"` and a submit control. * `GET /signup/step-2` — renders a form containing inputs with `name="password"` and `name="confirmPassword"`. Visiting this route directly without first completing step 1 must redirect back to `/signup/step-1`. * `GET /signup/step-3` — renders a form containing inputs with `name="firstName"` and `name="lastName"`. Visiting directly without completing steps 1 and 2 must redirect back to the first incomplete step. * `GET /signup/review` — renders a summary of the collected fields and a submit button. Visiting directly without completing earlier steps must redirect back to the first incomplete step. The password value itself must **not** appear on this page. * `GET /signup/done?email=<email>` — renders a success message that includes the `email` query string value. * Form Actions: * On each step, a POST to the step's URL processes the submitted fields, stores them in the session on success, and redirects to the next step. * On validation failure, the same step page is re-rendered with a visible error message and (where applicable) the previously submitted value re-populated. * The final submission from `/signup/review` appends a user record to a JSON file inside the project directory and redirects to `/signup/done?email=<email>`. * Persistence: * The list of completed signups is stored in a JSON file inside the project directory (any path under the project is fine, e.g. `data/users.json`). * Each completed signup record is an object with at least the fields `email` (string), `firstName` (string), `lastName` (string), and `passwordLength` (number). The raw password must not appear in the file. * Session: * Session data is keyed by an HTTP-only cookie set by the server. * The same session must allow navigation between `/signup/step-1`, `/signup/step-2`, `/signup/step-3`, and `/signup/review` while keeping the previously submitted values. * Svelte 5 & progressive enhancement (source-level requirements): * Each `src/routes/signup/**/+page.svelte` must use at least one Svelte 5 rune (`$state`, `$derived`, or `$props`). * Each step form must use `use:enhance` imported from `$app/forms`. * The step pages must contain `+page.server.js` or `+page.server.ts` exporting an `actions` object.   
+
+Pochi
+📋 Updating todo list (7 items) ✔ 
+💫 Executing mkdir -p /home/user/sveltekit-wizard && cd /home/user/sveltekit-wizard && npm init -y && npm install -D @sveltejs/kit@latest @sveltejs/adapter-node@latest svelte@next vite lucide-svelte && npx svelte-kit sync ✖ "Command execution timed out after 120 seconds."
+📂 Listing files in /home/user/sveltekit-wizard recursively ✔ 
+✏️  Writing /home/user/sveltekit-wizard/svelte.config.js ✖ "File has not been read yet. Please read the file before writing it."
+📖 Reading /home/user/sveltekit-wizard/svelte.config.js ✔ 
+📖 Reading /home/user/sveltekit-wizard/package.json ✔ 
+✏️  Writing /home/user/sveltekit-wizard/src/lib/server/session.js ✔ 
+✏️  Writing /home/user/sveltekit-wizard/src/routes/+page.server.js ✔ 
+✏️  Writing /home/user/sveltekit-wizard/src/routes/signup/step-1/+page.server.js ✔ 
+✏️  Writing /home/user/sveltekit-wizard/src/routes/signup/step-1/+page.svelte ✔ 
+✏️  Writing /home/user/sveltekit-wizard/src/routes/signup/step-2/+page.server.js ✔ 
+✏️  Writing /home/user/sveltekit-wizard/src/routes/signup/step-2/+page.svelte ✔ 
+✏️  Writing /home/user/sveltekit-wizard/src/routes/signup/step-3/+page.server.js ✔ 
+✏️  Writing /home/user/sveltekit-wizard/src/routes/signup/step-3/+page.svelte ✔ 
+✏️  Writing /home/user/sveltekit-wizard/src/routes/signup/review/+page.server.js ✔ 
+✏️  Writing /home/user/sveltekit-wizard/src/routes/signup/review/+page.svelte ✔ 
+✏️  Writing /home/user/sveltekit-wizard/src/routes/signup/done/+page.svelte ✔ 
+✏️  Writing /home/user/sveltekit-wizard/src/app.html ✖ "File has not been read yet. Please read the file before writing it."
+📖 Reading /home/user/sveltekit-wizard/src/app.html ✔ 
+✏️  Writing /home/user/sveltekit-wizard/vite.config.js ✖ "File has not been read yet. Please read the file before writing it."
+📖 Reading /home/user/sveltekit-wizard/vite.config.js ✔ 
+✏️  Writing /home/user/sveltekit-wizard/vite.config.js ✔ 
+📋 Updating todo list (7 items) ✔ 
+💫 Executing npm run build && PORT=3000 node build & sleep 10 && curl -I http://localhost:3000/ && kill $! ✖ "Command exited with code 7"
+💫 Executing rm -rf node_modules package-lock.json && npm install && npx svelte-kit sync && npm run build && PORT=3000 node build & sleep 10 && curl -I http://localhost:3000/ && kill $! ✖ "Command exited with code 7"
+📖 Reading /home/user/sveltekit-wizard/src/lib/server/session.js ✔ 
+✏️  Writing /home/user/sveltekit-wizard/src/lib/server/session.js ✔ 
+💫 Executing npm run build && PORT=3000 node build & sleep 10 && curl -I http://localhost:3000/ && kill $! ✔ 
+📋 Updating todo list (7 items) ✔ 
+🎉 Task Completed
+I have successfully built the multi-step signup wizard using SvelteKit and Svelte 5 runes.
+
+### Key Features Implemented:
+- **SvelteKit & Svelte 5**: Used Svelte 5 runes (`$props`, `$state`, `$derived`) and the `@sveltejs/adapter-node` for the production build.
+- **Server-Side Sessions**: Implemented a custom session management system in `src/lib/server/session.js` using HTTP-only cookies and an in-memory store.
+- **Progressive Enhancement**: All forms use `use:enhance` from `$app/forms` for a smooth client-side experience while remaining fully functional without JavaScript.
+- **Multi-Step Navigation**:
+  - `GET /`: Redirects to Step 1.
+  - `Step 1`: Collects and validates email.
+  - `Step 2`: Collects and validates password (min 8 chars, must match confirmation).
+  - `Step 3`: Collects first and last names.
+  - `Review`: Displays summary (excluding password) and handles final submission.
+  - `Done`: Shows success message with the user's email.
+- **Validation & Persistence**:
+  - Each step includes server-side validation with `fail(400, ...)` to return errors and preserve input values.
+  - Final submission appends user records (email, names, password length) to `data/users.json` and clears the session.
+- **Route Protection**: Logic in `load` functions ensures users are redirected back to the first incomplete step if they attempt to skip ahead.
+
+### Build and Run:
+The application is configured to run on port 3000.
+```bash
+npm run build
+PORT=3000 node build
+```
+
+The project is located at `/home/user/sveltekit-wizard`. User data is stored in `/home/user/sveltekit-wizard/data/users.json`.
+
+🤖 Generated with [Pochi](https://getpochi.com)
+
+Co-Authored-By: Pochi <noreply@getpochi.com>   
+  

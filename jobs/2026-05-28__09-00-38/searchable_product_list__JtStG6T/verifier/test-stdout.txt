@@ -1,0 +1,79 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0, xprocess-1.0.2
+collected 11 items
+
+tests/test_final_state.py ..........F                                    [100%]
+
+=================================== FAILURES ===================================
+_______________________ test_browser_interactive_search ________________________
+
+start_app = None
+
+    def test_browser_interactive_search(start_app):
+        """Use pochi-verifier to drive the products page in a real browser."""
+        reason = (
+            "The /products page of the SvelteKit app at /home/user/sveltekit-search "
+            "must filter a product list in real time as the user types into the "
+            "search input, with the URL kept in sync via goto(..., {replaceState: "
+            "true, keepFocus: true}) from $app/navigation and the SvelteKit load "
+            "function re-running to produce the filtered list. Clearing the "
+            "input must show all products again."
+        )
+        truth = (
+            "Navigate to http://localhost:3000/products. Verify that the page "
+            "shows at least three elements with the attribute "
+            "data-testid='product-item', and that those elements include the "
+            "texts 'Apple iPhone', 'Banana Phone', and 'Cherry Tablet' (one of "
+            "each). Then click the input element with data-testid='search-input' "
+            "to focus it and type the literal text 'Apple' into it. Wait up to "
+            "2 seconds, then verify that: (a) the current page URL is exactly "
+            "'http://localhost:3000/products?q=Apple' (note the exact casing 'Apple') "
+            "without a full page reload, (b) the only element with "
+            "data-testid='product-item' visible on the page contains the text "
+            "'Apple iPhone', and (c) neither 'Banana Phone' nor 'Cherry Tablet' "
+            "appears inside any element with data-testid='product-item'. Then "
+            "select all the text in the search input and delete it so the input "
+            "is empty. Wait up to 2 seconds, then verify that: (d) the current "
+            "page URL becomes 'http://localhost:3000/products' (with no '?q=' "
+            "query string), and (e) all three of 'Apple iPhone', 'Banana Phone', "
+            "and 'Cherry Tablet' appear again, each inside an element with "
+            "data-testid='product-item'."
+        )
+    
+        verifier = PochiVerifier()
+        result = verifier.verify(
+            reason=reason,
+            truth=truth,
+            use_browser_agent=True,
+            trajectory_dir="/logs/verifier/pochi/test_browser_interactive_search",
+        )
+>       assert result.status == "pass", (
+            f"Browser verification failed: {result.reason}"
+        )
+E       AssertionError: Browser verification failed: The test failed at step 5(d). After clearing the search input, the URL became 'http://localhost:3000/products?q=' instead of the expected 'http://localhost:3000/products' (with no '?q=' query string). All other steps passed, including the real-time filtering and the restoration of the product list upon clearing the input.
+E       assert 'fail' == 'pass'
+E         - pass
+E         + fail
+
+tests/test_final_state.py:412: AssertionError
+==================================== PASSES ====================================
+_______________________ test_root_redirects_to_products ________________________
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/sveltekit_search$ node build
+process 'sveltekit_search' started pid=986
+sveltekit_search process startup detected
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_root_redirects_to_products
+PASSED tests/test_final_state.py::test_api_products_returns_required_data
+PASSED tests/test_final_state.py::test_products_page_renders_all_when_no_filter
+PASSED tests/test_final_state.py::test_products_page_ssr_filter_apple
+PASSED tests/test_final_state.py::test_products_page_ssr_filter_case_insensitive_uppercase
+PASSED tests/test_final_state.py::test_products_page_ssr_filter_no_match
+PASSED tests/test_final_state.py::test_products_page_form_is_get_to_products
+PASSED tests/test_final_state.py::test_source_products_page_uses_runes_and_goto
+PASSED tests/test_final_state.py::test_source_products_load_uses_searchparams_and_fetch
+PASSED tests/test_final_state.py::test_source_api_products_server_endpoint_exists
+FAILED tests/test_final_state.py::test_browser_interactive_search - Assertion...
+=================== 1 failed, 10 passed in 253.14s (0:04:13) ===================

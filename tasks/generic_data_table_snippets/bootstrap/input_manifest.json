@@ -1,0 +1,7 @@
+{
+  "library_name": "SvelteKit",
+  "task_name": "generic_data_table_snippets",
+  "complexity_level": "multi-step sequential command set",
+  "research_plan_path": "plan.md",
+  "output_dir": "tasks/"
+}

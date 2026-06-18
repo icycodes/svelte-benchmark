@@ -102,3 +102,8 @@
 4. [Svelte CLI Documentation](https://svelte.dev/docs/cli/overview) - Details on the `sv` tool.
 5. [GitHub Discussion #13455](https://github.com/sveltejs/kit/discussions/13455) - Scale issues and friction points in large SvelteKit projects.
 6. [Svelte 5 Snippets Tutorial](https://svelte.dev/tutorial/svelte/snippets-and-render-tags) - Interactive guide to snippets.
+
+
+## Note for Task Generation
+
+As the Svelte SDK builds web pages, the task verifier should always include one or more steps using browser verification.

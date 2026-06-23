@@ -1,0 +1,65 @@
+{
+    "task": {
+        "path": "/home/icy/github/benchmark-run/local-scripts/../tasks-v17/snippet_data_table",
+        "git_url": null,
+        "git_commit_id": null,
+        "name": null,
+        "ref": null,
+        "overwrite": false,
+        "download_dir": null,
+        "source": "tasks-v17"
+    },
+    "trial_name": "snippet_data_table__py9DQbS",
+    "trials_dir": "/home/icy/github/benchmark-run/local-scripts/../jobs-v17/2026-06-24__00-33-16",
+    "timeout_multiplier": 1.0,
+    "agent_timeout_multiplier": null,
+    "verifier_timeout_multiplier": null,
+    "agent_setup_timeout_multiplier": null,
+    "environment_build_timeout_multiplier": null,
+    "agent": {
+        "name": null,
+        "import_path": "agents-v17.pochi:Pochi",
+        "model_name": "openai/gpt-5.5",
+        "skills": [],
+        "override_timeout_sec": null,
+        "override_setup_timeout_sec": null,
+        "max_timeout_sec": null,
+        "kwargs": {},
+        "env": {},
+        "mcp_servers": []
+    },
+    "environment": {
+        "type": "docker",
+        "import_path": null,
+        "force_build": false,
+        "delete": true,
+        "override_cpus": null,
+        "override_memory_mb": null,
+        "override_storage_mb": null,
+        "override_gpus": null,
+        "suppress_override_warnings": false,
+        "mounts": [
+            {
+                "type": "bind",
+                "source": "test_initial_state.py",
+                "target": "/bootstrap/test_initial_state.py"
+            }
+        ],
+        "extra_docker_compose": [
+            "/home/icy/github/benchmark-run/local-scripts/docker-compose-spec-versions.yml"
+        ],
+        "env": {},
+        "kwargs": {}
+    },
+    "verifier": {
+        "override_timeout_sec": null,
+        "max_timeout_sec": null,
+        "env": {},
+        "disable": false
+    },
+    "artifacts": [
+        "/home/user"
+    ],
+    "extra_instruction_paths": [],
+    "job_id": "9702b1c1-3b7f-4d86-b370-9ea284fefd01"
+}

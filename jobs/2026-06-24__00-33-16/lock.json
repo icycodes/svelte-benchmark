@@ -1,0 +1,147 @@
+{
+    "schema_version": 1,
+    "created_at": "2026-06-23T16:33:16.699669Z",
+    "harbor": {
+        "version": "0.7.1",
+        "is_editable": false
+    },
+    "invocation": [
+        "/home/icy/github/benchmark-run/.venv/bin/harbor",
+        "run",
+        "--model",
+        "google/gemini-3.5-flash",
+        "--model",
+        "openai/gpt-5.5",
+        "--agent-import-path",
+        "agents-v17.pochi:Pochi",
+        "--env",
+        "docker",
+        "--path",
+        "/home/icy/github/benchmark-run/local-scripts/../tasks-v17",
+        "--jobs-dir",
+        "/home/icy/github/benchmark-run/local-scripts/../jobs-v17",
+        "--n-attempts",
+        "1",
+        "--max-retries",
+        "0",
+        "--n-concurrent",
+        "8",
+        "--artifact",
+        "/home/user",
+        "--extra-docker-compose",
+        "/home/icy/github/benchmark-run/local-scripts/docker-compose-spec-versions.yml",
+        "--mounts",
+        "[{\"type\": \"bind\",\"source\":\"test_initial_state.py\",\"target\":\"/bootstrap/test_initial_state.py\"}]",
+        "--yes"
+    ],
+    "n_concurrent_trials": 8,
+    "retry": {
+        "max_retries": 0,
+        "exclude_exceptions": [
+            "RewardFileEmptyError",
+            "VerifierTimeoutError",
+            "AgentTimeoutError",
+            "VerifierOutputParseError",
+            "RewardFileNotFoundError"
+        ],
+        "wait_multiplier": 1.0,
+        "min_wait_sec": 1.0,
+        "max_wait_sec": 60.0
+    },
+    "trials": [
+        {
+            "task": {
+                "name": "snippet_data_table",
+                "type": "local",
+                "digest": "sha256:402f417e40017ab7cf977024473917e5f1dfef6b4079a8b844bb06554dd4cc8e",
+                "source": "tasks-v17",
+                "path": "/home/icy/github/benchmark-run/local-scripts/../tasks-v17/snippet_data_table"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents-v17.pochi:Pochi",
+                "model_name": "google/gemini-3.5-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [
+                    "/home/icy/github/benchmark-run/local-scripts/docker-compose-spec-versions.yml"
+                ],
+                "env": {},
+                "kwargs": {}
+            },
+            "extra_docker_compose": [
+                {
+                    "path": "/home/icy/github/benchmark-run/local-scripts/docker-compose-spec-versions.yml",
+                    "digest": "sha256:3ef42d4cec65e01ae8faab0defc27630a5645eac5a9b1cec6641143e8fecae22"
+                }
+            ],
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "snippet_data_table",
+                "type": "local",
+                "digest": "sha256:402f417e40017ab7cf977024473917e5f1dfef6b4079a8b844bb06554dd4cc8e",
+                "source": "tasks-v17",
+                "path": "/home/icy/github/benchmark-run/local-scripts/../tasks-v17/snippet_data_table"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents-v17.pochi:Pochi",
+                "model_name": "openai/gpt-5.5",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [
+                    "/home/icy/github/benchmark-run/local-scripts/docker-compose-spec-versions.yml"
+                ],
+                "env": {},
+                "kwargs": {}
+            },
+            "extra_docker_compose": [
+                {
+                    "path": "/home/icy/github/benchmark-run/local-scripts/docker-compose-spec-versions.yml",
+                    "digest": "sha256:3ef42d4cec65e01ae8faab0defc27630a5645eac5a9b1cec6641143e8fecae22"
+                }
+            ],
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        }
+    ]
+}

@@ -1,0 +1,72 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.2, xprocess-1.0.2
+collected 11 items
+
+tests/test_final_state.py ..........F                                    [100%]
+
+=================================== FAILURES ===================================
+___________________ test_add_product_updates_table_and_total ___________________
+
+start_app = None
+browser_verifier = <pochi_verifier.verifier.PochiVerifier object at 0x761c515a0b00>
+
+    def test_add_product_updates_table_and_total(start_app, browser_verifier):
+        reason = (
+            "Adding a new product through the form must append a new row to the table and "
+            "update the grand total reactively, without a full page reload."
+        )
+        truth = (
+            f"Navigate to {APP_URL}/. "
+            "Read the current text of `[data-testid=\"grand-total\"]` and parse it as a "
+            "number, call this value `total_before`. "
+            "Count the number of `<tr>` rows inside the `<tbody>` of the page's `<table>` "
+            "and call this value `rows_before`. "
+            "Fill the form fields as follows: type `Date` into `[data-testid=\"product-name\"]`, "
+            "type `2` into `[data-testid=\"product-qty\"]`, and type `5` into "
+            "`[data-testid=\"product-price\"]`. Click `[data-testid=\"add-product\"]`. "
+            "Wait up to 5 seconds for the DOM to update. Then verify ALL of the following: "
+            "(a) the number of `<tr>` rows inside the `<table>`'s `<tbody>` is exactly "
+            "`rows_before + 1`; "
+            "(b) the newly added `<tr>` contains the visible text `Date`; "
+            "(c) the text content of `[data-testid=\"grand-total\"]` parses as a number "
+            "equal to `total_before + 10` (because 2 * 5 = 10); "
+            f"(d) the current page URL is still `{APP_URL}/` and no full-page reload "
+            "occurred between filling the form and observing the update."
+        )
+    
+        result = browser_verifier.verify(
+            reason=reason,
+            truth=truth,
+            use_browser_agent=True,
+            trajectory_dir="/logs/verifier/pochi/test_add_product_updates_table_and_total",
+        )
+>       assert result.status == "pass", (
+            f"Browser verification of the add-product flow failed: {result.reason}"
+        )
+E       AssertionError: Browser verification of the add-product flow failed: The sub-agent failed because the URL http://localhost:4173/ is unreachable (net::ERR_CONNECTION_REFUSED). Per the critical instructions, if the verification steps reference an unreachable URL or port, a fail status must be returned immediately.
+E       assert 'fail' == 'pass'
+E         - pass
+E         + fail
+
+tests/test_final_state.py:206: AssertionError
+==================================== PASSES ====================================
+__________________________ test_initial_table_renders __________________________
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/snippet_data_table_app$ bash -lc npm run build && npm run preview -- --host 0.0.0.0 --port 4173
+process 'snippet_data_table_app' started pid=1022
+snippet_data_table_app process startup detected
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_table_component_exists
+PASSED tests/test_final_state.py::test_page_component_exists
+PASSED tests/test_final_state.py::test_table_uses_snippet_render_tag
+PASSED tests/test_final_state.py::test_table_does_not_use_legacy_slot
+PASSED tests/test_final_state.py::test_page_imports_table_component
+PASSED tests/test_final_state.py::test_page_uses_state_rune
+PASSED tests/test_final_state.py::test_page_uses_derived_rune
+PASSED tests/test_final_state.py::test_page_declares_snippets_for_table
+PASSED tests/test_final_state.py::test_no_legacy_slots_anywhere_in_src
+PASSED tests/test_final_state.py::test_initial_table_renders
+FAILED tests/test_final_state.py::test_add_product_updates_table_and_total - ...
+=================== 1 failed, 10 passed in 158.70s (0:02:38) ===================

@@ -1,0 +1,117 @@
+{
+    "id": "84b34caf-c33e-4c69-8ab6-83f58e95ca2b",
+    "task_name": "snippet_data_table",
+    "trial_name": "snippet_data_table__dPNHFvg",
+    "trial_uri": "file:///home/icy/github/benchmark-run/jobs-v17/2026-06-24__00-33-16/snippet_data_table__dPNHFvg",
+    "task_id": {
+        "path": "/home/icy/github/benchmark-run/local-scripts/../tasks-v17/snippet_data_table"
+    },
+    "source": "tasks-v17",
+    "task_checksum": "2a5c1416f4bf42bfb276e4b0d2580110849013410f9ba1987c41e9938c646cc7",
+    "config": {
+        "task": {
+            "path": "/home/icy/github/benchmark-run/local-scripts/../tasks-v17/snippet_data_table",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "tasks-v17"
+        },
+        "trial_name": "snippet_data_table__dPNHFvg",
+        "trials_dir": "/home/icy/github/benchmark-run/local-scripts/../jobs-v17/2026-06-24__00-33-16",
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": null,
+            "import_path": "agents-v17.pochi:Pochi",
+            "model_name": "google/gemini-3.5-flash",
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "kwargs": {},
+            "env": {},
+            "mcp_servers": []
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "suppress_override_warnings": false,
+            "mounts": [
+                {
+                    "type": "bind",
+                    "source": "test_initial_state.py",
+                    "target": "/bootstrap/test_initial_state.py"
+                }
+            ],
+            "extra_docker_compose": [
+                "/home/icy/github/benchmark-run/local-scripts/docker-compose-spec-versions.yml"
+            ],
+            "env": {},
+            "kwargs": {}
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "env": {},
+            "disable": false
+        },
+        "artifacts": [
+            "/home/user"
+        ],
+        "extra_instruction_paths": [],
+        "job_id": "9702b1c1-3b7f-4d86-b370-9ea284fefd01"
+    },
+    "agent_info": {
+        "name": "pochi",
+        "version": "0.6.17-beta.1",
+        "model_info": {
+            "name": "gemini-3.5-flash",
+            "provider": "google"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 0,
+        "n_cache_tokens": 0,
+        "n_output_tokens": 447773,
+        "cost_usd": null,
+        "rollout_details": null,
+        "metadata": null
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.0
+        }
+    },
+    "exception_info": null,
+    "started_at": "2026-06-23T16:33:18.810930Z",
+    "finished_at": "2026-06-23T16:41:07.111247Z",
+    "environment_setup": {
+        "started_at": "2026-06-23T16:33:18.822100Z",
+        "finished_at": "2026-06-23T16:34:15.646611Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-06-23T16:34:15.646710Z",
+        "finished_at": "2026-06-23T16:34:17.759735Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-06-23T16:34:17.759922Z",
+        "finished_at": "2026-06-23T16:38:21.168284Z"
+    },
+    "verifier": {
+        "started_at": "2026-06-23T16:38:23.131805Z",
+        "finished_at": "2026-06-23T16:40:51.316959Z"
+    },
+    "step_results": null
+}

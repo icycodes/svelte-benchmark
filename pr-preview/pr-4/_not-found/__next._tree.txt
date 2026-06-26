@@ -1,2 +1,0 @@
-:HL["/svelte-benchmark/pr-preview/pr-4/_next/static/chunks/467141d06f4e2f60.css","style"]
-0:{"buildId":"_k3v-kL8tJ0hj3c7VqSmU","tree":{"name":"","paramType":null,"paramKey":"","hasRuntimePrefetch":false,"slots":{"children":{"name":"/_not-found","paramType":null,"paramKey":"/_not-found","hasRuntimePrefetch":false,"slots":{"children":{"name":"__PAGE__","paramType":null,"paramKey":"__PAGE__","hasRuntimePrefetch":false,"slots":null,"isRootLayout":false}},"isRootLayout":false}},"isRootLayout":true},"staleTime":300}
